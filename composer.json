@@ -1,0 +1,24 @@
+{
+    "name": "cinghie/yii2-AdminLTE",
+    "description": "Asset Bundle to include AdminLTE on your Yii 2 project",
+    "keywords": ["yii2", "yii2 template", "yii2 AdminLTE", "AdminLTE", "adminlte", "admin lte"],
+    "homepage": "https://github.com/cinghie/yii2-AdminLTE",
+    "type": "yii2-extension",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "Gogodigital.it",
+            "email": "info@gogodigital.it",
+            "homepage": "http://www.gogodigital.it/"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "*",
+        "bower-asset/admin-lte": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "cinghie\\adminlte\\": ""
+        }
+    }
+}

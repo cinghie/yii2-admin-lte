@@ -1,8 +1,8 @@
 {
-    "name": "cinghie/yii2-AdminLTE",
+    "name": "cinghie/yii2-admin-lte",
     "description": "Asset Bundle to include AdminLTE on your Yii 2 project",
     "keywords": ["yii2", "yii2 template", "yii2 AdminLTE", "AdminLTE", "adminlte", "admin lte"],
-    "homepage": "https://github.com/cinghie/yii2-AdminLTE",
+    "homepage": "https://github.com/cinghie/yii2-admin-lte",
     "type": "yii2-extension",
     "license": "BSD 3-Clause",
     "authors": [

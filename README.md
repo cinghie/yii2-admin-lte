@@ -10,13 +10,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist cinghie/yii2-AdminLTE "*"
+php composer.phar require --prefer-dist cinghie/yii2-admin-lte "*"
 ```
 
 or add this line to the require section of your `composer.json` file.
 
 ```
-"cinghie/yii2-AdminLTE": "*"
+"cinghie/yii2-admin-lte": "*"
 ```
 
 Configuration
@@ -25,7 +25,7 @@ Configuration
 Add in the view
 
 ```
-use cinghie\AdminLTE\AdminLTEAsset;
+use cinghie\adminlte\AdminLTEAsset;
 
 AdminLTEAsset::register($this);
 ```

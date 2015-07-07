@@ -48,7 +48,7 @@ class AdminLTEMinifyAsset extends \yii\web\AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-		'cinghie\fontawesome\FontAwesomeAsset',
+		'cinghie\fontawesome\FontAwesomeMinifyAsset',
     ];
 
 }

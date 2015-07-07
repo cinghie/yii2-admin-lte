@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.0
+* @version 1.0.1
 */
 
 namespace cinghie\adminlte;
@@ -28,14 +28,14 @@ class AdminLTEAsset extends \yii\web\AssetBundle
      * @inherit
      */
     public $css = [ 
-		'admin-lte/css/AdminLTE.css' 
+		'admin-lte/dist/css/AdminLTE.css' 
 	];
 	
 	/**
      * @inherit
      */
 	public $js = [
-		'admin-lte/js/AdminLTE/app.js'
+		'admin-lte/dist/js/app.js'
 	];
 	
 	/**

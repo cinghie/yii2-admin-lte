@@ -34,5 +34,6 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.0.1 - Updates CSS and JS Folder</li>
   <li>Version 1.0 - Initial Release</li>
 </ul>

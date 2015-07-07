@@ -22,7 +22,7 @@ or add this line to the require section of your `composer.json` file.
 Configuration
 -----------------
 
-Add in the view
+Add in the view for normal CSS and JS
 
 ```
 use cinghie\adminlte\AdminLTEAsset;
@@ -30,10 +30,19 @@ use cinghie\adminlte\AdminLTEAsset;
 AdminLTEAsset::register($this);
 ```
 
+Add in the view for minify CSS and JS
+
+```
+use cinghie\adminlte\AdminLTEMinifyAsset;
+
+AdminLTEMinifyAsset::register($this);
+```
+
 Changelog
 -----------------
 
 <ul>
+  <li>Version 1.1.0 - Adding AdminLTE Minify CSS and JS</li>
   <li>Version 1.0.1 - Updates CSS and JS Folder</li>
   <li>Version 1.0 - Initial Release</li>
 </ul>

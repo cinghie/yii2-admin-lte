@@ -18,7 +18,7 @@ use cinghie\fontawesome\FontAwesomeAsset;
  * Class yii2-AdminLTEAsset
  * @package cinghie\adminlte
  */
-class AdminLTEAsset extends \yii\web\AssetBundle
+class AdminLTEMinifyAsset extends \yii\web\AssetBundle
 {
 
     /**
@@ -30,15 +30,15 @@ class AdminLTEAsset extends \yii\web\AssetBundle
      * @inherit
      */
     public $css = [ 
-		'css/AdminLTE.css',
-		'css/skins/_all-skins.css'
+		'css/AdminLTE.min.css',
+		'css/skins/_all-skins.min.css'
 	];
 	
 	/**
      * @inherit
      */
 	public $js = [
-		'js/app.js'
+		'js/app.min.js'
 	];
 	
 	/**

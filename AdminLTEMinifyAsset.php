@@ -37,7 +37,7 @@ class AdminLTEMinifyAsset extends \yii\web\AssetBundle
      * @inherit
      */
 	public $js = [
-		'js/app.min.js'
+		'admin-lte/dist/js/app.min.js'
 	];
 	
 	/**

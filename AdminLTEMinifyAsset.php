@@ -22,14 +22,15 @@ class AdminLTEMinifyAsset extends \yii\web\AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = '@bower/admin-lte/dist/';
+    public $sourcePath = '@bower/';
 
     /**
      * @inherit
      */
     public $css = [ 
-		'css/AdminLTE.min.css',
-		'css/skins/_all-skins.min.css'
+		'ionicons/css/ionicons.min.css',
+		'admin-lte/dist/css/AdminLTE.min.css',
+		'admin-lte/dist/css/skins/_all-skins.min.css'
 	];
 	
 	/**

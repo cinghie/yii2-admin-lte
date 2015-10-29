@@ -15,7 +15,8 @@
     "require": {
         "yiisoft/yii2": "*",
         "bower-asset/admin-lte": "*",
-		"cinghie/yii2-fontawesome": "*"
+        "driftyco/ionicons": "*",
+	"cinghie/yii2-fontawesome": "*"
     },
     "autoload": {
         "psr-4": {

@@ -22,7 +22,7 @@ class AdminLTEAsset extends \yii\web\AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = '@bower/admin-lte/dist/';
+    public $sourcePath = '@bower/';
 
     /**
      * @inherit

@@ -37,7 +37,7 @@ class AdminLTEAsset extends \yii\web\AssetBundle
      * @inherit
      */
 	public $js = [
-		'js/app.js'
+		'admin-lte/dist/js/app.js'
 	];
 	
 	/**

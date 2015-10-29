@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.1.2
+* @version 1.2.0
 */
 
 namespace cinghie\adminlte;
@@ -28,8 +28,9 @@ class AdminLTEAsset extends \yii\web\AssetBundle
      * @inherit
      */
     public $css = [ 
-		'css/AdminLTE.css',
-		'css/skins/_all-skins.css'
+		'ionicons/css/ionicons.css',
+		'admin-lte/dist/css/AdminLTE.css',
+		'admin-lte/dist/css/skins/_all-skins.css'
 	];
 	
 	/**

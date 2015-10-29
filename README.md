@@ -42,6 +42,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.2.0 - Added ionicons</li>
   <li>Version 1.1.2 - Purge code</li>
   <li>Version 1.1.1 - Fixing AdminLTEMinifyAsset for Font Awesome</li>
   <li>Version 1.1.0 - Adding AdminLTE Minify CSS and JS</li>

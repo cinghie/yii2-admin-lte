@@ -41,7 +41,9 @@ AdminLTEMinifyAsset::register($this);
 Widgets
 -----------------
 
-[Error] (docs/example_alert.md)
+[Alert] (docs/example_alert.md)
+
+[Footer] (docs/example_footer.md)
 
 [Sidebar Menu] (docs/example_sidebarmenu.md)
 
@@ -53,6 +55,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.3 - Adding Widget Footer</li>
   <li>Version 1.3.2 - Adding Widgets Sidebar Search and User</li>
   <li>Version 1.3.1 - Some Fix and Adding doc examples</li>
   <li>Version 1.3.0 - Adding Alert and Menù widget from https://github.com/dmstr/yii2-adminlte-asset/tree/master/widgets</li>

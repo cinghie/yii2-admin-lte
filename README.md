@@ -42,14 +42,16 @@ Widgets
 -----------------
 
 Error: docs/example_alert.md
+
 Sidebar Menu: docs/example_sidebarmenu.md
+
 Sidebar Search: docs/example_sidebarsearch.md
 
 Changelog
 -----------------
 
 <ul>
-  <li>Version 1.3.1 - Some Fix and Adding doc examples<li>
+  <li>Version 1.3.1 - Some Fix and Adding doc examples</li>
   <li>Version 1.3.0 - Adding Alert and Menù widget from https://github.com/dmstr/yii2-adminlte-asset/tree/master/widgets</li>
   <li>Version 1.2.1 - Update folder admin-lte/dist</li>
   <li>Version 1.2.0 - Added ionicons</li>

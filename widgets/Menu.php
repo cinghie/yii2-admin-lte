@@ -7,10 +7,10 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.3.0
+* @version 1.3.1
 */
 
-namespace cinghie\adminlte;
+namespace cinghie\adminlte\widgets;
 
 use Yii;
 use yii\helpers\ArrayHelper;

@@ -53,6 +53,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.2 - Adding Widgets Sidebar Search and User</li>
   <li>Version 1.3.1 - Some Fix and Adding doc examples</li>
   <li>Version 1.3.0 - Adding Alert and Menù widget from https://github.com/dmstr/yii2-adminlte-asset/tree/master/widgets</li>
   <li>Version 1.2.1 - Update folder admin-lte/dist</li>

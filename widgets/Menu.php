@@ -36,7 +36,7 @@ class Menu extends \yii\widgets\Menu
     protected function renderItem($item)
     {
         if(isset($item['items']))
-            $linkTemplate = '<a href="{url}">{icon} {label} <i class="fa fa-angle-left pull-right"></i></a>';
+            $linkTemplate = '<a href="{url}">{icon} {label} <i class="fa fa-angle-down pull-right"></i></a>';
         else
             $linkTemplate = $this->linkTemplate;
         if (isset($item['url'])) {

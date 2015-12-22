@@ -41,11 +41,11 @@ AdminLTEMinifyAsset::register($this);
 Widgets
 -----------------
 
-Error: docs/example_alert.md
+Error: (docs/example_alert.md)
 
-Sidebar Menu: docs/example_sidebarmenu.md
+Sidebar Menu: (docs/example_sidebarmenu.md)
 
-Sidebar Search: docs/example_sidebarsearch.md
+Sidebar Search: (docs/example_sidebarsearch.md)
 
 Changelog
 -----------------

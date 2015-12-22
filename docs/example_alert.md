@@ -1,8 +1,9 @@
-<?php
+Alert Example
+=======================
 
-use cinghie\adminlte\widgets\Alert;
-
-?>
+```
+<?php use cinghie\adminlte\widgets\Alert; ?>
 
 <!-- alert -->
 <?= Alert::widget() ?>
+```

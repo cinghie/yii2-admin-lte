@@ -1,8 +1,8 @@
-<?php 
+Sidebar Menu Example
+=======================
 
-use cinghie\adminlte\widgets\SidebarMenu; 
-
-?>
+```
+<?php use cinghie\adminlte\widgets\SidebarMenu; ?>
 
 <!-- sidebar menu -->
 <?= SidebarMenu::widget(
@@ -42,3 +42,4 @@ use cinghie\adminlte\widgets\SidebarMenu;
                 ],
             ]
 ) ?>
+```

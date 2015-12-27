@@ -38,12 +38,14 @@ use cinghie\adminlte\AdminLTEMinifyAsset;
 AdminLTEMinifyAsset::register($this);
 ```
 
-Widgets
+Widgets Examples
 -----------------
 
 [Alert] (docs/example_alert.md)
 
 [Footer] (docs/example_footer.md)
+
+[Logo] (docs/example_logo.md)
 
 [Sidebar Menu] (docs/example_sidebarmenu.md)
 

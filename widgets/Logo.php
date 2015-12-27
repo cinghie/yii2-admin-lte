@@ -42,9 +42,7 @@ class Logo extends Widget
     public function run()
     {
         return '<a class="logo" href="'.Html::encode($this->logo_url).'">
-                  <!-- mini logo for sidebar mini 50x50 pixels -->
                   <span class="logo-mini">'.$this->logo_mini.'</span>
-                  <!-- logo for regular state and mobile devices -->
                   <span class="logo-lg">'.$this->logo_lg.'</span>
                 </a>';
     }

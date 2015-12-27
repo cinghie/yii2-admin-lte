@@ -1,4 +1,4 @@
-Footer Example
+Logo Example
 =======================
 
 ## Default Value

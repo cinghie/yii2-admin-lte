@@ -6,6 +6,6 @@ SidebarToggle Example
 ```
 <?php use cinghie\adminlte\widgets\SidebarToggle; ?>
 
-<!-- logo -->
+<!-- sidebar toggle -->
 <?= SidebarToggle::widget() ?>
 ```

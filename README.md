@@ -51,12 +51,15 @@ Widgets Examples
 
 [Sidebar Search] (docs/example_sidebarsearch.md)
 
+[Sidebar Toggle] (docs/example_sidebartoggle.md)
+
 [Sidebar User] (docs/example_sidebaruser.md)
 
 Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.4 - Adding Widgets Logo and SibarToggle</li>
   <li>Version 1.3.3 - Adding Widget Footer</li>
   <li>Version 1.3.2 - Adding Widgets Sidebar Search and User</li>
   <li>Version 1.3.1 - Some Fix and Adding doc examples</li>

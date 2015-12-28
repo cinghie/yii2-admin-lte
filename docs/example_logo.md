@@ -21,3 +21,4 @@ Logo Example
     'logo_mini' => 'Logo',
     'logo_url' => Yii::$app->homeUrl
 ]) ?>
+```

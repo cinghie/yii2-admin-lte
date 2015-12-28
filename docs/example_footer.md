@@ -1,5 +1,5 @@
 Footer Example
-=======================
+===============
 
 ## Default Value
 
@@ -23,3 +23,4 @@ Footer Example
     'copyright_text' => 'Almsaeed Studio',
     'version' => '2.3.1'
 ]) ?>
+```

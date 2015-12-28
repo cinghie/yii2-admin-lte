@@ -42,6 +42,7 @@ Widgets Examples
 -----------------
 
 [Alert] (docs/example_alert.md)  
+[ContentHeader] (docs/example_contentheader.md)  
 [Footer] (docs/example_footer.md)  
 [Logo] (docs/example_logo.md)  
 [Sidebar Menu] (docs/example_sidebarmenu.md)  
@@ -53,6 +54,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.5 - Adding Widget Content Header</li>
   <li>Version 1.3.4 - Adding Widgets Logo and SibarToggle</li>
   <li>Version 1.3.3 - Adding Widget Footer</li>
   <li>Version 1.3.2 - Adding Widgets Sidebar Search and User</li>

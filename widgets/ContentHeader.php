@@ -34,10 +34,14 @@ class ContentHeader extends Widget
             $this->subtitle = '<small>'.Html::encode($this->subtitle).'</small>';
         }
 
-        if ($this->breadcrumbs === null || $this->breadcrumbs === []) {
+        if ($this->breadcrumbs === null) {
             $this->breadcrumbs = '<ol class="breadcrumb">
                 <li><a href="#">Home</a></li>
                 <li class="active">Dashboard</li>
+            </ol>';
+        } elseif ($this->breadcrumbs === []) {
+            $this->breadcrumbs = '<ol class="breadcrumb">
+                <li><pre>SET $this[params]->breadcrumbs</pre></li>
             </ol>';
         } else {
             $this->breadcrumbs = Breadcrumbs::widget([

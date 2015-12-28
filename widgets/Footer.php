@@ -54,7 +54,7 @@ class Footer extends Widget
                     <div class="pull-right hidden-xs">
                       <b>Version</b> '.Html::encode($this->version).'
                     </div>
-                    <strong>Copyright &copy; 2014-2015 <a href="'.Html::encode($this->copyright_link).'" target="_blank">'.Html::encode($this->copyright_text).'</a>.</strong> All rights reserved.
+                    <strong>Copyright &copy; '.Html::encode($this->copyright_date_start).'-'.Html::encode($this->copyright_date_end).' <a href="'.Html::encode($this->copyright_link).'" target="_blank">'.Html::encode($this->copyright_text).'</a>.</strong> All rights reserved.
                 </footer>';
     }
 }

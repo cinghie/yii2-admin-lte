@@ -17,7 +17,7 @@ Navbar Button Example
 
 <!-- navbar button to external link -->
 <?= NavbarButton::widget([
-    'icon' => 'fa fa-external-link',
+    'title' => '<i class="fa fa-external-link"></i>',
     'option' => ['target' => '_blank'],
     'url' => 'https://www.google.com'
 ]) ?>
@@ -30,7 +30,7 @@ Navbar Button Example
 
 <!-- navbar button to url with method post -->
 <?= NavbarButton::widget([
-    'icon' => 'fa fa-power-off',
+    'title' => '<i class="fa fa-power-off"></i>',
     'option' => ['data-method' => 'post'],
     'url' => Url::to(['/user/security/logout'])
 ]) ?>

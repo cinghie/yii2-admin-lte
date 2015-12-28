@@ -17,7 +17,7 @@ use yii\helpers\Html;
 
 class NavbarButton extends Widget
 {
-    public $icon;
+    public $title;
     public $option;
     public $target;
     public $url;
@@ -26,8 +26,8 @@ class NavbarButton extends Widget
     {
         parent::init();
 
-        if ($this->icon === null) {
-            $this->icon = 'fa fa-external-link';
+        if ($this->title === null) {
+            $this->title = '<i class="fa fa-external-link"></i>';
         }
 
         if ($this->option === null) {
@@ -47,6 +47,6 @@ class NavbarButton extends Widget
 
     public function run()
     {
-        return '<li>'.Html::a('<i class="'.Html::encode($this->icon).'"></i>', Html::encode($this->url), $this->option).'</li>';
+        return '<li>'.Html::a($this->title, Html::encode($this->url), $this->option).'</li>';
     }
 }

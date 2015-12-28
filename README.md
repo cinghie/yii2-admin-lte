@@ -44,7 +44,8 @@ Widgets Examples
 [Alert] (docs/example_alert.md)  
 [Content Header] (docs/example_contentheader.md)  
 [Footer] (docs/example_footer.md)  
-[NavbarLogo] (docs/example_logo.md)  
+[NavbarButton] (docs/example_navbarbutton.md)  
+[NavbarLogo] (docs/example_navbarlogo.md)  
 [Sidebar Menu] (docs/example_sidebarmenu.md)  
 [Sidebar Search] (docs/example_sidebarsearch.md)  
 [Sidebar Toggle] (docs/example_sidebartoggle.md)  
@@ -54,6 +55,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.7 - Adding Widget Navbar Button</li>
   <li>Version 1.3.6 - Fixing Footer widget and Rename Logo to NavbarLogo</li>
   <li>Version 1.3.5 - Adding Widget Content Header</li>
   <li>Version 1.3.4 - Adding Widgets Logo and SibarToggle</li>

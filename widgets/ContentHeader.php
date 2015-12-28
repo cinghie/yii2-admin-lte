@@ -41,7 +41,7 @@ class ContentHeader extends Widget
             </ol>';
         } else {
             $this->breadcrumbs = Breadcrumbs::widget([
-                'links' => isset($this->breadcrumbs) ? $this->breadcrumbs : [],
+                'links' => $this->breadcrumbs,
             ]);
         }
     }

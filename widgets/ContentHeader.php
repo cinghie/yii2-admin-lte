@@ -52,11 +52,9 @@ class ContentHeader extends Widget
 
     public function run()
     {
-        $html = '<section class="content-header">
+        return '<section class="content-header">
                     <h1>'.Html::encode($this->title).$this->subtitle.'</h1>'.$this->breadcrumbs.
-                '</section>';
-
-        return $html;
+               '</section>';
     }
 
 }

@@ -16,7 +16,7 @@ use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
-class Logo extends Widget
+class NavbarLogo extends Widget
 {
     public $logo_lg;
     public $logo_mini;

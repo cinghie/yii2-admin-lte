@@ -1,22 +1,22 @@
-Logo Example
+Navbar Logo Example
 =======================
 
 ## Default Value
 
 ```
-<?php use cinghie\adminlte\widgets\Logo; ?>
+<?php use cinghie\adminlte\widgets\NavbarLogo; ?>
 
 <!-- logo -->
-<?= Logo::widget() ?>
+<?= NavbarLogo::widget() ?>
 ```
 
 ## Custom Value
 
 ```
-<?php use cinghie\adminlte\widgets\Logo; ?>
+<?php use cinghie\adminlte\widgets\NavbarLogo; ?>
 
 <!-- logo -->
-<?= Logo::widget([
+<?= NavbarLogo::widget([
     'logo_lg' => 'My Logo',
     'logo_mini' => 'Logo',
     'logo_url' => Yii::$app->homeUrl

@@ -19,6 +19,6 @@ Content Header
 <?= ContentHeader::widget([
     'title' => $this->title,
     'subtitle' => '',
-    'breadcrumbs' => $this->params['breadcrumbs']
+    'breadcrumbs' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : []
 ]) ?>
 ```

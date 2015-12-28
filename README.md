@@ -46,6 +46,7 @@ Widgets Examples
 [Footer] (docs/example_footer.md)  
 [Navbar Button] (docs/example_navbarbutton.md)  
 [Navbar Logo] (docs/example_navbarlogo.md)  
+[Navbar User] (docs/example_navbaruser.md)  
 [Sidebar Menu] (docs/example_sidebarmenu.md)  
 [Sidebar Search] (docs/example_sidebarsearch.md)  
 [Sidebar Toggle] (docs/example_sidebartoggle.md)  
@@ -55,6 +56,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.8 - Addind Widget Navbar User, Updating Navbar Button and Content Header</li>
   <li>Version 1.3.7 - Adding Widget Navbar Button</li>
   <li>Version 1.3.6 - Fixing Footer widget and Rename Logo to NavbarLogo</li>
   <li>Version 1.3.5 - Adding Widget Content Header</li>

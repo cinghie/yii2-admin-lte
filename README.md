@@ -54,6 +54,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.6 - Fixing Footer widget and Rename Logo to NavbarLogo</li>
   <li>Version 1.3.5 - Adding Widget Content Header</li>
   <li>Version 1.3.4 - Adding Widgets Logo and SibarToggle</li>
   <li>Version 1.3.3 - Adding Widget Footer</li>

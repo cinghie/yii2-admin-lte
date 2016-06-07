@@ -12,11 +12,13 @@
 
 namespace cinghie\adminlte;
 
+use yii\web\AssetBundle;
+
 /**
  * Class yii2-AdminLTEAsset
  * @package cinghie\adminlte
  */
-class AdminLTEAsset extends \yii\web\AssetBundle
+class AdminLTEAsset extends AssetBundle
 {
 
     /**

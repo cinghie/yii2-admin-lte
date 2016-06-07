@@ -12,11 +12,13 @@
 
 namespace cinghie\adminlte;
 
+use yii\web\AssetBundle;
+
 /**
  * Class yii2-AdminLTEAsset
  * @package cinghie\adminlte
  */
-class AdminLTEMinifyAsset extends \yii\web\AssetBundle
+class AdminLTEMinifyAsset extends AssetBundle
 {
 
     /**

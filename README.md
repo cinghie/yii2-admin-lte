@@ -51,6 +51,7 @@ Widgets Examples
 [Sidebar Search] (docs/example_sidebarsearch.md)  
 [Sidebar Toggle] (docs/example_sidebartoggle.md)  
 [Sidebar User] (docs/example_sidebaruser.md)
+[Simplebox] (docs/example_simplebox.md)
 
 Changelog
 -----------------

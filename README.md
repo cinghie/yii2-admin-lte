@@ -42,6 +42,7 @@ Widgets Examples
 -----------------
 
 [Alert] (docs/example_alert.md)  
+[Box] (docs/example_box.md)
 [Content Header] (docs/example_contentheader.md)  
 [Footer] (docs/example_footer.md)  
 [Navbar Button] (docs/example_navbarbutton.md)  
@@ -57,6 +58,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.9 - Addind Box and Simplebox</li>
   <li>Version 1.3.8 - Addind Widget Navbar User, Updating Navbar Button and Content Header</li>
   <li>Version 1.3.7 - Adding Widget Navbar Button</li>
   <li>Version 1.3.6 - Fixing Footer widget and Rename Logo to NavbarLogo</li>
@@ -72,5 +74,5 @@ Changelog
   <li>Version 1.1.1 - Fixing AdminLTEMinifyAsset for Font Awesome</li>
   <li>Version 1.1.0 - Adding AdminLTE Minify CSS and JS</li>
   <li>Version 1.0.1 - Updates CSS and JS Folder</li>
-  <li>Version 1.0 - Initial Release</li>
+  <li>Version 1.0.0 - Initial Release</li>
 </ul>

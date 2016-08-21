@@ -42,7 +42,7 @@ Widgets Examples
 -----------------
 
 [Alert] (docs/example_alert.md)  
-[Box] (docs/example_box.md)
+[Box] (docs/example_box.md)  
 [Content Header] (docs/example_contentheader.md)  
 [Footer] (docs/example_footer.md)  
 [Navbar Button] (docs/example_navbarbutton.md)  

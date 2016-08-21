@@ -21,6 +21,8 @@ Custom Values:
     'buttonRightTitle' => 'View All Orders',
     'buttonLeftLink' => 'javascript:void(0)',
     'buttonRightLink' => 'javascript:void(0)',
+    'columns' => $columns,
+    'dataProvider' => $dataProvider,
     'type' => 'box-info',
     'title' => 'Box Title',
 ]) ?>

@@ -12,6 +12,7 @@
 
 namespace cinghie\adminlte\widgets;
 
+use kartik\grid\GridView;
 use yii\bootstrap\Widget;
 
 class Box extends Widget
@@ -20,6 +21,8 @@ class Box extends Widget
     public $buttonLeftLink;
     public $buttonRightTitle;
     public $buttonRightLink;
+    public $columns;
+    public $dataProvider;
     public $type;
     public $title;
 
@@ -27,9 +30,14 @@ class Box extends Widget
     {
         parent::init();
 
+        if ($this->columns === null) {
+            $this->columns = ['Order ID','Item','Status','Popularity'];
+        }
+
         if ($this->type === null) {
             $this->type = 'box-info';
         }
+
         if ($this->title === null) {
             $this->title = 'Box Title';
         }
@@ -47,38 +55,61 @@ class Box extends Widget
             </div>
         </div>';
 
-        $body = '<div class="box-body">
-            <div class="table-responsive">
-                <table class="table no-margin">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Item</th>
-                            <th>Status</th>
-                            <th>Popularity</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html">OR9842</a></td>
-                            <td>Call of Duty IV</td>
-                            <td><span class="label label-success">Shipped</span></td>
-                            <td>
-                              <div data-height="20" data-color="#00a65a" class="sparkbar"><canvas style="display: inline-block; width: 34px; height: 20px; vertical-align: top;" width="34" height="20"></canvas></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="pages/examples/invoice.html">OR1848</a></td>
-                            <td>Samsung Smart TV</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>
-                              <div data-height="20" data-color="#f39c12" class="sparkbar"><canvas style="display: inline-block; width: 34px; height: 20px; vertical-align: top;" width="34" height="20"></canvas></div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>';
+        if($this->dataProvider === null || $this->columns === null) {
+
+            $body = '<div class="box-body">
+                <div class="table-responsive">
+                    <table class="table no-margin">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Item</th>
+                                <th>Status</th>
+                                <th>Popularity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><a href="#">OR9842</a></td>
+                                <td>Call of Duty IV</td>
+                                <td><span class="label label-success">Shipped</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">OR1848</a></td>
+                                <td>Samsung Smart TV</td>
+                                <td><span class="label label-warning">Pending</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">OR7429</a></td>
+                                <td>iPhone 6 Plus</td>
+                                <td><span class="label label-danger">Delivered</span></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><a href="#">OR7429</a></td>
+                                <td>Samsung Smart TV</td>
+                                <td><span class="label label-info">Processing</span></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>';
+
+        } else {
+
+            $body = '<div class="box-body">'.GridView::widget([
+                'columns' => $this->columns,
+                'dataProvider' => $this->dataProvider,
+                'hover' => true,
+                'panel' => false,
+                'responsive' => true,
+                'summary' => false
+            ]).'</div>';
+
+        }
 
         $footer  = '<div class="box-footer clearfix">';
 

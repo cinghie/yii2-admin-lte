@@ -29,16 +29,19 @@ class SidebarMenu extends \yii\widgets\Menu
     public $linkTemplate = '<a href="{url}">{icon} {label}</a>';
     public $submenuTemplate = "\n<ul class='treeview-menu' {show}>\n{items}\n</ul>\n";
     public $activateParents = true;
-	
     /**
      * @inheritdoc
      */
     protected function renderItem($item)
     {
-        if(isset($item['items']))
-            $linkTemplate = '<a href="{url}">{icon} {label} <i class="fa fa-angle-left pull-right"></i></a>';
-        else
+        if(isset($item['items'])) {
+            $labelTemplate = '<a href="{url}">{label} <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
+            $linkTemplate = '<a href="{url}">{icon} {label} <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>';
+        }
+        else {
+            $labelTemplate = $this->labelTemplate;
             $linkTemplate = $this->linkTemplate;
+        }
         if (isset($item['url'])) {
             $template = ArrayHelper::getValue($item, 'template', $linkTemplate);
             $replace = !empty($item['icon']) ? [
@@ -52,7 +55,7 @@ class SidebarMenu extends \yii\widgets\Menu
             ];
             return strtr($template, $replace);
         } else {
-            $template = ArrayHelper::getValue($item, 'template', $this->labelTemplate);
+            $template = ArrayHelper::getValue($item, 'template', $labelTemplate);
             $replace = !empty($item['icon']) ? [
                 '{label}' => '<span>'.$item['label'].'</span>',
                 '{icon}' => '<i class="' . $item['icon'] . '"></i> '
@@ -62,7 +65,6 @@ class SidebarMenu extends \yii\widgets\Menu
             return strtr($template, $replace);
         }
     }
-	
     /**
      * Recursively renders the menu items (without the container tag).
      * @param array $items the menu items to be rendered recursively
@@ -103,7 +105,6 @@ class SidebarMenu extends \yii\widgets\Menu
         }
         return implode("\n", $lines);
     }
-	
     /**
      * @inheritdoc
      */
@@ -143,7 +144,6 @@ class SidebarMenu extends \yii\widgets\Menu
         }
         return array_values($items);
     }
-	
     /**
      * Checks whether a menu item is active.
      * This is done by checking if [[route]] and [[params]] match that specified in the `url` option of the menu item.

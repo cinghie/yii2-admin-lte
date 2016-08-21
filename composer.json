@@ -16,7 +16,8 @@
         "yiisoft/yii2": "*",
         "bower-asset/admin-lte": "*",
         "bower-asset/ionicons": "*",
-	    "cinghie/yii2-fontawesome": "*"
+	    "cinghie/yii2-fontawesome": "*",
+        "kartik-v/yii2-grid": "*"
     },
     "autoload": {
         "psr-4": {

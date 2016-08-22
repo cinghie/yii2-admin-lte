@@ -58,7 +58,7 @@ Changelog
 -----------------
 
 <ul>
-  <li>Version 1.3.10 - Adding class to Box</li>
+  <li>Version 1.3.10 - Adding class to Box, Adding link to Simplebox3</li>
   <li>Version 1.3.9 - Adding Box and Simplebox, Updating SidebarMenu</li>
   <li>Version 1.3.8 - Adding Widget Navbar User, Updating Navbar Button and Content Header</li>
   <li>Version 1.3.7 - Adding Widget Navbar Button</li>

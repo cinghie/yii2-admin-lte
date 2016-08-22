@@ -67,7 +67,6 @@ class Simplebox2 extends Widget
                 <div class="info-box-content">
                     <span class="info-box-text">'.$this->title.'</span>
                     <span class="info-box-number">'.$this->subtitle.'</span>
-
                     <div class="progress">
                         <div style="width: '.$this->progress.'%" class="progress-bar"></div>
                     </div>

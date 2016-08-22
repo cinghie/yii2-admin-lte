@@ -20,6 +20,7 @@ class Simplebox3 extends Widget
     public $class;
     public $description;
     public $icon;
+    public $link;
     public $title;
     public $subtitle;
 
@@ -43,6 +44,10 @@ class Simplebox3 extends Widget
             $this->icon = 'fa fa-shopping-cart';
         }
 
+        if ($this->link === null) {
+            $this->link = '#';
+        }
+
         if ($this->title === null) {
             $this->title = '150';
         }
@@ -63,7 +68,7 @@ class Simplebox3 extends Widget
                 <div class="icon">
                     <i class="'.$this->icon.'"></i>
                 </div>
-                <a class="small-box-footer" href="#">
+                <a class="small-box-footer" href="'.$this->link.'">
                     '.$this->description.' <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>

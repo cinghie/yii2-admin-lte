@@ -52,12 +52,13 @@ Widgets Examples
 [Sidebar Search] (docs/example_sidebarsearch.md)  
 [Sidebar Toggle] (docs/example_sidebartoggle.md)  
 [Sidebar User] (docs/example_sidebaruser.md)  
-[Simplebox] (docs/example_simplebox.md)
+[Simplebox] (docs/example_simplebox.md)  
 
 Changelog
 -----------------
 
 <ul>
+  <li>Version 1.3.10 - Adding class to Box</li>
   <li>Version 1.3.9 - Adding Box and Simplebox, Updating SidebarMenu</li>
   <li>Version 1.3.8 - Adding Widget Navbar User, Updating Navbar Button and Content Header</li>
   <li>Version 1.3.7 - Adding Widget Navbar Button</li>

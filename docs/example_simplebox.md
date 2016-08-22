@@ -17,6 +17,7 @@ Custom Values:
 
 <!--simplebox1 -->
 <?= Simplebox1::widget([
+    'bg-class' => 'bg-aqua',
     'class' => 'col-md-3 col-sm-6 col-xs-12',
     'icon' => 'fa fa-envelope-o',
     'title' => 'Messages',
@@ -40,6 +41,7 @@ Custom Values:
 
 <!-- Simplebox2 -->
 <?= Simplebox2::widget([
+    'bg-class' => 'bg-aqua',
     'class' => 'col-md-3 col-sm-6 col-xs-12',
     'description' => '70% Increase in 30 Days',
     'icon' => 'fa fa-envelope-o',
@@ -65,6 +67,7 @@ Custom Values:
 
 <!-- Simplebox3 -->
 <?= Simplebox3::widget([
+    'bg-class' => 'bg-aqua',
     'class' => 'col-md-3 col-sm-6 col-xs-12',
     'description' => 'More info',
     'icon' => 'fa fa-shopping-cart',

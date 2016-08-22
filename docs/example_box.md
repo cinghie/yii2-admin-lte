@@ -17,6 +17,7 @@ Custom Values:
 
 <!-- Box -->
 <?= Box::widget([
+    'class' => 'col-md-6 col-sm-12 col-xs-12',
     'buttonLeftTitle' => 'Place New Order',
     'buttonRightTitle' => 'View All Orders',
     'buttonLeftLink' => 'javascript:void(0)',

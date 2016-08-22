@@ -21,6 +21,7 @@ class Box extends Widget
     public $buttonLeftLink;
     public $buttonRightTitle;
     public $buttonRightLink;
+    public $class;
     public $columns;
     public $dataProvider;
     public $type;
@@ -29,6 +30,10 @@ class Box extends Widget
     public function init()
     {
         parent::init();
+
+        if ($this->class === null) {
+            $this->class = 'col-md-6 col-sm-12 col-xs-12';
+        }
 
         if ($this->columns === null) {
             $this->columns = ['Order ID','Item','Status','Popularity'];
@@ -123,10 +128,12 @@ class Box extends Widget
 
         $footer .= '</div>';
 
-        return '<div class="box '.$this->type.'">'.
+        return '<div class="'.$this->class.'">'.
+            '<div class="box '.$this->type.'">'.
             $header.
             $body.
             $footer.
+            '</div>'.
         '</div>';
     }
 }

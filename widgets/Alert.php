@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.4.1
+* @version 1.4.2
 */
 
 namespace cinghie\adminlte\widgets;
@@ -54,6 +54,11 @@ class Alert extends Widget
     public $closeButton = [];
 
     /**
+     * @var boolean whether to removed flash messages during AJAX requests
+     */
+    public $isAjaxRemoveFlash = true;
+
+    /**
      * Initializes the widget.
      * This method will register the bootstrap asset bundle. If you override this method,
      * make sure you call the parent implementation first.
@@ -70,18 +75,17 @@ class Alert extends Widget
             if (isset($this->alertTypes[$type])) {
                 $data = (array) $data;
                 foreach ($data as $message) {
-
                     $this->options['class'] = $this->alertTypes[$type]['class'] . $appendCss;
                     $this->options['id'] = $this->getId() . '-' . $type;
-
                     echo BootstrapAlert::widget([
-                            'body' => $this->alertTypes[$type]['icon'] . $message,
-                            'closeButton' => $this->closeButton,
-                            'options' => $this->options,
-                        ]);
+                        'body' => $this->alertTypes[$type]['icon'] . $message,
+                        'closeButton' => $this->closeButton,
+                        'options' => $this->options,
+                    ]);
                 }
-
-                $session->removeFlash($type);
+                if ($this->isAjaxRemoveFlash && !\Yii::$app->request->isAjax) {
+                    $session->removeFlash($type);
+                }
             }
         }
     }

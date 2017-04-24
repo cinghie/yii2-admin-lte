@@ -58,6 +58,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.4.1 - Update composer require</li>
   <li>Version 1.4.0 - Update composer require</li>
   <li>Version 1.3.10 - Adding class to Box, Adding link to Simplebox3</li>
   <li>Version 1.3.9 - Adding Box and Simplebox, Updating SidebarMenu</li>

@@ -29,7 +29,7 @@ class AdminLTEAsset extends AssetBundle
     /**
      * @inherit
      */
-    public $css = [ 
+    public $css = [
 		'ionicons/css/ionicons.css',
 		'admin-lte/dist/css/AdminLTE.css',
 		'admin-lte/dist/css/skins/_all-skins.css'
@@ -49,7 +49,7 @@ class AdminLTEAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-		'cinghie\fontawesome\FontAwesomeAsset',
+		'cinghie\fontawesome\FontAwesomeAsset'
     ];
 
 }

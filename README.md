@@ -41,18 +41,18 @@ AdminLTEMinifyAsset::register($this);
 Widgets Examples
 -----------------
 
-[Alert] (docs/example_alert.md)  
-[Box] (docs/example_box.md)  
-[Content Header] (docs/example_contentheader.md)  
-[Footer] (docs/example_footer.md)  
-[Navbar Button] (docs/example_navbarbutton.md)  
-[Navbar Logo] (docs/example_navbarlogo.md)  
-[Navbar User] (docs/example_navbaruser.md)  
-[Sidebar Menu] (docs/example_sidebarmenu.md)  
-[Sidebar Search] (docs/example_sidebarsearch.md)  
-[Sidebar Toggle] (docs/example_sidebartoggle.md)  
-[Sidebar User] (docs/example_sidebaruser.md)  
-[Simplebox] (docs/example_simplebox.md)  
+[Alert](docs/example_alert.md)  
+[Box](docs/example_box.md)  
+[Content Header](docs/example_contentheader.md)  
+[Footer](docs/example_footer.md)  
+[Navbar Button](docs/example_navbarbutton.md)  
+[Navbar Logo](docs/example_navbarlogo.md)  
+[Navbar User](docs/example_navbaruser.md)  
+[Sidebar Menu](docs/example_sidebarmenu.md)  
+[Sidebar Search](docs/example_sidebarsearch.md)  
+[Sidebar Toggle](docs/example_sidebartoggle.md)  
+[Sidebar User](docs/example_sidebaruser.md)  
+[Simplebox](docs/example_simplebox.md)  
 
 Changelog
 -----------------

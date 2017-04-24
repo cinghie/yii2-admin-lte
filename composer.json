@@ -13,11 +13,10 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "2.*",
+        "yiisoft/yii2": "*",
         "bower-asset/admin-lte": "2.*",
         "bower-asset/ionicons": "2.*",
-        "cinghie/yii2-fontawesome": "1.*",
-        "kartik-v/yii2-grid": "3.*"
+        "cinghie/yii2-fontawesome": "*"
     },
     "autoload": {
         "psr-4": {

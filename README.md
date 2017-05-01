@@ -58,6 +58,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.4.3 - Update Box adding Buttons Type</li>
   <li>Version 1.4.2 - Update Alert Widget</li>
   <li>Version 1.4.1 - Update composer require</li>
   <li>Version 1.4.0 - Update composer require</li>

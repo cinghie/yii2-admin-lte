@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.4.2
+ * @version 1.4.3
  */
 
 namespace cinghie\adminlte\widgets;
@@ -19,8 +19,10 @@ class Box extends Widget
 {
     public $buttonLeftTitle;
     public $buttonLeftLink;
+    public $buttonLeftType;
     public $buttonRightTitle;
     public $buttonRightLink;
+    public $buttonRightType;
     public $class;
     public $columns;
     public $dataProvider;
@@ -41,6 +43,14 @@ class Box extends Widget
 
         if ($this->type === null) {
             $this->type = 'box-info';
+        }
+
+        if ($this->buttonLeftType === null) {
+            $this->buttonLeftType = str_replace("box-","",$this->type);
+        }
+
+        if ($this->buttonRightType === null) {
+            $this->buttonRightType = 'default';
         }
 
         if ($this->title === null) {
@@ -119,11 +129,11 @@ class Box extends Widget
         $footer  = '<div class="box-footer clearfix">';
 
         if($this->buttonLeftTitle && $this->buttonLeftLink) {
-            $footer .= '<a class="btn btn-sm btn-info btn-flat pull-left" href="'.$this->buttonLeftLink.'">'.$this->buttonLeftTitle.'</a>';
+            $footer .= '<a class="btn btn-sm btn-'.$this->buttonLeftType.' btn-flat pull-left" href="'.$this->buttonLeftLink.'">'.$this->buttonLeftTitle.'</a>';
         }
 
         if($this->buttonRightTitle && $this->buttonRightLink) {
-            $footer .= '<a class="btn btn-sm btn-default btn-flat pull-right" href="'.$this->buttonRightLink.'">'.$this->buttonRightTitle.'</a>';
+            $footer .= '<a class="btn btn-sm btn-'.$this->buttonRightType.' btn-flat pull-right" href="'.$this->buttonRightLink.'">'.$this->buttonRightTitle.'</a>';
         }
 
         $footer .= '</div>';

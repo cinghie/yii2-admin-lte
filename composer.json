@@ -14,8 +14,8 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "bower-asset/admin-lte": "2.*",
-        "bower-asset/ionicons": "2.*",
+        "bower-asset/admin-lte": "*",
+        "bower-asset/ionicons": "*",
         "cinghie/yii2-fontawesome": "*"
     },
     "autoload": {

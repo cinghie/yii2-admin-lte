@@ -24,22 +24,20 @@ class AdminLTEAsset extends AssetBundle
 	/**
 	 * @inherit
 	 */
-	public $sourcePath = '@vendor';
+	public $sourcePath = '@vendor/almasaeed2010/adminlte/';
 
 	/**
 	 * @inherit
 	 */
 	public $css = [
-		'bower/ionicons/css/ionicons.min.css',
-		'almasaeed2010/adminlte/dist/css/AdminLTE.min.css',
-		'almasaeed2010/adminlte/dist/css/skins/_all-skins.min.css'
+		'css/AdminLTE.css'
 	];
 
 	/**
 	 * @inherit
 	 */
 	public $js = [
-		'almasaeed2010/adminlte/dist/js/adminlte.min.js'
+		'js/adminlte.js'
 	];
 
 	/**
@@ -51,6 +49,7 @@ class AdminLTEAsset extends AssetBundle
         'yii\bootstrap\BootstrapPluginAsset',
 		'cinghie\fontawesome\FontAwesomeAsset'
     ];
+
 
 	/**
 	 * @var string|bool Choose skin color, eg. `'skin-blue'` or set `false` to disable skin loading

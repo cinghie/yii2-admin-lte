@@ -24,22 +24,20 @@ class AdminLTEMinifyAsset extends AssetBundle
     /**
      * @inherit
      */
-	public $sourcePath = '@vendor';
+	public $sourcePath = '@vendor/almasaeed2010/adminlte/dist/';
 
     /**
      * @inherit
      */
     public $css = [
-		'bower/ionicons/css/ionicons.min.css',
-	    'almasaeed2010/adminlte/dist/css/AdminLTE.min.css',
-		'almasaeed2010/adminlte/dist/css/skins/_all-skins.min.css'
+	    'css/AdminLTE.min.css'
 	];
 	
 	/**
      * @inherit
      */
 	public $js = [
-		'almasaeed2010/adminlte/dist/js/adminlte.min.js'
+		'js/adminlte.min.js'
 	];
 	
 	/**

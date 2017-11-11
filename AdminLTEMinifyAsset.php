@@ -24,22 +24,22 @@ class AdminLTEMinifyAsset extends AssetBundle
     /**
      * @inherit
      */
-    public $sourcePath = '@bower/';
+	public $sourcePath = '@vendor';
 
     /**
      * @inherit
      */
-    public $css = [ 
-		'ionicons/css/ionicons.min.css',
-		'admin-lte/dist/css/AdminLTE.min.css',
-		'admin-lte/dist/css/skins/_all-skins.min.css'
+    public $css = [
+		'bower/ionicons/css/ionicons.min.css',
+	    'almasaeed2010/adminlte/dist/css/AdminLTE.min.css',
+		'almasaeed2010/adminlte/dist/css/skins/_all-skins.min.css'
 	];
 	
 	/**
      * @inherit
      */
 	public $js = [
-		'admin-lte/dist/js/app.min.js'
+		'almasaeed2010/adminlte/dist/js/adminlte.min.js'
 	];
 	
 	/**
@@ -51,5 +51,26 @@ class AdminLTEMinifyAsset extends AssetBundle
         'yii\bootstrap\BootstrapPluginAsset',
 		'cinghie\fontawesome\FontAwesomeMinifyAsset'
     ];
+
+	/**
+	 * @var string|bool Choose skin color, eg. `'skin-blue'` or set `false` to disable skin loading
+	 * @see https://almsaeedstudio.com/themes/AdminLTE/documentation/index.html#layout
+	 */
+	public $skin = '_all-skins';
+
+	/**
+	 * @inheritdoc
+	 */
+	public function init()
+	{
+		// Append skin color file if specified
+		if ($this->skin) {
+			if (('_all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0)) {
+				throw new Exception('Invalid skin specified');
+			}
+			$this->css[] = sprintf('css/skins/%s.min.css', $this->skin);
+		}
+		parent::init();
+	}
 
 }

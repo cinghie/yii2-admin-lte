@@ -12,6 +12,7 @@
 
 namespace cinghie\adminlte;
 
+use yii\base\Exception;
 use yii\web\AssetBundle;
 
 /**

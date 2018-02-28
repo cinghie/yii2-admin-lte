@@ -7,7 +7,6 @@ Sidebar Menu Example
 <!-- sidebar menu -->
 <?= SidebarMenu::widget(
             [
-                'options' => ['class' => 'sidebar-menu'],
                 'items' => [
                     ['label' => 'Menu Yii2', 'options' => ['class' => 'header']],
                     ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii']],

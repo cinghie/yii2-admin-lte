@@ -58,6 +58,7 @@ Changelog
 -----------------
 
 <ul>
+  <li>Version 1.5.2 - Update AdminLTE require to 2.4.3, Update SidebarMenu</li>
   <li>Version 1.5.1 - Fix Assets bug</li>
   <li>Version 1.5.0 - Update Requirements and Assets</li>
   <li>Version 1.4.3 - Update Box adding Buttons Type</li>

@@ -12,8 +12,7 @@
 
 namespace cinghie\adminlte\widgets;
 
-use \yii\bootstrap\Alert as BootstrapAlert;
-use \yii\bootstrap\Widget;
+use yii\bootstrap\Widget;
 
 class Invoice extends Widget
 {

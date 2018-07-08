@@ -17,6 +17,7 @@ use yii\web\AssetBundle;
 
 /**
  * Class yii2-AdminLTEAsset
+ *
  * @package cinghie\adminlte
  */
 class AdminLTEMinifyAsset extends AssetBundle
@@ -48,17 +49,21 @@ class AdminLTEMinifyAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-		'cinghie\fontawesome\FontAwesomeMinifyAsset'
+		'cinghie\fontawesome\FontawesomeMinifyAsset',
+		'cinghie\ionicons\IoniconsMinifyAsset'
     ];
 
 	/**
 	 * @var string|bool Choose skin color, eg. `'skin-blue'` or set `false` to disable skin loading
+	 *
 	 * @see https://almsaeedstudio.com/themes/AdminLTE/documentation/index.html#layout
 	 */
 	public $skin = '_all-skins';
 
 	/**
 	 * @inheritdoc
+	 *
+	 * @throws Exception
 	 */
 	public function init()
 	{

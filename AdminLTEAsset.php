@@ -49,7 +49,7 @@ class AdminLTEAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapAsset',
         'yii\bootstrap\BootstrapPluginAsset',
-		'cinghie\fontawesome\FontawesomeAsset',
+		'cinghie\fontawesome\FontAwesomeAsset',
 		'cinghie\ionicons\IoniconsAsset'
     ];
 

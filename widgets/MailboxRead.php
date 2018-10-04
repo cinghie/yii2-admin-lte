@@ -13,10 +13,11 @@
 namespace cinghie\adminlte\widgets;
 
 use yii\bootstrap\Widget;
+use yii\helpers\Html;
 
 class MailboxRead extends Widget
 {
-	public $assetBundle;
+	public $mailAttachments;
 	public $mailBody;
 	public $mailSender;
 	public $mailSubject;
@@ -27,8 +28,24 @@ class MailboxRead extends Widget
 	{
 		parent::init();
 
+		if($this->mailAttachments === null) {
+			$this->mailAttachments = [];
+		}
+
+		if($this->mailBody === null) {
+			$this->mailBody = 'Set param mailBody';
+		}
+
+		if($this->mailSender === null) {
+			$this->mailSender = 'Set param mailSender';
+		}
+
+		if($this->mailSubject === null) {
+			$this->mailSubject = 'Set param mailSubject';
+		}
+
 		if($this->userName === null) {
-			$this->userName = '';
+			$this->userName = 'Set param userName';
 		}
 
 		if($this->userImage === null) {
@@ -56,7 +73,7 @@ class MailboxRead extends Widget
 		
 		$html .= '</div>';
 
-		$html .= '<div class="box-footer"></div>';
+		$html .= '<div class="box-footer">'.$this->printAttachments().'</div>';
 
 		$html .= '</div>';
 
@@ -167,6 +184,39 @@ class MailboxRead extends Widget
 		$html .= '</div>';
 
 		$html .= '</div>';
+
+		return $html;
+	}
+
+	/**
+	 * @return string
+	 */
+	private function printAttachments()
+	{
+		$html = '';
+
+		if(!empty($this->mailAttachments))
+		{
+			$html .= '<ul class="mailbox-attachments clearfix">';
+
+			foreach ($this->mailAttachments as $attachment)
+			{
+				if(!empty($attachment))
+				{
+					$html .= '<li>
+				    	<span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+						<div class="mailbox-attachment-info">
+				        	<a href="'.$attachment->fileUrl.'" class="mailbox-attachment-name">
+				            	<i class="fa fa-paperclip"></i> '.Html::encode($attachment->filename).'
+				            </a>
+				            <span class="mailbox-attachment-size">'.$attachment->formatSize().'</span>
+				        </div>
+				        </li>';
+				}
+			}
+
+			$html .= '</ul>';
+		}
 
 		return $html;
 	}

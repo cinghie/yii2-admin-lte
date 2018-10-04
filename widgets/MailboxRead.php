@@ -204,7 +204,9 @@ class MailboxRead extends Widget
 				if(!empty($attachment))
 				{
 					$html .= '<li>
-				    	<span class="mailbox-attachment-icon"><i class="fa fa-file-pdf-o"></i></span>
+				    	<span class="mailbox-attachment-icon">
+				    		'.$attachment->getAttachmentPreview().'
+				    	</span>
 						<div class="mailbox-attachment-info">
 				        	<a href="'.$attachment->fileUrl.'" class="mailbox-attachment-name">
 				            	<i class="fa fa-paperclip"></i> '.Html::encode($attachment->filename).'

@@ -208,7 +208,7 @@ class MailboxRead extends Widget
 				    		'.$attachment->getAttachmentPreview().'
 				    	</span>
 						<div class="mailbox-attachment-info">
-				        	<a href="'.$attachment->fileUrl.'" class="mailbox-attachment-name">
+				        	<a href="'.$attachment->fileUrl.'" class="mailbox-attachment-name" style="display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 				            	<i class="fa fa-paperclip"></i> '.Html::encode($attachment->filename).'
 				            </a>
 				            <span class="mailbox-attachment-size">'.$attachment->formatSize().'</span>

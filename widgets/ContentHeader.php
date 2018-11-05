@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.2
+ * @version 1.5.3
  */
 
 namespace cinghie\adminlte\widgets;
@@ -22,6 +22,9 @@ class ContentHeader extends Widget
     public $title;
     public $subtitle;
 
+	/**
+	 * @inheritdoc
+	 */
     public function init()
     {
         if ($this->title === null) {
@@ -30,7 +33,7 @@ class ContentHeader extends Widget
 
         if ($this->subtitle === null) {
             $this->subtitle = '<small>Version 2.0</small>';
-        } elseif ($this->subtitle != '') {
+        } elseif ($this->subtitle !== '') {
             $this->subtitle = '<small>'.Html::encode($this->subtitle).'</small>';
         }
 
@@ -50,7 +53,10 @@ class ContentHeader extends Widget
         }
     }
 
-    public function run()
+	/**
+	 * @return string
+	 */
+	public function run()
     {
         return '<section class="content-header">
                     <h1>'.Html::encode($this->title).$this->subtitle.'</h1>'.$this->breadcrumbs.

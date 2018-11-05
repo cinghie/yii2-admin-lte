@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.2
+ * @version 1.5.3
  */
 
 namespace cinghie\adminlte\widgets;
@@ -22,6 +22,9 @@ class NavbarButton extends Widget
     public $target;
     public $url;
 
+	/**
+	 * @inheritdoc
+	 */
     public function init()
     {
         parent::init();
@@ -45,7 +48,10 @@ class NavbarButton extends Widget
         }
     }
 
-    public function run()
+	/**
+	 * @return string
+	 */
+	public function run()
     {
         return '<li>'.Html::a($this->title, Html::encode($this->url), $this->option).'</li>';
     }

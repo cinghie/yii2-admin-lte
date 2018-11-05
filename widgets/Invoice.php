@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.2
+ * @version 1.5.3
  */
 
 namespace cinghie\adminlte\widgets;
@@ -33,6 +33,9 @@ class Invoice extends Widget
 	public $invoicePaymentDue;
 	public $invoiceAccount;
 
+	/**
+	 * @inheritdoc
+	 */
 	public function init()
 	{
 		parent::init();
@@ -46,6 +49,9 @@ class Invoice extends Widget
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	public function run()
 	{
 		return '<section class="invoice">

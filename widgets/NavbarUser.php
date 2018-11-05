@@ -7,12 +7,11 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.2
+ * @version 1.5.3
  */
 
 namespace cinghie\adminlte\widgets;
 
-use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
@@ -34,6 +33,9 @@ class NavbarUser extends Widget
     public $userfootername2;
     public $userfooterlink2;
 
+	/**
+	 * @inheritdoc
+	 */
     public function init()
     {
         if ($this->username === null) {
@@ -98,7 +100,10 @@ class NavbarUser extends Widget
 
     }
 
-    public function run()
+	/**
+	 * @return string
+	 */
+	public function run()
     {
         $html = '<li class="dropdown user user-menu">
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">

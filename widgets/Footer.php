@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.5.2
+* @version 1.5.3
 */
 
 namespace cinghie\adminlte\widgets;
@@ -23,6 +23,9 @@ class Footer extends Widget
 	public $copyright_text;
 	public $version;
 
+	/**
+	 * @inheritdoc
+	 */
     public function init()
     {
         parent::init();
@@ -32,7 +35,7 @@ class Footer extends Widget
         }
 
         if ($this->copyright_date_end === null) {
-            $this->copyright_date_end = date("Y");
+            $this->copyright_date_end = date('Y');
         }
 
         if ($this->copyright_link === null) {
@@ -48,7 +51,10 @@ class Footer extends Widget
         }
     }
 
-    public function run()
+	/**
+	 * @return string
+	 */
+	public function run()
     {
         return '<footer class="main-footer">
                     <div class="pull-right hidden-xs">

@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.2
+ * @version 1.5.3
  */
 
 namespace cinghie\adminlte\widgets;
@@ -22,6 +22,9 @@ class NavbarLogo extends Widget
     public $logo_mini;
     public $logo_url;
 
+	/**
+	 * @inheritdoc
+	 */
     public function init()
     {
         parent::init();
@@ -39,7 +42,10 @@ class NavbarLogo extends Widget
         }
     }
 
-    public function run()
+	/**
+	 * @return string
+	 */
+	public function run()
     {
         return '<a class="logo" href="'.Html::encode($this->logo_url).'">
                   <span class="logo-mini">'.$this->logo_mini.'</span>

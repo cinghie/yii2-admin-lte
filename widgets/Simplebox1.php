@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.2
+ * @version 1.5.3
  */
 
 namespace cinghie\adminlte\widgets;
@@ -22,6 +22,9 @@ class Simplebox1 extends Widget
     public $title;
     public $subtitle;
 
+	/**
+	 * @inheritdoc
+	 */
     public function init()
     {
         parent::init();
@@ -47,7 +50,10 @@ class Simplebox1 extends Widget
         }
     }
 
-    public function run()
+	/**
+	 * @return string
+	 */
+	public function run()
     {
         return '<div class="'.$this->class.'">
             <div class="info-box">

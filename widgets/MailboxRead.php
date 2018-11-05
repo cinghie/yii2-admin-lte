@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.2
+ * @version 1.5.3
  */
 
 namespace cinghie\adminlte\widgets;
@@ -24,6 +24,9 @@ class MailboxRead extends Widget
 	public $userName;
 	public $userImage;
 
+	/**
+	 * @inheritdoc
+	 */
 	public function init()
 	{
 		parent::init();
@@ -53,6 +56,9 @@ class MailboxRead extends Widget
 		}
 	}
 
+	/**
+	 * @return string
+	 */
 	public function run()
 	{
 		$html  = '<div class="box box-widget">';
@@ -80,6 +86,9 @@ class MailboxRead extends Widget
 		return $html;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function demo()
 	{
 		$html  = '<div class="box box-widget">';

@@ -1,6 +1,5 @@
 # Yii2 AdminLTE
-Asset Bundle to include AdminLTE on your Yii 2 project:<br>
-https://github.com/almasaeed2010/AdminLTE/
+Asset Bundle to include AdminLTE on your Yii 2 project: https://github.com/almasaeed2010/AdminLTE/
 
 Installation
 -----------------
@@ -53,34 +52,3 @@ Widgets Examples
 [Sidebar Toggle](docs/example_sidebartoggle.md)  
 [Sidebar User](docs/example_sidebaruser.md)  
 [Simplebox](docs/example_simplebox.md)  
-
-Changelog
------------------
-
-<ul>
-  <li>Version 1.5.2 - Update AdminLTE require to 2.4.3, Update SidebarMenu</li>
-  <li>Version 1.5.1 - Fix Assets bug</li>
-  <li>Version 1.5.0 - Update Requirements and Assets</li>
-  <li>Version 1.4.3 - Update Box adding Buttons Type</li>
-  <li>Version 1.4.2 - Update Alert Widget</li>
-  <li>Version 1.4.1 - Update composer require</li>
-  <li>Version 1.4.0 - Update composer require</li>
-  <li>Version 1.3.10 - Adding class to Box, Adding link to Simplebox3</li>
-  <li>Version 1.3.9 - Adding Box and Simplebox, Updating SidebarMenu</li>
-  <li>Version 1.3.8 - Adding Widget Navbar User, Updating Navbar Button and Content Header</li>
-  <li>Version 1.3.7 - Adding Widget Navbar Button</li>
-  <li>Version 1.3.6 - Fixing Footer widget and Rename Logo to NavbarLogo</li>
-  <li>Version 1.3.5 - Adding Widget Content Header</li>
-  <li>Version 1.3.4 - Adding Widgets Logo and SibarToggle</li>
-  <li>Version 1.3.3 - Adding Widget Footer</li>
-  <li>Version 1.3.2 - Adding Widgets Sidebar Search and User</li>
-  <li>Version 1.3.1 - Some Fix and Adding doc examples</li>
-  <li>Version 1.3.0 - Adding Alert and Menù widget from https://github.com/dmstr/yii2-adminlte-asset/tree/master/widgets</li>
-  <li>Version 1.2.1 - Updating folder admin-lte/dist</li>
-  <li>Version 1.2.0 - Adding ionicons</li>
-  <li>Version 1.1.2 - Purge code</li>
-  <li>Version 1.1.1 - Fixing AdminLTEMinifyAsset for Font Awesome</li>
-  <li>Version 1.1.0 - Adding AdminLTE Minify CSS and JS</li>
-  <li>Version 1.0.1 - Updating CSS and JS Folder</li>
-  <li>Version 1.0.0 - Initial Release</li>
-</ul>

@@ -7,11 +7,12 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.2
+ * @version 1.5.3
  */
 
 namespace cinghie\adminlte\widgets;
 
+use Exception;
 use kartik\grid\GridView;
 use yii\bootstrap\Widget;
 
@@ -29,6 +30,9 @@ class Box extends Widget
     public $type;
     public $title;
 
+	/**
+	 * @inheritdoc
+	 */
     public function init()
     {
         parent::init();
@@ -46,7 +50,7 @@ class Box extends Widget
         }
 
         if ($this->buttonLeftType === null) {
-            $this->buttonLeftType = str_replace("box-","",$this->type);
+            $this->buttonLeftType = str_replace('box-', '',$this->type);
         }
 
         if ($this->buttonRightType === null) {
@@ -58,7 +62,11 @@ class Box extends Widget
         }
     }
 
-    public function run()
+	/**
+	 * @return string
+	 * @throws Exception
+	 */
+	public function run()
     {
         $header = '<div class="box-header with-border">
             <h3 class="box-title">'.$this->title.'</h3>

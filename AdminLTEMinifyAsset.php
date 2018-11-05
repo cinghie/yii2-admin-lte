@@ -7,13 +7,18 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.5.2
+* @version 1.5.3
 */
 
 namespace cinghie\adminlte;
 
+use cinghie\fontawesome\FontAwesomeMinifyAsset;
+use cinghie\ionicons\IoniconsMinifyAsset;
 use yii\base\Exception;
+use yii\bootstrap\BootstrapAsset;
+use yii\bootstrap\BootstrapPluginAsset;
 use yii\web\AssetBundle;
+use yii\web\YiiAsset;
 
 /**
  * Class yii2-AdminLTEAsset
@@ -46,11 +51,11 @@ class AdminLTEMinifyAsset extends AssetBundle
      * @inherit
      */
 	public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
-        'yii\bootstrap\BootstrapPluginAsset',
-		'cinghie\fontawesome\FontAwesomeMinifyAsset',
-		'cinghie\ionicons\IoniconsMinifyAsset'
+		YiiAsset::class,
+		BootstrapAsset::class,
+		BootstrapPluginAsset::class,
+		FontAwesomeMinifyAsset::class,
+		IoniconsMinifyAsset::class
     ];
 
 	/**

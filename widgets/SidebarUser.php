@@ -7,7 +7,7 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.5.2
+* @version 1.5.3
 */
 
 namespace cinghie\adminlte\widgets;
@@ -20,7 +20,10 @@ class SidebarUser extends Widget
 	public $username;
 	public $userimg;
 
-    public function init()
+	/**
+	 * @inheritdoc
+	 */
+	public function init()
     {
         parent::init();
 		
@@ -33,7 +36,10 @@ class SidebarUser extends Widget
         }
     }
 
-    public function run()
+	/**
+	 * @return string
+	 */
+	public function run()
     {
         return '<div class="user-panel">
             <div class="pull-left image">

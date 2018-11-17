@@ -9,13 +9,13 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require cinghie/yii2-admin-lte "^1.5.3"
+php composer.phar require cinghie/yii2-admin-lte "^1.5.4"
 ```
 
 or add this line to the require section of your `composer.json` file.
 
 ```
-"cinghie/yii2-admin-lte": "^1.5.3"
+"cinghie/yii2-admin-lte": "^1.5.4"
 ```
 
 Configuration

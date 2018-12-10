@@ -14,26 +14,63 @@ namespace cinghie\adminlte\widgets;
 
 use Yii;
 use yii\bootstrap\Widget;
+use yii\helpers\Html;
 
 class Invoice extends Widget
 {
+	/** @var string $companyName */
 	public $companyName;
+
+	/** @var string $companyLogo */
 	public $companyLogo;
+
+	/** @var string $invoiceDate */
 	public $invoiceDate;
+
+	/** @var string $invoiceFromName */
 	public $invoiceFromName;
+
+	/** @var string $invoiceFromAddress */
 	public $invoiceFromAddress;
+
+	/** @var string $invoiceFromAddressInfo */
 	public $invoiceFromAddressInfo;
+
+	/** @var string $invoiceFromPhone */
 	public $invoiceFromPhone;
+
+	/** @var string $invoiceFromEmail */
 	public $invoiceFromEmail;
+
+	/** @var string $invoiceToName */
 	public $invoiceToName;
+
+	/** @var string $invoiceToAddress */
 	public $invoiceToAddress;
+
+	/** @var string $invoiceToAddressInfo */
 	public $invoiceToAddressInfo;
+
+	/** @var string $invoiceToPhone */
 	public $invoiceToPhone;
+
+	/** @var string $invoiceToEmail */
 	public $invoiceToEmail;
+
+	/** @var string $invoiceNumber */
 	public $invoiceNumber;
+
+	/** @var string $invoiceOrderID */
 	public $invoiceOrderID;
+
+	/** @var string $invoicePaymentDue */
 	public $invoicePaymentDue;
+
+	/** @var string $invoiceAccount */
 	public $invoiceAccount;
+
+	/** @var array $invoiceItems */
+	public $invoiceItems;
 
 	/**
 	 * @inheritdoc
@@ -65,6 +102,66 @@ class Invoice extends Widget
 		if($this->invoiceFromAddressInfo === null) {
 			$this->invoiceFromAddressInfo = 'San Francisco, CA 94107';
 		}
+
+		if($this->invoiceFromEmail) {
+			$emailLink = Html::a($this->invoiceFromEmail, null, ['href' => 'mailto:'.$this->invoiceFromEmail]);
+			$this->invoiceFromEmail = Yii::t('traits','Email').': '.$emailLink;
+		} else {
+			$this->invoiceFromEmail = '';
+		}
+
+		if($this->invoiceToName === null) {
+			$this->invoiceToName = 'John Doe';
+		}
+
+		if($this->invoiceToAddress === null) {
+			$this->invoiceToAddress = '795 Folsom Ave, Suite 600';
+		}
+
+		if($this->invoiceToAddressInfo === null) {
+			$this->invoiceToAddressInfo = 'San Francisco, CA 94107';
+		}
+
+		if($this->invoiceToEmail) {
+			$emailLink = Html::a($this->invoiceToEmail, null, ['href' => 'mailto:'.$this->invoiceToEmail]);
+			$this->invoiceToEmail = Yii::t('traits','Email').': '.$emailLink;
+		} else {
+			$this->invoiceToEmail = '';
+		}
+
+		if($this->invoiceFromPhone) {
+			$this->invoiceFromPhone = Yii::t('traits','Phone').': '.$this->invoiceFromPhone;
+		}
+
+		if($this->invoiceNumber) {
+			$this->invoiceNumber = Yii::t('traits','Invoice').' #'.$this->invoiceNumber;
+		}
+
+		if($this->invoiceOrderID) {
+			$this->invoiceOrderID = '<b>'.Yii::t('traits','Order ID').':</b> '.$this->invoiceOrderID;
+		}
+
+		if($this->invoicePaymentDue) {
+			$this->invoicePaymentDue = '<b>'.Yii::t('traits','Payment Due').':</b> '.$this->invoicePaymentDue;
+		}
+
+		if($this->invoiceAccount) {
+			$this->invoiceAccount = '<b>Account:</b> '.$this->invoiceAccount;
+		}
+
+		if($this->invoiceToPhone) {
+			$this->invoiceToPhone = Yii::t('traits','Phone').': '.$this->invoiceToPhone;
+		}
+
+		if($this->invoiceItems === null)
+		{
+			$this->invoiceItems = [
+				['quantity' => 2,'product'=>'Call of Duty','serial'=>'455-981-221','description'=>'El snort testosterone trophy driving gloves handsome','product_price'=>'$32.25','subtotal'=>'$64.50'],
+				['quantity' => 1,'product'=>'Need for Speed IV','serial'=>'247-925-726','description'=>'Wes Anderson umami biodiesel','product_price'=>'$50.00','subtotal'=>'$50.00'],
+				['quantity' => 2,'product'=>'Monsters DVD','serial'=>'735-845-642','description'=>'Terry Richardson helvetica tousled street art master','product_price'=>'$5.35','subtotal'=>'$10.70'],
+				['quantity' => 1,'product'=>'Grown Ups Blue Ray','serial'=>'422-568-642','description'=>'Tousled lomo letterpress','product_price'=>'$25.99','subtotal'=>'$25.99'],
+			];
+		}
 	}
 
 	/**
@@ -92,26 +189,26 @@ class Invoice extends Widget
 			            <strong>'.$this->invoiceFromName.'</strong><br>
 			            '.$this->invoiceFromAddress.'<br>
 			            '.$this->invoiceFromAddressInfo.'<br>
-			            '.Yii::t('traits','Phone').': '.$this->invoiceFromPhone.'<br>
-			            '.Yii::t('traits','Email').': '.$this->invoiceFromEmail.'
+			            '.$this->invoiceFromPhone.'<br>
+			            '.$this->invoiceFromEmail.'
 		          	</address>
 		        </div><!-- /.col -->
 		        <div class="col-sm-4 invoice-col">
 		            '.Yii::t('traits','To').'
 			        <address>
-			            <strong>John Doe</strong><br>
-			            795 Folsom Ave, Suite 600<br>
-			            San Francisco, CA 94107<br>
-			            Phone: (555) 539-1037<br>
-			            Email: john.doe@example.com
+			            <strong>'.$this->invoiceToName.'</strong><br>
+			            '.$this->invoiceToAddress.'<br>
+			            '.$this->invoiceToAddressInfo.'<br>
+			            '.$this->invoiceToPhone.'<br>
+			            '.$this->invoiceToEmail.'
 			        </address>
 		        </div><!-- /.col -->
 		        <div class="col-sm-4 invoice-col">
-		        	<b>Invoice #007612</b><br>
+		        	<b>'.$this->invoiceNumber.'</b><br>
 		          	<br>
-		          	<b>Order ID:</b> 4F3S8J<br>
-		          	<b>Payment Due:</b> 2/22/2014<br>
-		          	<b>Account:</b> 968-34567
+		          	'.$this->invoiceOrderID.'<br>
+		          	'.$this->invoicePaymentDue.'<br>
+		          	'.$this->invoiceAccount.'
 		        </div><!-- /.col -->
 		    </div><!-- /.row -->';
 
@@ -121,43 +218,29 @@ class Invoice extends Widget
 		        	<table class="table table-striped">
 			            <thead>
 				            <tr>
-				            	<th class="text-center">'.Yii::t('traits','Quantity').'</th>
 				            	<th class="text-center">'.Yii::t('traits','Product').'</th>
 				            	<th class="text-center">'.Yii::t('traits','Serial').'</th>
 				            	<th class="text-center">'.Yii::t('traits','Description').'</th>
+				            	<th class="text-center">'.Yii::t('traits','Unit Price').'</th>
+				            	<th class="text-center">'.Yii::t('traits','Quantity').'</th>
 				            	<th class="text-center">'.Yii::t('traits','Subtotal').'</th>
 				            </tr>
 			            </thead>
-			            <tbody>
-				            <tr>
-				              	<td class="text-center">1</td>
-				              	<td class="text-center">Call of Duty</td>
-				              	<td class="text-center">455-981-221</td>
-				              	<td class="text-center">El snort testosterone trophy driving gloves handsome</td>
-				              	<td class="text-center">$64.50</td>
-				            </tr>
-				            <tr>
-				              	<td class="text-center">1</td>
-				              	<td class="text-center">Need for Speed IV</td>
-				              	<td class="text-center">247-925-726</td>
-				              	<td class="text-center">Wes Anderson umami biodiesel</td>
-				              	<td class="text-center">$50.00</td>
-				            </tr>
-				            <tr>
-				              	<td class="text-center">1</td>
-				              	<td class="text-center">Monsters DVD</td>
-				              	<td class="text-center">735-845-642</td>
-				              	<td class="text-center">Terry Richardson helvetica tousled street art master</td>
-				              	<td class="text-center">$10.70</td>
-				            </tr>
-				            <tr>
-				              	<td class="text-center">1</td>
-				              	<td class="text-center">Grown Ups Blue Ray</td>
-				              	<td class="text-center">422-568-642</td>
-				              	<td class="text-center">Tousled lomo letterpress</td>
-				              	<td class="text-center">$25.99</td>
-				            </tr>
-			            </tbody>
+			            <tbody>';
+
+		foreach($this->invoiceItems as $item)
+		{
+			$html .= '<tr>
+				          <td class="text-center">'.$item['product'].'</td>
+				          <td class="text-center">'.$item['serial'].'</td>
+				          <td class="text-center">'.$item['description'].'</td>
+				          <td class="text-center">'.$item['product_price'].'</td>
+				          <td class="text-center">'.$item['quantity'].'</td>
+				          <td class="text-center">'.$item['subtotal'].'</td>
+			</tr>';
+		}
+
+		$html .= '	            </tbody>
 		        	</table>
 		        </div><!-- /.col -->
 		    </div><!-- /.row -->';

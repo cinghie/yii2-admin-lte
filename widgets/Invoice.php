@@ -12,11 +12,13 @@
 
 namespace cinghie\adminlte\widgets;
 
+use Yii;
 use yii\bootstrap\Widget;
 
 class Invoice extends Widget
 {
 	public $companyName;
+	public $companyLogo;
 	public $invoiceDate;
 	public $invoiceFromName;
 	public $invoiceFromAddress;
@@ -44,8 +46,24 @@ class Invoice extends Widget
 			$this->companyName = 'AdminLTE, Inc.';
 		}
 
+		if ($this->companyLogo === null) {
+			$this->companyLogo = '<i class="fa fa-globe"></i> ';
+		}
+
 		if ($this->invoiceDate === null) {
 			$this->invoiceDate = '2/10/2014';
+		}
+
+		if($this->invoiceFromName === null) {
+			$this->invoiceFromName = 'Admin, Inc.';
+		}
+
+		if($this->invoiceFromAddress === null) {
+			$this->invoiceFromAddress = '795 Folsom Ave, Suite 600';
+		}
+
+		if($this->invoiceFromAddressInfo === null) {
+			$this->invoiceFromAddressInfo = 'San Francisco, CA 94107';
 		}
 	}
 
@@ -54,32 +72,32 @@ class Invoice extends Widget
 	 */
 	public function run()
 	{
-		return '<section class="invoice">
+		$html = '<section class="invoice">';
 
-	      	<!-- title row -->
+		$html.= '<!-- title row -->
 	      	<div class="row">
 		        <div class="col-xs-12">
 			    	<h2 class="page-header">
-			        	<i class="fa fa-globe"></i> '.$this->companyName.'
+			        	'.$this->companyLogo.$this->companyName.'
 			            <small class="pull-right">'.\Yii::t('traits', 'Date').': '.$this->invoiceDate.'</small>
 			        </h2>
 		        </div><!-- /.col -->
-	      	</div>
-	      	
-	      	<!-- info row -->
+	      	</div>';
+
+		$html .= '<!-- info row -->
 	        <div class="row invoice-info">
 		        <div class="col-sm-4 invoice-col">
-		        	From
+		        	'.Yii::t('traits','From').'
 		          	<address>
-			            <strong>Admin, Inc.</strong><br>
-			            795 Folsom Ave, Suite 600<br>
-			            San Francisco, CA 94107<br>
-			            Phone: (804) 123-5432<br>
-			            Email: info@almasaeedstudio.com
+			            <strong>'.$this->invoiceFromName.'</strong><br>
+			            '.$this->invoiceFromAddress.'<br>
+			            '.$this->invoiceFromAddressInfo.'<br>
+			            '.Yii::t('traits','Phone').': '.$this->invoiceFromPhone.'<br>
+			            '.Yii::t('traits','Email').': '.$this->invoiceFromEmail.'
 		          	</address>
 		        </div><!-- /.col -->
 		        <div class="col-sm-4 invoice-col">
-		            To
+		            '.Yii::t('traits','To').'
 			        <address>
 			            <strong>John Doe</strong><br>
 			            795 Folsom Ave, Suite 600<br>
@@ -95,56 +113,56 @@ class Invoice extends Widget
 		          	<b>Payment Due:</b> 2/22/2014<br>
 		          	<b>Account:</b> 968-34567
 		        </div><!-- /.col -->
-		    </div><!-- /.row -->
-		    
-		    <!-- Table row -->
+		    </div><!-- /.row -->';
+
+		$html .= '<!-- Table row -->
 		    <div class="row">
 		        <div class="col-xs-12 table-responsive">
 		        	<table class="table table-striped">
 			            <thead>
 				            <tr>
-				            	<th>Qty</th>
-				            	<th>Product</th>
-				            	<th>Serial #</th>
-				            	<th>Description</th>
-				            	<th>Subtotal</th>
+				            	<th class="text-center">'.Yii::t('traits','Quantity').'</th>
+				            	<th class="text-center">'.Yii::t('traits','Product').'</th>
+				            	<th class="text-center">'.Yii::t('traits','Serial').'</th>
+				            	<th class="text-center">'.Yii::t('traits','Description').'</th>
+				            	<th class="text-center">'.Yii::t('traits','Subtotal').'</th>
 				            </tr>
 			            </thead>
 			            <tbody>
 				            <tr>
-				              	<td>1</td>
-				              	<td>Call of Duty</td>
-				              	<td>455-981-221</td>
-				              	<td>El snort testosterone trophy driving gloves handsome</td>
-				              	<td>$64.50</td>
+				              	<td class="text-center">1</td>
+				              	<td class="text-center">Call of Duty</td>
+				              	<td class="text-center">455-981-221</td>
+				              	<td class="text-center">El snort testosterone trophy driving gloves handsome</td>
+				              	<td class="text-center">$64.50</td>
 				            </tr>
 				            <tr>
-				              	<td>1</td>
-				              	<td>Need for Speed IV</td>
-				              	<td>247-925-726</td>
-				              	<td>Wes Anderson umami biodiesel</td>
-				              	<td>$50.00</td>
+				              	<td class="text-center">1</td>
+				              	<td class="text-center">Need for Speed IV</td>
+				              	<td class="text-center">247-925-726</td>
+				              	<td class="text-center">Wes Anderson umami biodiesel</td>
+				              	<td class="text-center">$50.00</td>
 				            </tr>
 				            <tr>
-				              	<td>1</td>
-				              	<td>Monsters DVD</td>
-				              	<td>735-845-642</td>
-				              	<td>Terry Richardson helvetica tousled street art master</td>
-				              	<td>$10.70</td>
+				              	<td class="text-center">1</td>
+				              	<td class="text-center">Monsters DVD</td>
+				              	<td class="text-center">735-845-642</td>
+				              	<td class="text-center">Terry Richardson helvetica tousled street art master</td>
+				              	<td class="text-center">$10.70</td>
 				            </tr>
 				            <tr>
-				              	<td>1</td>
-				              	<td>Grown Ups Blue Ray</td>
-				              	<td>422-568-642</td>
-				              	<td>Tousled lomo letterpress</td>
-				              	<td>$25.99</td>
+				              	<td class="text-center">1</td>
+				              	<td class="text-center">Grown Ups Blue Ray</td>
+				              	<td class="text-center">422-568-642</td>
+				              	<td class="text-center">Tousled lomo letterpress</td>
+				              	<td class="text-center">$25.99</td>
 				            </tr>
 			            </tbody>
 		        	</table>
 		        </div><!-- /.col -->
-		    </div><!-- /.row -->
-		    
-		    <!-- accepted payments column -->
+		    </div><!-- /.row -->';
+
+		$html .= '<!-- accepted payments column -->
 		    <div class="row">
 		        <div class="col-xs-6">
 		        	<p class="lead">Payment Methods:</p>
@@ -182,9 +200,9 @@ class Invoice extends Widget
 			            </table>
 		          	</div>
 		        </div><!-- /.col -->
-      		</div><!-- /.row -->
-      		
-      		<!-- this row will not appear when printing -->
+      		</div><!-- /.row -->';
+
+		$html .= '<!-- this row will not appear when printing -->
 	      	<div class="row no-print">
 		        <div class="col-xs-12">
 		          	<a href="" target="_blank" class="btn btn-default"><i class="fa fa-print"></i> Print</a>
@@ -195,11 +213,16 @@ class Invoice extends Widget
 		            	<i class="fa fa-download"></i> Generate PDF
 		          	</button>
 		        </div>
-	      	</div>
-	      	
-	    </section>';
+	      	</div>';
+
+		$html .= '</section>';
+
+		return $html;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function demo()
 	{
 		return '<section class="invoice">

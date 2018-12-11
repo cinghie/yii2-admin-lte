@@ -17,6 +17,11 @@ use kartik\grid\GridView as BaseGridView;
 class GridView extends BaseGridView
 {
 	/**
+	 * @var boolean whether the grid will highlight row on `hover`. Applicable only if `bootstrap` is `true`.
+	 */
+	public $hover = true;
+
+	/**
 	 * @var boolean whether the grid view will be rendered within a pjax container. Defaults to `false`. If set to
 	 * `true`, the entire GridView widget will be parsed via Pjax and auto-rendered inside a yii\widgets\Pjax
 	 * widget container. If set to `false` pjax will be disabled and none of the pjax settings will be applied.
@@ -38,9 +43,4 @@ class GridView extends BaseGridView
 	public $pjaxSettings = [
 		'neverTimeout' => true,
 	];
-
-	/**
-	 * @var boolean whether the grid will highlight row on `hover`. Applicable only if `bootstrap` is `true`.
-	 */
-	public $hover = true;
 }

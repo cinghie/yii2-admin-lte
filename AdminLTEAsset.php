@@ -47,6 +47,7 @@ class AdminLTEAsset extends AssetBundle
 	public $js = [
 		'bower_components/datatables.net/js/jquery.dataTables.js',
 		'bower_components/datatables.net-bs/js/dataTables.bootstrap.js',
+		'bower_components/fastclick/lib/fastclick.js',
 		'dist/js/adminlte.js'
 	];
 

@@ -47,6 +47,7 @@ class AdminLTEMinifyAsset extends AssetBundle
 	public $js = [
 		'bower_components/datatables.net/js/jquery.dataTables.min.js',
 		'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js',
+		'bower_components/fastclick/lib/fastclick.js',
 		'dist/js/adminlte.min.js'
 	];
 	

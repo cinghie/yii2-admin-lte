@@ -37,14 +37,17 @@ class AdminLTEAsset extends AssetBundle
 	 * @inherit
 	 */
 	public $css = [
-		'css/AdminLTE.css'
+		'bower_components/datatables.net-bs/css/dataTables.bootstrap.css',
+		'dist/css/AdminLTE.css'
 	];
 
 	/**
 	 * @inherit
 	 */
 	public $js = [
-		'js/adminlte.js'
+		'bower_components/datatables.net/js/jquery.dataTables.js',
+		'bower_components/datatables.net-bs/js/dataTables.bootstrap.js',
+		'dist/js/adminlte.js'
 	];
 
 	/**
@@ -77,7 +80,7 @@ class AdminLTEAsset extends AssetBundle
 			if (('_all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0)) {
 				throw new Exception('Invalid skin specified');
 			}
-			$this->css[] = sprintf('css/skins/%s.min.css', $this->skin);
+			$this->css[] = sprintf('dist/css/skins/%s.min.css', $this->skin);
 		}
 		parent::init();
 	}

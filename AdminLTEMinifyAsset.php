@@ -31,20 +31,23 @@ class AdminLTEMinifyAsset extends AssetBundle
     /**
      * @inherit
      */
-	public $sourcePath = '@vendor/almasaeed2010/adminlte/dist/';
+	public $sourcePath = '@vendor/almasaeed2010/adminlte/';
 
     /**
      * @inherit
      */
     public $css = [
-	    'css/AdminLTE.min.css'
+	    'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css',
+	    'dist/css/AdminLTE.min.css'
 	];
 	
 	/**
      * @inherit
      */
 	public $js = [
-		'js/adminlte.min.js'
+		'bower_components/datatables.net/js/jquery.dataTables.min.js',
+		'bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js',
+		'dist/js/adminlte.min.js'
 	];
 	
 	/**
@@ -77,7 +80,7 @@ class AdminLTEMinifyAsset extends AssetBundle
 			if (('_all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0)) {
 				throw new Exception('Invalid skin specified');
 			}
-			$this->css[] = sprintf('css/skins/%s.min.css', $this->skin);
+			$this->css[] = sprintf('dist/css/skins/%s.min.css', $this->skin);
 		}
 		parent::init();
 	}

@@ -63,6 +63,9 @@ class Invoice extends Widget
 	/** @var string $invoiceOrderID */
 	public $invoiceOrderID;
 
+	/** @var string $invoiceAmountDue */
+	public $invoiceAmountDue;
+
 	/** @var string $invoicePaymentDue */
 	public $invoicePaymentDue;
 
@@ -139,6 +142,10 @@ class Invoice extends Widget
 
 		if($this->invoiceOrderID) {
 			$this->invoiceOrderID = '<b>'.Yii::t('traits','Order ID').':</b> '.$this->invoiceOrderID;
+		}
+
+		if($this->invoicePaymentDue) {
+			$this->invoiceAmountDue = Yii::t('traits','Amount Due').' '.$this->invoicePaymentDue;
 		}
 
 		if($this->invoicePaymentDue) {
@@ -260,24 +267,24 @@ class Invoice extends Widget
 		          	</p>
 		        </div><!-- /.col -->
 		        <div class="col-xs-6">
-		          	<p class="lead">Amount Due 2/22/2014</p>
+		          	<p class="lead">'.$this->invoiceAmountDue.'</p>
 		
 		          	<div class="table-responsive">
 			            <table class="table">
 			            	<tr>
-			                	<th style="width:50%">Subtotal:</th>
+			                	<th style="width:50%">'.Yii::t('traits','Subtotal').':</th>
 			                	<td>$250.30</td>
 			              	</tr>
 			              	<tr>
-			                	<th>Tax (9.3%)</th>
+			                	<th>'.Yii::t('traits','Tax').' (9.3%)</th>
 			                	<td>$10.34</td>
 			              	</tr>
 			              	<tr>
-			                	<th>Shipping:</th>
+			                	<th>'.Yii::t('traits','Shipping').':</th>
 			                	<td>$5.80</td>
 			              	</tr>
 			              	<tr>
-			                	<th>Total:</th>
+			                	<th>'.Yii::t('traits','Total').':</th>
 			                	<td>$265.24</td>
 			              	</tr>
 			            </table>

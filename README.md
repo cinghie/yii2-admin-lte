@@ -1,4 +1,11 @@
 # Yii2 AdminLTE
+
+![Latest Stable Version](https://img.shields.io/packagist/v/cinghie/yii2-admin-lte.svg)
+![License](https://img.shields.io/packagist/l/cinghie/yii2-admin-lte.svg)
+![Latest Release Date](https://img.shields.io/github/release-date/cinghie/yii2-admin-lte.svg)
+![Latest Commit](https://img.shields.io/github/last-commit/cinghie/yii2-admin-lte.svg)
+[![Total Downloads](https://img.shields.io/packagist/dt/cinghie/yii2-admin-lte.svg)](https://packagist.org/packages/cinghie/yii2-admin-lte)
+
 Asset Bundle to include AdminLTE on your Yii 2 project: https://github.com/almasaeed2010/AdminLTE/
 
 Installation

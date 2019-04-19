@@ -35,6 +35,7 @@ class AdminLTEAsset extends AssetBundle
 	 */
 	public $css = [
 		'bower_components/datatables.net-bs/css/dataTables.bootstrap.css',
+		'bower_components/jvectormap/jquery-jvectormap.css',
 		'dist/css/AdminLTE.css'
 	];
 
@@ -45,7 +46,11 @@ class AdminLTEAsset extends AssetBundle
 		'bower_components/datatables.net/js/jquery.dataTables.js',
 		'bower_components/datatables.net-bs/js/dataTables.bootstrap.js',
 		'bower_components/fastclick/lib/fastclick.js',
-		'dist/js/adminlte.js'
+		'dist/js/adminlte.js',
+		'bower_components/jquery-sparkline/dist/jquery.sparkline.js',
+		'bower_components/jvectormap/jquery-jvectormap.js',
+		'plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
+		'bower_components/chart.js/Chart.js',
 	];
 
 	/**
@@ -79,6 +84,7 @@ class AdminLTEAsset extends AssetBundle
 			}
 			$this->css[] = sprintf('dist/css/skins/%s.min.css', $this->skin);
 		}
+
 		parent::init();
 	}
 }

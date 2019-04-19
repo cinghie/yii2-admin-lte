@@ -21,13 +21,10 @@ use yii\web\AssetBundle;
 use yii\web\YiiAsset;
 
 /**
- * Class yii2-AdminLTEAsset
- *
- * @package cinghie\adminlte
+ * Class AdminLTEMinifyAsset
  */
 class AdminLTEMinifyAsset extends AssetBundle
 {
-
     /**
      * @inherit
      */
@@ -70,13 +67,12 @@ class AdminLTEMinifyAsset extends AssetBundle
 	public $skin = '_all-skins';
 
 	/**
-	 * @inheritdoc
+	 * Append skin color file if specified
 	 *
 	 * @throws Exception
 	 */
 	public function init()
 	{
-		// Append skin color file if specified
 		if ($this->skin) {
 			if (('_all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0)) {
 				throw new Exception('Invalid skin specified');
@@ -85,5 +81,4 @@ class AdminLTEMinifyAsset extends AssetBundle
 		}
 		parent::init();
 	}
-
 }

@@ -16,38 +16,56 @@ use Yii;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\helpers\Html;
+use yii\widgets\Menu;
 
 /**
- * Class Menu
- *
- * Theme menu widget.
+ * Class SidebarMenu
  */
-class SidebarMenu extends \yii\widgets\Menu
+class SidebarMenu extends Menu
 {
-
 	/**
-	 * @inheritdoc
-	 */
+	 * @var string
+	 **/
 	public $linkTemplate = '<a href="{url}">{icon} {label}</a>';
 
 	/**
-	 * @inheritdoc
-	 *
-	 * Styles all labels of items on sidebar by AdminLTE
-	 */
+	 * @var string
+	 **/
 	public $labelTemplate = '<span>{label}</span>';
+
+	/**
+	 * @var string
+	 **/
 	public $submenuTemplate = "\n<ul class='treeview-menu' {show}>\n{items}\n</ul>\n";
+
+	/**
+	 * @var boolean
+	 **/
 	public $activateParents = true;
-	public $defaultIconHtml = '<i class="fa fa-circle-o"></i> ';
+
+	/**
+	 * @var string
+	 **/
+	public $defaultIconHtml = '';
+
+	/**
+	 * @var array
+	 **/
 	public $options = ['class' => 'sidebar-menu', 'data-widget' => 'tree'];
 
 	/**
-	 * @var string is prefix that will be added to $item['icon'] if it exist.
-	 *
-	 * By default uses for Font Awesome (http://fontawesome.io/)
+	 * @var string
 	 */
 	public static $iconClassPrefix = '';
+
+	/**
+	 * @var boolean
+	 **/
 	private $noDefaultAction;
+
+	/**
+	 * @var boolean
+	 **/
 	private $noDefaultRoute;
 
 	/**
@@ -154,18 +172,22 @@ class SidebarMenu extends \yii\widgets\Menu
 	 */
 	protected function normalizeItems($items, &$active)
 	{
-		foreach ($items as $i => $item) {
+		foreach ($items as $i => $item)
+		{
 			if (isset($item['visible']) && !$item['visible']) {
 				unset($items[$i]);
 				continue;
 			}
+
 			if (!isset($item['label'])) {
 				$item['label'] = '';
 			}
+
 			$encodeLabel = isset($item['encode']) ? $item['encode'] : $this->encodeLabels;
 			$items[$i]['label'] = $encodeLabel ? Html::encode($item['label']) : $item['label'];
 			$items[$i]['icon'] = isset($item['icon']) ? $item['icon'] : '';
 			$hasActiveChild = false;
+
 			if (isset($item['items'])) {
 				$items[$i]['items'] = $this->normalizeItems($item['items'], $hasActiveChild);
 				if (empty($items[$i]['items']) && $this->hideEmptyItems) {
@@ -176,6 +198,7 @@ class SidebarMenu extends \yii\widgets\Menu
 					}
 				}
 			}
+
 			if (!isset($item['active'])) {
 				if ($this->activateParents && $hasActiveChild || $this->activateItems && $this->isItemActive($item)) {
 					$active = $items[$i]['active'] = true;
@@ -190,27 +213,28 @@ class SidebarMenu extends \yii\widgets\Menu
 	}
 
 	/**
-	 * Checks whether a menu item is active.
-	 * This is done by checking if [[route]] and [[params]] match that specified in the `url` option of the menu item.
-	 * When the `url` option of a menu item is specified in terms of an array, its first element is treated
-	 * as the route for the item and the rest of the elements are the associated parameters.
-	 * Only when its route and parameters match [[route]] and [[params]], respectively, will a menu item
-	 * be considered active.
 	 * @param array $item the menu item to be checked
+	 *
 	 * @return boolean whether the menu item is active
 	 */
 	protected function isItemActive($item)
 	{
-		if (isset($item['url']) && is_array($item['url']) && isset($item['url'][0])) {
+		if (isset($item['url']) && is_array($item['url']) && isset($item['url'][0]))
+		{
 			$route = $item['url'][0];
+
 			if ($route[0] !== '/' && Yii::$app->controller) {
 				$route = ltrim(Yii::$app->controller->module->getUniqueId() . '/' . $route, '/');
 			}
+
 			$route = ltrim($route, '/');
+
 			if ($route != $this->route && $route !== $this->noDefaultRoute && $route !== $this->noDefaultAction) {
 				return false;
 			}
+
 			unset($item['url']['#']);
+
 			if (count($item['url']) > 1) {
 				foreach (array_splice($item['url'], 1) as $name => $value) {
 					if ($value !== null && (!isset($this->params[$name]) || $this->params[$name] != $value)) {
@@ -218,9 +242,10 @@ class SidebarMenu extends \yii\widgets\Menu
 					}
 				}
 			}
+
 			return true;
 		}
+
 		return false;
 	}
-
 }

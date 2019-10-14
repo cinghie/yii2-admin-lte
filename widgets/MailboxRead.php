@@ -214,7 +214,7 @@ class MailboxRead extends Widget
 				{
 					$html .= '<li>
 				    	<span class="mailbox-attachment-icon">
-				    		'.$attachment->getAttachmentPreview('img-responsive','display: block; height: 92px; margin: 0 auto; max-width: 100%;').'
+				    		'.$attachment->getAttachmentTypeIcon().'
 				    	</span>
 						<div class="mailbox-attachment-info">
 				        	<a href="'.$attachment->fileUrl.'" class="mailbox-attachment-name" style="display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">

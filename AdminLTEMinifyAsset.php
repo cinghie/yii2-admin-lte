@@ -50,7 +50,7 @@ class AdminLTEMinifyAsset extends AssetBundle
 		'bower_components/jquery-sparkline/dist/jquery.sparkline.min.js',
 		'plugins/jvectormap/jquery-jvectormap-1.2.2.min.js',
 		'plugins/jvectormap/jquery-jvectormap-world-mill-en.js',
-		'bower_components/chart.js/Chart.min.js',
+		'bower_components/chart.js/Chart.js',
 	];
 	
 	/**

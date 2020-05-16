@@ -39,7 +39,7 @@ class GridView extends baseGrid
     /**
      * @var bool is condensed
      */
-    public $condensed = false;
+    public $condensed = true;
 
     /**
      * @var bool is striped
@@ -49,7 +49,17 @@ class GridView extends baseGrid
     /**
      * @var bool is row have hover effect
      */
-    public $hover = false;
+    public $hover = true;
+
+    /**
+     * @var boolean whether the grid will have a `responsive` style. Applicable only if `bootstrap` is `true`.
+     */
+    public $responsive = true;
+
+    /**
+     * @var boolean whether the grid will automatically wrap to fit columns for smaller display sizes.
+     */
+    public $responsiveWrap = true;
 
     /**
      * @inheritdoc
@@ -75,6 +85,17 @@ class GridView extends baseGrid
         }
 
         parent::init();
+    }
+
+    /**
+     * @return string|void
+     * @throws InvalidConfigException
+     */
+    public function run()
+    {
+        //echo '<div class="box box-info">';
+        parent::run();
+        //echo '</div>';
     }
 
     /**

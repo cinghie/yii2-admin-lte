@@ -12,24 +12,76 @@
 
 namespace cinghie\adminlte\widgets;
 
-use kartik\grid\GridView as BaseGridView;
+use yii\base\InvalidConfigException;
+use kartik\grid\GridView as baseGrid;
+use yii\helpers\Html;
 
-class GridView extends BaseGridView
+/**
+ * Class GridView
+ */
+class GridView extends baseGrid
 {
-	/**
-	 * @var boolean
-	 */
-	public $hover = true;
+    /**
+     * @var string
+     */
+    public $dataColumnClass = DataColumn::class;
 
-	/**
-	 * @var boolean
-	 */
-	public $pjax = true;
+    /**
+     * @var array
+     */
+    public $tableOptions = ['class' => 'table dataTable'];
 
-	/**
-	 * @var array
-	 */
-	public $pjaxSettings = [
-		'neverTimeout' => true,
-	];
+    /**
+     * @var bool is bordered
+     */
+    public $bordered = true;
+
+    /**
+     * @var bool is condensed
+     */
+    public $condensed = false;
+
+    /**
+     * @var bool is striped
+     */
+    public $striped = true;
+
+    /**
+     * @var bool is row have hover effect
+     */
+    public $hover = false;
+
+    /**
+     * @inheritdoc
+     *
+     * @throws InvalidConfigException
+     */
+    public function init()
+    {
+        if ($this->bordered) {
+            Html::addCssClass($this->tableOptions, 'table-bordered');
+        }
+
+        if ($this->condensed) {
+            Html::addCssClass($this->tableOptions, 'table-condensed');
+        }
+
+        if ($this->striped) {
+            Html::addCssClass($this->tableOptions, 'table-striped');
+        }
+
+        if ($this->hover) {
+            Html::addCssClass($this->tableOptions, 'table-hover');
+        }
+
+        parent::init();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function renderPager()
+    {
+        return Html::tag('div', parent::renderPager(), ['class' => 'dataTables_paginate paging_simple_numbers']);
+    }
 }

@@ -12,19 +12,34 @@
 
 namespace cinghie\adminlte\widgets;
 
+use Exception;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
+/**
+ * Class ContentHeader
+ */
 class ContentHeader extends Widget
 {
+    /**
+     * @var string
+     */
     public $breadcrumbs;
+
+    /**
+     * @var string
+     */
     public $title;
+
+    /**
+     * @var string
+     */
     public $subtitle;
 
-	/**
-	 * @inheritdoc
-	 */
+    /**
+     * @throws Exception
+     */
     public function init()
     {
         if ($this->title === null) {
@@ -51,6 +66,8 @@ class ContentHeader extends Widget
                 'links' => $this->breadcrumbs,
             ]);
         }
+
+        parent::init();
     }
 
 	/**
@@ -62,5 +79,4 @@ class ContentHeader extends Widget
                     <h1>'.Html::encode($this->title).$this->subtitle.'</h1>'.$this->breadcrumbs.
                '</section>';
     }
-
 }

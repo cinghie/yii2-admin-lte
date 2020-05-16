@@ -14,14 +14,44 @@ namespace cinghie\adminlte\widgets;
 
 use yii\bootstrap\Widget;
 
+/**
+ * Class Simplebox3
+ */
 class Simplebox3 extends Widget
 {
+    /**
+     * @var string
+     */
     public $bgclass;
+
+    /**
+     * @var string
+     */
     public $class;
+
+    /**
+     * @var string
+     */
     public $description;
+
+    /**
+     * @var string
+     */
     public $icon;
+
+    /**
+     * @var string
+     */
     public $link;
+
+    /**
+     * @var string
+     */
     public $title;
+
+    /**
+     * @var string
+     */
     public $subtitle;
 
 	/**
@@ -29,8 +59,6 @@ class Simplebox3 extends Widget
 	 */
     public function init()
     {
-        parent::init();
-
         if ($this->bgclass === null) {
             $this->bgclass = 'bg-aqua';
         }
@@ -58,6 +86,8 @@ class Simplebox3 extends Widget
         if ($this->subtitle === null) {
             $this->subtitle = 'New Orders';
         }
+
+        parent::init();
     }
 
 	/**

@@ -15,8 +15,14 @@ namespace cinghie\adminlte\widgets;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
+/**
+ * Class SidebarSearch
+ */
 class SidebarSearch extends Widget
 {
+    /**
+     * @var string
+     */
 	public $placeholder;
 
 	/**
@@ -24,11 +30,11 @@ class SidebarSearch extends Widget
 	 */
     public function init()
     {
-        parent::init();
-		
         if ($this->placeholder === null) {
             $this->placeholder = 'Search';
         }
+
+        parent::init();
     }
 
 	/**

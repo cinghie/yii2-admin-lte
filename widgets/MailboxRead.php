@@ -15,13 +15,39 @@ namespace cinghie\adminlte\widgets;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
+/**
+ * Class MailboxRead
+ */
 class MailboxRead extends Widget
 {
+    /**
+     * @var array
+     */
 	public $mailAttachments;
+
+    /**
+     * @var string
+     */
 	public $mailBody;
+
+    /**
+     * @var string
+     */
 	public $mailSender;
+
+    /**
+     * @var string
+     */
 	public $mailSubject;
+
+    /**
+     * @var string
+     */
 	public $userName;
+
+    /**
+     * @var string
+     */
 	public $userImage;
 
 	/**
@@ -29,8 +55,6 @@ class MailboxRead extends Widget
 	 */
 	public function init()
 	{
-		parent::init();
-
 		if($this->mailAttachments === null) {
 			$this->mailAttachments = [];
 		}
@@ -54,6 +78,8 @@ class MailboxRead extends Widget
 		if($this->userImage === null) {
 			$this->userImage = '';
 		}
+
+        parent::init();
 	}
 
 	/**

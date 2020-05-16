@@ -15,9 +15,19 @@ namespace cinghie\adminlte\widgets;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
+/**
+ * Class SidebarUser
+ */
 class SidebarUser extends Widget
 {
+    /**
+     * @var string
+     */
 	public $username;
+
+    /**
+     * @var string
+     */
 	public $userimg;
 
 	/**
@@ -25,8 +35,6 @@ class SidebarUser extends Widget
 	 */
 	public function init()
     {
-        parent::init();
-		
         if ($this->username === null) {
             $this->username = 'Your Username';
         }
@@ -34,6 +42,8 @@ class SidebarUser extends Widget
 		if ($this->userimg === null) {
             $this->userimg = 'https://cdn0.iconfinder.com/data/icons/user-pictures/100/matureman1-2-128.png';
         }
+
+        parent::init();
     }
 
 	/**

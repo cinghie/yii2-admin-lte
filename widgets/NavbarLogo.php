@@ -16,10 +16,24 @@ use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
+/**
+ * Class NavbarLogo
+ */
 class NavbarLogo extends Widget
 {
+    /**
+     * @var string
+     */
     public $logo_lg;
+
+    /**
+     * @var string
+     */
     public $logo_mini;
+
+    /**
+     * @var string
+     */
     public $logo_url;
 
 	/**
@@ -27,8 +41,6 @@ class NavbarLogo extends Widget
 	 */
     public function init()
     {
-        parent::init();
-
         if ($this->logo_lg === null) {
             $this->logo_lg = '<b>Admin</b>LTE';
         }
@@ -40,6 +52,8 @@ class NavbarLogo extends Widget
         if ($this->logo_url === null) {
             $this->logo_url = Yii::$app->homeUrl;
         }
+
+        parent::init();
     }
 
 	/**
@@ -52,5 +66,4 @@ class NavbarLogo extends Widget
                   <span class="logo-lg">'.$this->logo_lg.'</span>
                 </a>';
     }
-
 }

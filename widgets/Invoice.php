@@ -16,63 +16,104 @@ use Yii;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
+/**
+ * Class Invoice
+ */
 class Invoice extends Widget
 {
-	/** @var string $companyName */
+	/**
+     * @var string
+     */
 	public $companyName;
 
-	/** @var string $companyLogo */
+	/**
+     * @var string
+     */
 	public $companyLogo;
 
-	/** @var string $invoiceDate */
+	/**
+     * @var string
+     */
 	public $invoiceDate;
 
-	/** @var string $invoiceFromName */
+	/**
+     * @var string
+     */
 	public $invoiceFromName;
 
-	/** @var string $invoiceFromAddress */
+	/**
+     * @var string
+     */
 	public $invoiceFromAddress;
 
-	/** @var string $invoiceFromAddressInfo */
+	/**
+     * @var string
+     */
 	public $invoiceFromAddressInfo;
 
-	/** @var string $invoiceFromPhone */
+	/**
+     * @var string
+     */
 	public $invoiceFromPhone;
 
-	/** @var string $invoiceFromEmail */
+	/**
+     * @var string
+     */
 	public $invoiceFromEmail;
 
-	/** @var string $invoiceToName */
+	/**
+     * @var string
+     */
 	public $invoiceToName;
 
-	/** @var string $invoiceToAddress */
+	/**
+     * @var string
+     */
 	public $invoiceToAddress;
 
-	/** @var string $invoiceToAddressInfo */
+	/**
+     * @var string
+     */
 	public $invoiceToAddressInfo;
 
-	/** @var string $invoiceToPhone */
+	/**
+     * @var string
+     */
 	public $invoiceToPhone;
 
-	/** @var string $invoiceToEmail */
+	/**
+     * @var string
+     */
 	public $invoiceToEmail;
 
-	/** @var string $invoiceNumber */
+	/**
+     * @var string
+     */
 	public $invoiceNumber;
 
-	/** @var string $invoiceOrderID */
+	/**
+     * @var string
+     */
 	public $invoiceOrderID;
 
-	/** @var string $invoiceAmountDue */
+	/**
+     * @var string
+     */
 	public $invoiceAmountDue;
 
-	/** @var string $invoicePaymentDue */
+	/**
+     * @var string
+     */
 	public $invoicePaymentDue;
 
-	/** @var string $invoiceAccount */
+	/**
+     * @var string
+     */
 	public $invoiceAccount;
 
-	/** @var array $invoiceItems */
+	/**
+     * @var array
+     */
 	public $invoiceItems;
 
 	/**
@@ -80,8 +121,6 @@ class Invoice extends Widget
 	 */
 	public function init()
 	{
-		parent::init();
-
 		if ($this->companyName === null) {
 			$this->companyName = 'AdminLTE, Inc.';
 		}
@@ -169,6 +208,8 @@ class Invoice extends Widget
 				['quantity' => 1,'product'=>'Grown Ups Blue Ray','serial'=>'422-568-642','description'=>'Tousled lomo letterpress','product_price'=>'$25.99','subtotal'=>'$25.99'],
 			];
 		}
+
+        parent::init();
 	}
 
 	/**
@@ -183,7 +224,7 @@ class Invoice extends Widget
 		        <div class="col-xs-12">
 			    	<h2 class="page-header">
 			        	'.$this->companyLogo.$this->companyName.'
-			            <small class="pull-right">'.\Yii::t('traits', 'Date').': '.$this->invoiceDate.'</small>
+			            <small class="pull-right">'.Yii::t('traits', 'Date').': '.$this->invoiceDate.'</small>
 			        </h2>
 		        </div><!-- /.col -->
 	      	</div>';

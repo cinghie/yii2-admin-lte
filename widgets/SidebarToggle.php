@@ -14,6 +14,9 @@ namespace cinghie\adminlte\widgets;
 
 use yii\bootstrap\Widget;
 
+/**
+ * Class SidebarToggle
+ */
 class SidebarToggle extends Widget
 {
 	/**
@@ -22,7 +25,7 @@ class SidebarToggle extends Widget
 	public function run()
     {
         return '<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-        			<span class="sr-only">Toggle navigation</span>
-      			</a>';
+            <span class="sr-only">Toggle navigation</span>
+      	</a>';
     }
 }

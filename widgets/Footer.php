@@ -15,12 +15,34 @@ namespace cinghie\adminlte\widgets;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
+/**
+ * Class Footer
+ */
 class Footer extends Widget
 {
+    /**
+     * @var string
+     */
     public $copyright_date_start;
+
+    /**
+     * @var string
+     */
     public $copyright_date_end;
+
+    /**
+     * @var string
+     */
     public $copyright_link;
+
+    /**
+     * @var string
+     */
 	public $copyright_text;
+
+    /**
+     * @var string
+     */
 	public $version;
 
 	/**
@@ -28,8 +50,6 @@ class Footer extends Widget
 	 */
     public function init()
     {
-        parent::init();
-
         if ($this->copyright_date_start === null) {
             $this->copyright_date_start = '2014';
         }
@@ -49,6 +69,8 @@ class Footer extends Widget
         if ($this->version === null) {
             $this->version = '2.3.1';
         }
+
+        parent::init();
     }
 
 	/**

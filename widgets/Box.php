@@ -15,19 +15,66 @@ namespace cinghie\adminlte\widgets;
 use Exception;
 use kartik\grid\GridView;
 use yii\bootstrap\Widget;
+use yii\data\ArrayDataProvider;
 
+/**
+ * Class Box
+ */
 class Box extends Widget
 {
+    /**
+     * @var string
+     */
     public $buttonLeftTitle;
+
+    /**
+     * @var string
+     */
     public $buttonLeftLink;
+
+    /**
+     * @var string
+     */
     public $buttonLeftType;
+
+    /**
+     * @var string
+     */
     public $buttonRightTitle;
+
+    /**
+     * @var string
+     */
     public $buttonRightLink;
+
+    /**
+     * @var string
+     */
     public $buttonRightType;
+
+    /**
+     * @var string
+     */
     public $class;
+
+    /**
+     * @var array
+     */
     public $columns;
+
+    /**
+     * @var ArrayDataProvider
+     */
     public $dataProvider;
+
+    /**
+     * @var string
+     */
     public $type;
+
+    /**
+     * @var string
+     */
     public $title;
 
 	/**
@@ -35,8 +82,6 @@ class Box extends Widget
 	 */
     public function init()
     {
-        parent::init();
-
         if ($this->class === null) {
             $this->class = 'col-md-6 col-sm-12 col-xs-12';
         }
@@ -60,6 +105,8 @@ class Box extends Widget
         if ($this->title === null) {
             $this->title = 'Box Title';
         }
+
+        parent::init();
     }
 
 	/**

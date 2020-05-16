@@ -15,11 +15,29 @@ namespace cinghie\adminlte\widgets;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
+/**
+ * Class NavbarButton
+ */
 class NavbarButton extends Widget
 {
+    /**
+     * @var string
+     */
     public $title;
+
+    /**
+     * @var array
+     */
     public $option;
+
+    /**
+     * @var string
+     */
     public $target;
+
+    /**
+     * @var string
+     */
     public $url;
 
 	/**
@@ -27,8 +45,6 @@ class NavbarButton extends Widget
 	 */
     public function init()
     {
-        parent::init();
-
         if ($this->title === null) {
             $this->title = '<i class="fa fa-external-link"></i>';
         }
@@ -46,6 +62,8 @@ class NavbarButton extends Widget
         if ($this->url === null) {
             $this->url = 'https://www.google.com';
         }
+
+        parent::init();
     }
 
 	/**

@@ -15,22 +15,84 @@ namespace cinghie\adminlte\widgets;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 
+/**
+ * Class NavbarUser
+ */
 class NavbarUser extends Widget
 {
+    /**
+     * @var string
+     */
     public $username;
+
+    /**
+     * @var string
+     */
     public $userimg;
+
+    /**
+     * @var string
+     */
     public $usercreated;
+
+    /**
+     * @var boolean
+     */
     public $userbody;
+
+    /**
+     * @var string
+     */
     public $userbodyname1;
+
+    /**
+     * @var string
+     */
     public $userbodylink1;
+
+    /**
+     * @var string
+     */
     public $userbodyname2;
+
+    /**
+     * @var string
+     */
     public $userbodylink2;
+
+    /**
+     * @var string
+     */
     public $userbodyname3;
+
+    /**
+     * @var string
+     */
     public $userbodylink3;
+
+    /**
+     * @var boolean
+     */
     public $userfooter;
+
+    /**
+     * @var string
+     */
     public $userfootername1;
+
+    /**
+     * @var string
+     */
     public $userfooterlink1;
+
+    /**
+     * @var string
+     */
     public $userfootername2;
+
+    /**
+     * @var string
+     */
     public $userfooterlink2;
 
 	/**
@@ -98,6 +160,7 @@ class NavbarUser extends Widget
             $this->userfooterlink2 = '#';
         }
 
+        parent::init();
     }
 
 	/**
@@ -150,5 +213,4 @@ class NavbarUser extends Widget
 
         return $html;
     }
-
 }

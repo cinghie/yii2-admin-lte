@@ -7,14 +7,19 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.5.4
+* @version 1.5.5
 */
 
 namespace cinghie\adminlte\widgets;
 
-use \yii\bootstrap\Alert as BootstrapAlert;
-use \yii\bootstrap\Widget;
+use Exception;
+use Yii;
+use yii\bootstrap\Alert as BootstrapAlert;
+use yii\bootstrap\Widget;
 
+/**
+ * Class Alert
+ */
 class Alert extends Widget
 {
     /**
@@ -62,31 +67,39 @@ class Alert extends Widget
      * Initializes the widget.
      * This method will register the bootstrap asset bundle. If you override this method,
      * make sure you call the parent implementation first.
+     *
+     * @throws Exception
      */
     public function init()
     {
-        parent::init();
-
-        $session = \Yii::$app->getSession();
+        $session = Yii::$app->getSession();
         $flashes = $session->getAllFlashes();
         $appendCss = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
 
-        foreach ($flashes as $type => $data) {
-            if (isset($this->alertTypes[$type])) {
+        foreach ($flashes as $type => $data)
+        {
+            if (isset($this->alertTypes[$type]))
+            {
                 $data = (array) $data;
-                foreach ($data as $message) {
+
+                foreach ($data as $message)
+                {
                     $this->options['class'] = $this->alertTypes[$type]['class'] . $appendCss;
                     $this->options['id'] = $this->getId() . '-' . $type;
+
                     echo BootstrapAlert::widget([
                         'body' => $this->alertTypes[$type]['icon'] . $message,
                         'closeButton' => $this->closeButton,
                         'options' => $this->options,
                     ]);
                 }
-                if ($this->isAjaxRemoveFlash && !\Yii::$app->request->isAjax) {
+
+                if ($this->isAjaxRemoveFlash && !Yii::$app->request->isAjax) {
                     $session->removeFlash($type);
                 }
             }
         }
+
+        parent::init();
     }
 }

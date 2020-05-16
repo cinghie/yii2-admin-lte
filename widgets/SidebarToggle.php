@@ -7,7 +7,7 @@
  * @github https://github.com/cinghie/yii2-admin-lte
  * @license GNU GENERAL PUBLIC LICENSE VERSION 3
  * @package yii2-AdminLTE
- * @version 1.5.4
+ * @version 1.5.5
  */
 
 namespace cinghie\adminlte\widgets;

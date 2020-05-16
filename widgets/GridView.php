@@ -32,6 +32,11 @@ class GridView extends baseGrid
     public $tableOptions = ['class' => 'table dataTable'];
 
     /**
+     * @var string
+     */
+    public $boxClass = 'box-info';
+
+    /**
      * @var bool is bordered
      */
     public $bordered = true;
@@ -52,6 +57,29 @@ class GridView extends baseGrid
     public $hover = true;
 
     /**
+     * @var string the layout that determines how different sections of the list view should be organized.
+     * The layout template will be automatically set based on the [[panel]] setting. If [[panel]] is a valid
+     * array, then the [[layout]] will default to the [[panelTemplate]] property. If the [[panel]] property
+     * is set to `false`, then the [[layout]] will default to `{summary}\n{items}\n{pager}`.
+     *
+     * The following tokens will be replaced with the corresponding section contents:
+     *
+     * - `{summary}`: the summary section. See [[renderSummary()]].
+     * - `{errors}`: the filter model error summary. See [[renderErrors()]].
+     * - `{items}`: the list items. See [[renderItems()]].
+     * - `{sorter}`: the sorter. See [[renderSorter()]].
+     * - `{pager}`: the pager. See [[renderPager()]].
+     * - `{export}`: the grid export button menu. See [[renderExport()]].
+     * - `{toolbar}`: the grid panel toolbar. See [[renderToolbar()]].
+     * - `{toolbarContainer}`: the toolbar container. See [[renderToolbarContainer()]].
+     *
+     * In addition to the above tokens, refer the [[panelTemplate]] property for other tokens supported as
+     * part of the bootstrap styled panel.
+     *
+     */
+    public $layout = "{summary}\n{items}\n{pager}";
+
+    /**
      * @var boolean whether the grid will have a `responsive` style. Applicable only if `bootstrap` is `true`.
      */
     public $responsive = true;
@@ -60,6 +88,29 @@ class GridView extends baseGrid
      * @var boolean whether the grid will automatically wrap to fit columns for smaller display sizes.
      */
     public $responsiveWrap = true;
+
+    /**
+     * @var boolean whether the grid view will be rendered within a pjax container. Defaults to `false`. If set to
+     * `true`, the entire GridView widget will be parsed via Pjax and auto-rendered inside a yii\widgets\Pjax
+     * widget container. If set to `false` pjax will be disabled and none of the pjax settings will be applied.
+     */
+    public $pjax = true;
+
+    /**
+     * @var array the pjax settings for the widget. This will be considered only when [[pjax]] is set to true. The
+     * following settings are recognized:
+     * - `neverTimeout`: `boolean`, whether the pjax request should never timeout. Defaults to `true`. The pjax:timeout
+     *   event will be configured to disable timing out of pjax requests for the pjax container.
+     * - `options`: _array_, the options for the [[\yii\widgets\Pjax]] widget.
+     * - `loadingCssClass`: boolean/string, the CSS class to be applied to the grid when loading via pjax. If set to
+     *   `false` - no css class will be applied. If it is empty, null, or set to `true`, will default to
+     *   `kv-grid-loading`.
+     * - `beforeGrid`: _string_, any content to be embedded within pjax container before the Grid widget.
+     * - `afterGrid`: _string_, any content to be embedded within pjax container after the Grid widget.
+     */
+    public $pjaxSettings = [
+        'neverTimeout'=>true,
+    ];
 
     /**
      * @inheritdoc
@@ -93,9 +144,9 @@ class GridView extends baseGrid
      */
     public function run()
     {
-        //echo '<div class="box box-info">';
+        echo '<div class="box '.$this->boxClass.'">';
         parent::run();
-        //echo '</div>';
+        echo '</div>';
     }
 
     /**

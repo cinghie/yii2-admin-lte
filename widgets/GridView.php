@@ -77,7 +77,8 @@ class GridView extends baseGrid
      * part of the bootstrap styled panel.
      *
      */
-    public $layout = "{summary}\n{items}\n{pager}";
+    //public $layout = "{summary}\n{items}\n{pager}";
+    public $layout = "<div class='box-body'>{items}</div>\n<div class='box-footer clearfix'>{pager}</div>";
 
     /**
      * @var boolean whether the grid will have a `responsive` style. Applicable only if `bootstrap` is `true`.

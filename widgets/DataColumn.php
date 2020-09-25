@@ -12,7 +12,7 @@
 
 namespace cinghie\adminlte\widgets;
 
-use yii\grid\DataColumn as baseDataColumn;
+use kartik\grid\DataColumn as baseDataColumn;
 use yii\helpers\Html;
 
 /**

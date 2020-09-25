@@ -34,7 +34,7 @@ class GridView extends baseGrid
     /**
      * @var string
      */
-    public $boxClass = 'box-info';
+    public $boxClass = '';
 
     /**
      * @var bool is bordered

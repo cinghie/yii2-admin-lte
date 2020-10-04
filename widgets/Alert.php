@@ -33,23 +33,23 @@ class Alert extends Widget
     public $alertTypes = [
         'error' => [
             'class' => 'alert-danger',
-            'icon' => '<i class="icon fa fa-ban"></i>',
+            'icon' => '<i class="icon fas fa-ban"></i>',
         ],
         'danger' => [
             'class' => 'alert-danger',
-            'icon' => '<i class="icon fa fa-ban"></i>',
+            'icon' => '<i class="icon fas fa-ban"></i>',
         ],
         'success' => [
             'class' => 'alert-success',
-            'icon' => '<i class="icon fa fa-check"></i>',
+            'icon' => '<i class="icon fas fa-check"></i>',
         ],
         'info' => [
             'class' => 'alert-info',
-            'icon' => '<i class="icon fa fa-info"></i>',
+            'icon' => '<i class="icon fas fa-info"></i>',
         ],
         'warning' => [
             'class' => 'alert-warning',
-            'icon' => '<i class="icon fa fa-warning"></i>',
+            'icon' => '<i class="icon fas fa-exclamation-triangle"></i>',
         ],
     ];
 
@@ -67,23 +67,20 @@ class Alert extends Widget
      * Initializes the widget.
      * This method will register the bootstrap asset bundle. If you override this method,
      * make sure you call the parent implementation first.
-     *
-     * @throws Exception
      */
     public function init()
     {
-        $session = Yii::$app->getSession();
+        parent::init();
+
+        $session = \Yii::$app->getSession();
         $flashes = $session->getAllFlashes();
         $appendCss = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
 
-        foreach ($flashes as $type => $data)
-        {
-            if (isset($this->alertTypes[$type]))
-            {
+        foreach ($flashes as $type => $data) {
+            if (isset($this->alertTypes[$type])) {
                 $data = (array) $data;
+                foreach ($data as $message) {
 
-                foreach ($data as $message)
-                {
                     $this->options['class'] = $this->alertTypes[$type]['class'] . $appendCss;
                     $this->options['id'] = $this->getId() . '-' . $type;
 
@@ -93,13 +90,10 @@ class Alert extends Widget
                         'options' => $this->options,
                     ]);
                 }
-
-                if ($this->isAjaxRemoveFlash && !Yii::$app->request->isAjax) {
+                if ($this->isAjaxRemoveFlash && !\Yii::$app->request->isAjax) {
                     $session->removeFlash($type);
                 }
             }
         }
-
-        parent::init();
     }
 }

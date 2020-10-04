@@ -67,19 +67,25 @@ class Alert extends Widget
      * Initializes the widget.
      * This method will register the bootstrap asset bundle. If you override this method,
      * make sure you call the parent implementation first.
+     *
+     * @throws Exception
      */
     public function init()
     {
         parent::init();
 
-        $session = \Yii::$app->getSession();
+        $session = Yii::$app->getSession();
         $flashes = $session->getAllFlashes();
         $appendCss = isset($this->options['class']) ? ' ' . $this->options['class'] : '';
 
-        foreach ($flashes as $type => $data) {
-            if (isset($this->alertTypes[$type])) {
+        foreach ($flashes as $type => $data)
+        {
+            if (isset($this->alertTypes[$type]))
+            {
                 $data = (array) $data;
-                foreach ($data as $message) {
+
+                foreach ($data as $message)
+                {
 
                     $this->options['class'] = $this->alertTypes[$type]['class'] . $appendCss;
                     $this->options['id'] = $this->getId() . '-' . $type;
@@ -90,7 +96,8 @@ class Alert extends Widget
                         'options' => $this->options,
                     ]);
                 }
-                if ($this->isAjaxRemoveFlash && !\Yii::$app->request->isAjax) {
+
+                if ($this->isAjaxRemoveFlash && !Yii::$app->request->isAjax) {
                     $session->removeFlash($type);
                 }
             }

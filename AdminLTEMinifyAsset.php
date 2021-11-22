@@ -13,7 +13,6 @@
 namespace cinghie\adminlte;
 
 use cinghie\fontawesome\FontAwesomeMinifyAsset;
-use cinghie\ionicons\IoniconsMinifyAsset;
 use yii\base\Exception;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
@@ -34,6 +33,7 @@ class AdminLTEMinifyAsset extends AssetBundle
      * @inherit
      */
     public $css = [
+	    'bower_components/ionicons/css/ionicons.min.css',
 	    'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css',
 	    'bower_components/jvectormap/jquery-jvectormap.css',
 	    'dist/css/AdminLTE.min.css'
@@ -60,8 +60,7 @@ class AdminLTEMinifyAsset extends AssetBundle
 		YiiAsset::class,
 		BootstrapAsset::class,
 		BootstrapPluginAsset::class,
-		FontAwesomeMinifyAsset::class,
-		IoniconsMinifyAsset::class
+		FontAwesomeMinifyAsset::class
     ];
 
 	/**
@@ -79,7 +78,7 @@ class AdminLTEMinifyAsset extends AssetBundle
 	public function init()
 	{
 		if ($this->skin) {
-			if (('_all-skins' !== $this->skin) && (strpos($this->skin, 'skin-') !== 0)) {
+			if (('_all-skins' !== $this->skin) && (!str_starts_with($this->skin, 'skin-'))) {
 				throw new Exception('Invalid skin specified');
 			}
 			$this->css[] = sprintf('dist/css/skins/%s.min.css', $this->skin);

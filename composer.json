@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "^2.0.15",
+        "yiisoft/yii2": "~2.0.14",
         "bower-asset/bootstrap": "^3.4.1",
         "almasaeed2010/adminlte": "^2.4.18",
         "cinghie/yii2-animate": "@dev",

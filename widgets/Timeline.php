@@ -55,11 +55,27 @@ class Timeline extends Widget
             if(isset($item) && $item->created_date === $day)
             {
                 $username = User::find()->where(['id'=> $item->created_by])->one()->username;
+                $userurl = Url::toRoute(['/logger/loggers/timeline', 'user_id' => $item->created_by]);
 
-                $html .= '<div><i class="'.$item->icon.'"></i>';
+                switch ($item->action)
+                {
+                    case 'create':
+                        $bgColor = ' color-create';
+                        break;
+                    case 'update':
+                        $bgColor = ' color-update';
+                        break;
+                    case 'delete':
+                        $bgColor = ' color-delete';
+                        break;
+                    default:
+                        $bgColor = '';
+                }
+
+                $html .= '<div class=""><i class="'.$item->icon.$bgColor.'"></i>';
                 $html .= '<div class="timeline-item">
                 <span class="time"><i class="fas fa-clock"></i> '.substr($item->created_time, 0, 5).'</span>';
-                $html .= '<h3 class="timeline-header"><a href="#">'.$username.'</a> ';
+                $html .= '<h3 class="timeline-header"><a href="'.$userurl.'">'.$username.'</a> ';
                 $html .= Yii::t('traits', $item->action).' <strong>'.$item->entity_name.'</strong></h3>';
 
                 $html .= '<div class="timeline-body">';

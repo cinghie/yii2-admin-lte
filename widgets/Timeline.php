@@ -12,12 +12,28 @@
 
 namespace cinghie\adminlte\widgets;
 
-use yii\base\InvalidConfigException;
+use Yii;
+use cinghie\crm\models\Accounts;
+use cinghie\crm\models\Contacts;
+use cinghie\commerce\models\Shops;
+use cinghie\userextended\models\User;
 use yii\bootstrap\Widget;
-use yii\helpers\Html;
+use yii\helpers\Url;
 
+/**
+ * Timeline
+ */
 class Timeline extends Widget
 {
+    /**
+     * @var array
+     */
+    public $days;
+    /**
+     * @var array
+     */
+    public $items;
+
     /**
      * @inheritdoc
      */
@@ -27,45 +43,108 @@ class Timeline extends Widget
     }
 
     /**
+     * @param $day
+     * @return string
+     */
+    public function timelineItem($day)
+    {
+        $html = '';
+
+        foreach ($this->items as $item)
+        {
+            if(isset($item) && $item->created_date === $day)
+            {
+                $username = User::find()->where(['id'=> $item->created_by])->one()->username;
+
+                $html .= '<div><i class="'.$item->icon.'"></i>';
+                $html .= '<div class="timeline-item">
+                <span class="time"><i class="fas fa-clock"></i> '.substr($item->created_time, 0, 5).'</span>';
+                $html .= '<h3 class="timeline-header"><a href="#">'.$username.'</a> ';
+                $html .= Yii::t('traits', $item->action).' <strong>'.$item->entity_name.'</strong></h3>';
+
+                $html .= '<div class="timeline-body">';
+
+                switch ($item->entity_model)
+                {
+                    case 'Accounts':
+
+                        $elementModel = new Accounts();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Contacts':
+
+                        $elementModel = new Contacts();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->getFullName().'">'.$element->getFullName().'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Shops':
+
+                        $elementModel = new Shops();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+                }
+
+                $html .= '</div>';
+
+                $html .= '</div>';
+                $html .= '</div>';
+            }
+        }
+
+        return $html;
+    }
+
+    /**
+     * @param $day
+     * @return string
+     */
+    public function timelineDay($day)
+    {
+        $html = '<div class="timeline"><div class="time-label"><span class="bg-red">'.$day.'</span></div>';
+        $html .= $this->timelineItem($day);
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    /**
      * @return string
      */
     public function run()
     {
         $html = '<section class="timeline">';
-
         $html .= '<div class="row"><div class="col-md-12">';
 
+        foreach ($this->days as $day) {
+            $html .= $this->timelineDay($day['created_date']);
+        }
+
         $html .= '</div></div>';
-
-
-        $html .= '<div class="timeline">
-
-<div class="time-label">
-<span class="bg-red">10 Feb. 2014</span>
-</div>
-
-
-<div>
-<i class="fas fa-envelope bg-blue"></i>
-<div class="timeline-item">
-<span class="time"><i class="fas fa-clock"></i> 12:05</span>
-<h3 class="timeline-header"><a href="#">Support Team</a> sent you an email</h3>
-<div class="timeline-body">
-Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles,
-weebly ning heekya handango imeem plugg dopplr jibjab, movity
-jajah plickers sifteo edmodo ifttt zimbra. Babblely odeo kaboodle
-quora plaxo ideeli hulu weebly balihoo...
-</div>
-<div class="timeline-footer">
-<a class="btn btn-primary btn-sm">Read more</a>
-<a class="btn btn-danger btn-sm">Delete</a>
-</div>
-</div>
-</div>
-
-
-</div>';
-
         $html .= '</section">';
 
         return $html;

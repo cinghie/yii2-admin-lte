@@ -153,7 +153,9 @@ class Timeline extends Widget
      */
     public function run()
     {
-        $html = '<section class="timeline">';
+        $html = '<section class="timeline-tab">';
+        $html .= '</section>';
+        $html .= '<section class="timeline">';
         $html .= '<div class="row"><div class="col-md-12">';
 
         foreach ($this->days as $day) {
@@ -161,7 +163,7 @@ class Timeline extends Widget
         }
 
         $html .= '</div></div>';
-        $html .= '</section">';
+        $html .= '</section>';
 
         return $html;
     }

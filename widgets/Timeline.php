@@ -15,6 +15,7 @@ namespace cinghie\adminlte\widgets;
 use Yii;
 use cinghie\crm\models\Accounts;
 use cinghie\crm\models\Contacts;
+use cinghie\commerce\models\Manufacturer;
 use cinghie\commerce\models\Shops;
 use cinghie\userextended\models\User;
 use yii\bootstrap\Widget;
@@ -104,6 +105,20 @@ class Timeline extends Widget
 
                         if($element) {
                             $html .= '<a href="'.$url.'" title="'.$element->getFullName().'">'.$element->getFullName().'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Manufacturer':
+
+                        $elementModel = new Manufacturer();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
                         } else {
                             $html .= $item->data ?? '';
                         }

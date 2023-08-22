@@ -15,7 +15,10 @@ namespace cinghie\adminlte\widgets;
 use Yii;
 use cinghie\crm\models\Accounts;
 use cinghie\crm\models\Contacts;
+use cinghie\commerce\models\Category as ProductCategory;
 use cinghie\commerce\models\Manufacturer;
+use cinghie\commerce\models\Product;
+use cinghie\commerce\models\ProductAttribute;
 use cinghie\commerce\models\Shops;
 use cinghie\userextended\models\User;
 use yii\bootstrap\Widget;
@@ -34,14 +37,6 @@ class Timeline extends Widget
      * @var array
      */
     public $items;
-
-    /**
-     * @inheritdoc
-     */
-    public function init()
-    {
-
-    }
 
     /**
      * @param $day
@@ -83,9 +78,37 @@ class Timeline extends Widget
 
                 switch ($item->entity_model)
                 {
+                    case 'Attribute':
+
+                        $elementModel = new ProductAttribute();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->getCombinationName().'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
                     case 'Accounts':
 
                         $elementModel = new Accounts();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Category':
+
+                        $elementModel = new ProductCategory();
                         $element = $elementModel::findOne($item->entity_id);
                         $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
 
@@ -114,6 +137,20 @@ class Timeline extends Widget
                     case 'Manufacturer':
 
                         $elementModel = new Manufacturer();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Product':
+
+                        $elementModel = new Product();
                         $element = $elementModel::findOne($item->entity_id);
                         $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
 

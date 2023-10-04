@@ -13,13 +13,19 @@
 namespace cinghie\adminlte\widgets;
 
 use Yii;
-use cinghie\crm\models\Accounts;
-use cinghie\crm\models\Contacts;
+use cinghie\commerce\models\Accounts;
+use cinghie\commerce\models\Carrier;
 use cinghie\commerce\models\Category as ProductCategory;
+use cinghie\commerce\models\Contacts;
+use cinghie\commerce\models\Currency;
 use cinghie\commerce\models\Manufacturer;
+use cinghie\commerce\models\Order;
+use cinghie\commerce\models\Payment;
+use cinghie\commerce\models\PaymentMethod;
 use cinghie\commerce\models\Product;
 use cinghie\commerce\models\ProductAttribute;
-use cinghie\commerce\models\Shops;
+use cinghie\commerce\models\Shop;
+use cinghie\commerce\models\Tax;
 use cinghie\userextended\models\User;
 use yii\bootstrap\Widget;
 use yii\helpers\Url;
@@ -32,11 +38,12 @@ class Timeline extends Widget
     /**
      * @var array
      */
-    public $days;
+    public array $days;
+
     /**
      * @var array
      */
-    public $items;
+    public array $items;
 
     /**
      * @param $day
@@ -53,20 +60,13 @@ class Timeline extends Widget
                 $username = User::find()->where(['id'=> $item->created_by])->one()->username;
                 $userurl = Url::toRoute(['/logger/loggers/timeline', 'user_id' => $item->created_by]);
 
-                switch ($item->action)
-                {
-                    case 'create':
-                        $bgColor = ' color-create';
-                        break;
-                    case 'update':
-                        $bgColor = ' color-update';
-                        break;
-                    case 'delete':
-                        $bgColor = ' color-delete';
-                        break;
-                    default:
-                        $bgColor = '';
-                }
+	            $bgColor = match ($item->action)
+	            {
+		            'create' => ' color-create',
+		            'update' => ' color-update',
+		            'delete' => ' color-delete',
+		            default => '',
+	            };
 
                 $html .= '<div class=""><i class="'.$item->icon.$bgColor.'"></i>';
                 $html .= '<div class="timeline-item">
@@ -85,7 +85,7 @@ class Timeline extends Widget
                         $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
 
                         if($element) {
-                            $html .= '<a href="'.$url.'" title="'.$element->getCombinationName().'">'.$element->name.'</a>';
+                            $html .= '<a href="'.$url.'" title="'.$element->getCombinationName().'">'.$element->getCombinationName().'</a>';
                         } else {
                             $html .= $item->data ?? '';
                         }
@@ -95,6 +95,20 @@ class Timeline extends Widget
                     case 'Accounts':
 
                         $elementModel = new Accounts();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Carrier':
+
+                        $elementModel = new Carrier();
                         $element = $elementModel::findOne($item->entity_id);
                         $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
 
@@ -134,9 +148,65 @@ class Timeline extends Widget
 
                         break;
 
+                    case 'Currency':
+
+                        $elementModel = new Currency();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
                     case 'Manufacturer':
 
                         $elementModel = new Manufacturer();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Order':
+
+                        $elementModel = new Order();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->reference.'">'.$element->reference.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Payment':
+
+                        $elementModel = new Payment();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->reference.'">'.$element->reference.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'PaymentMethod':
+
+                        $elementModel = new PaymentMethod();
                         $element = $elementModel::findOne($item->entity_id);
                         $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
 
@@ -162,9 +232,23 @@ class Timeline extends Widget
 
                         break;
 
-                    case 'Shops':
+                    case 'Shop':
 
-                        $elementModel = new Shops();
+                        $elementModel = new Shop();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Tax':
+
+                        $elementModel = new Tax();
                         $element = $elementModel::findOne($item->entity_id);
                         $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
 

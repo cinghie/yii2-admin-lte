@@ -60,13 +60,20 @@ class Timeline extends Widget
                 $username = User::find()->where(['id'=> $item->created_by])->one()->username;
                 $userurl = Url::toRoute(['/logger/loggers/timeline', 'user_id' => $item->created_by]);
 
-	            $bgColor = match ($item->action)
-	            {
-		            'create' => ' color-create',
-		            'update' => ' color-update',
-		            'delete' => ' color-delete',
-		            default => '',
-	            };
+                switch ($item->action)
+                {
+                    case 'create':
+                        $bgColor = ' color-create';
+                        break;
+                    case 'update':
+                        $bgColor = ' color-update';
+                        break;
+                    case 'delete':
+                        $bgColor = ' color-delete';
+                        break;
+                    default:
+                        $bgColor = '';
+                }
 
                 $html .= '<div class=""><i class="'.$item->icon.$bgColor.'"></i>';
                 $html .= '<div class="timeline-item">

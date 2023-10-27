@@ -20,6 +20,7 @@ use cinghie\commerce\models\Contacts;
 use cinghie\commerce\models\Currency;
 use cinghie\commerce\models\Manufacturer;
 use cinghie\commerce\models\Order;
+use cinghie\commerce\models\Quote;
 use cinghie\commerce\models\Payment;
 use cinghie\commerce\models\PaymentMethod;
 use cinghie\commerce\models\Product;
@@ -238,6 +239,20 @@ class Timeline extends Widget
                         }
 
                         break;
+
+	                case 'Quote':
+
+		                $elementModel = new Quote();
+		                $element = $elementModel::findOne($item->entity_id);
+		                $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+		                if($element) {
+			                $html .= '<a href="'.$url.'" title="'.$element->reference.'">'.$element->reference.'</a>';
+		                } else {
+			                $html .= $item->data ?? '';
+		                }
+
+		                break;
 
                     case 'Shop':
 

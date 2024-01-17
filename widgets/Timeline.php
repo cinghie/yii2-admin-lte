@@ -18,13 +18,15 @@ use cinghie\commerce\models\Carrier;
 use cinghie\commerce\models\Category as ProductCategory;
 use cinghie\commerce\models\Contacts;
 use cinghie\commerce\models\Currency;
+use cinghie\commerce\models\Entry;
+use cinghie\commerce\models\Expense;
 use cinghie\commerce\models\Manufacturer;
 use cinghie\commerce\models\Order;
-use cinghie\commerce\models\Quote;
 use cinghie\commerce\models\Payment;
 use cinghie\commerce\models\PaymentMethod;
 use cinghie\commerce\models\Product;
 use cinghie\commerce\models\ProductAttribute;
+use cinghie\commerce\models\Quote;
 use cinghie\commerce\models\Shop;
 use cinghie\commerce\models\Tax;
 use cinghie\userextended\models\User;
@@ -159,6 +161,34 @@ class Timeline extends Widget
                     case 'Currency':
 
                         $elementModel = new Currency();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Entry':
+
+                        $elementModel = new Entry();
+                        $element = $elementModel::findOne($item->entity_id);
+                        $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
+
+                        if($element) {
+                            $html .= '<a href="'.$url.'" title="'.$element->name.'">'.$element->name.'</a>';
+                        } else {
+                            $html .= $item->data ?? '';
+                        }
+
+                        break;
+
+                    case 'Expense':
+
+                        $elementModel = new Expense();
                         $element = $elementModel::findOne($item->entity_id);
                         $url = Url::toRoute([$item->entity_url, 'id' => $item->entity_id]);
 

@@ -25,7 +25,7 @@
         "cinghie/yii2-animate": "^1.0.2",
         "cinghie/yii2-fontawesome": "^1.4.4",
         "cinghie/yii2-iconpicker": "@dev",
-        "cinghie/yii2-ionicons": "^1.0.4",
+        "cinghie/yii2-ionicons": "@dev",
         "cinghie/yii2-traits": "@dev"
     },
     "autoload": {

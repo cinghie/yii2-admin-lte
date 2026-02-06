@@ -7,13 +7,12 @@
 * @github https://github.com/cinghie/yii2-admin-lte
 * @license GNU GENERAL PUBLIC LICENSE VERSION 3
 * @package yii2-AdminLTE
-* @version 1.5.5
+* @version 1.5.6
 */
 
 namespace cinghie\adminlte;
 
 use cinghie\fontawesome\FontAwesomeMinifyAsset;
-use cinghie\ionicons\IoniconsMinifyAsset;
 use yii\base\Exception;
 use yii\bootstrap\BootstrapAsset;
 use yii\bootstrap\BootstrapPluginAsset;
@@ -34,9 +33,10 @@ class AdminLTEMinifyAsset extends AssetBundle
      * @inherit
      */
     public $css = [
-	    'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css',
-	    'bower_components/jvectormap/jquery-jvectormap.css',
-	    'dist/css/AdminLTE.min.css'
+		'bower_components/ionicons/css/ionicons.min.css',
+		'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css',
+		'bower_components/jvectormap/jquery-jvectormap.css',
+		'dist/css/AdminLTE.min.css'
 	];
 	
 	/**
@@ -60,8 +60,7 @@ class AdminLTEMinifyAsset extends AssetBundle
 		YiiAsset::class,
 		BootstrapAsset::class,
 		BootstrapPluginAsset::class,
-		FontAwesomeMinifyAsset::class,
-		IoniconsMinifyAsset::class
+		FontAwesomeMinifyAsset::class
     ];
 
 	/**

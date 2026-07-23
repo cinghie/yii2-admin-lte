@@ -1,26 +1,34 @@
 Footer Example
 ===============
 
+Main footer with copyright and version.
+
 ## Default Value
 
 ```
 <?php use cinghie\adminlte\widgets\Footer; ?>
 
-<!-- sidebar user panel -->
 <?= Footer::widget() ?>
 ```
 
 ## Custom Value
 
 ```
-<?php use cinghie\adminlte\widgets\SidebarSearch; ?>
+<?php use cinghie\adminlte\widgets\Footer; ?>
 
-<!-- sidebar user panel -->
 <?= Footer::widget([
     'copyright_date_start' => '2014',
-	'copyright_date_end' => 2015, // if null, echo the current year
-    'copyright_link' => 'http://www.almsaeedstudio.com',
-    'copyright_text' => 'Almsaeed Studio',
-    'version' => '2.3.1'
+    'copyright_date_end' => null,   // null → current year
+    'copyright_link' => 'https://example.com',
+    'copyright_text' => 'Example Corp',
+    'version' => '2.4.18',
 ]) ?>
 ```
+
+| Property | Default |
+|----------|---------|
+| `copyright_date_start` | `2014` |
+| `copyright_date_end` | current year |
+| `copyright_link` | Almsaeed Studio URL |
+| `copyright_text` | `Almsaeed Studio` |
+| `version` | `2.3.1` |

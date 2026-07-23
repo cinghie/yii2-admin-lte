@@ -1,12 +1,13 @@
 Sidebar Search Example
 =======================
 
+Sidebar search form (AdminLTE `sidebar-form`).
+
 ## Default Value
 
 ```
 <?php use cinghie\adminlte\widgets\SidebarSearch; ?>
 
-<!-- sidebar search form -->
 <?= SidebarSearch::widget() ?>
 ```
 
@@ -15,8 +16,13 @@ Sidebar Search Example
 ```
 <?php use cinghie\adminlte\widgets\SidebarSearch; ?>
 
-<!-- sidebar search form -->
 <?= SidebarSearch::widget([
-    'placeholder' => Yii::t('app', 'Search')
+    'placeholder' => 'Search…',
 ]) ?>
 ```
+
+| Property | Default |
+|----------|---------|
+| `placeholder` | `Search` |
+
+The form uses `method="get"` and `action="#"`. Override the widget or wrap it if you need a real search URL.

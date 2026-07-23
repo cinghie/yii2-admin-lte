@@ -87,25 +87,34 @@ class MailboxRead extends Widget
 	 */
 	public function run()
 	{
+		$userName = Html::encode((string) $this->userName);
+		$subject = Html::encode((string) $this->mailSubject);
+		$sender = Html::encode((string) $this->mailSender);
+		// Body may be trusted HTML from the app; escape attribute-like schemes in image URL only.
+		$body = (string) $this->mailBody;
+
 		$html  = '<div class="box box-widget">';
 
 		$html .= '<div class="box-header with-border">';
 
 		$html .= '<div class="mailbox-read-info">';
 		$html .= '<div class="user-block">';
-		if($this->userImage) {
-			$html .= '<img class="img-circle" src="'.$this->userImage.'" alt="'.$this->userName.'" title="'.$this->userName.'">';
+		if ($this->userImage) {
+			$src = (string) $this->userImage;
+			if (!preg_match('#^(javascript|data)\s*:#i', ltrim($src))) {
+				$html .= '<img class="img-circle" src="' . Html::encode($src) . '" alt="' . $userName . '" title="' . $userName . '">';
+			}
 		}
-		$html .= '<span class="username">'.$this->mailSubject.'</span>';
-		$html .= '<span class="description">'.$this->mailSender.'</span>';
+		$html .= '<span class="username">' . $subject . '</span>';
+		$html .= '<span class="description">' . $sender . '</span>';
 		$html .= '</div>';
 		$html .= '</div>';
 
-		$html .= '<div class="mailbox-read-message">'.$this->mailBody.'</div>';
-		
+		$html .= '<div class="mailbox-read-message">' . $body . '</div>';
+
 		$html .= '</div>';
 
-		$html .= '<div class="box-footer">'.$this->printAttachments().'</div>';
+		$html .= '<div class="box-footer">' . $this->printAttachments() . '</div>';
 
 		$html .= '</div>';
 
@@ -238,15 +247,19 @@ class MailboxRead extends Widget
 			{
 				if(!empty($attachment))
 				{
+					$fileUrl = (string) $attachment->fileUrl;
+					if (preg_match('#^(javascript|data)\s*:#i', ltrim($fileUrl))) {
+						$fileUrl = '#';
+					}
 					$html .= '<li>
 				    	<span class="mailbox-attachment-icon">
 				    		'.$attachment->getAttachmentTypeIcon().'
 				    	</span>
 						<div class="mailbox-attachment-info">
-				        	<a href="'.$attachment->fileUrl.'" class="mailbox-attachment-name" style="display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+				        	<a href="'.Html::encode($fileUrl).'" class="mailbox-attachment-name" style="display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
 				            	<i class="fa fa-paperclip"></i> '.Html::encode($attachment->filename).'
 				            </a>
-				            <span class="mailbox-attachment-size">'.$attachment->formatSize().'</span>
+				            <span class="mailbox-attachment-size">'.Html::encode($attachment->formatSize()).'</span>
 				        </div>
 				        </li>';
 				}

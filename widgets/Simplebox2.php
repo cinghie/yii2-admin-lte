@@ -13,6 +13,7 @@
 namespace cinghie\adminlte\widgets;
 
 use yii\bootstrap\Widget;
+use yii\helpers\Html;
 
 /**
  * Class Simplebox2
@@ -95,19 +96,21 @@ class Simplebox2 extends Widget
 	 */
 	public function run()
     {
-        return '<div class="'.$this->class.'">
-            <div class="info-box '.$this->bgclass.'">
+        $progress = max(0, min(100, (float) $this->progress));
+
+        return '<div class="' . Html::encode($this->class) . '">
+            <div class="info-box ' . Html::encode($this->bgclass) . '">
                 <span class="info-box-icon">
-                    <i class="'.$this->icon.'"></i>
+                    <i class="' . Html::encode($this->icon) . '"></i>
                 </span>
                 <div class="info-box-content">
-                    <span class="info-box-text">'.$this->title.'</span>
-                    <span class="info-box-number">'.$this->subtitle.'</span>
+                    <span class="info-box-text">' . Html::encode($this->title) . '</span>
+                    <span class="info-box-number">' . Html::encode($this->subtitle) . '</span>
                     <div class="progress">
-                        <div style="width: '.$this->progress.'%" class="progress-bar"></div>
+                        <div style="width: ' . $progress . '%" class="progress-bar"></div>
                     </div>
                     <span class="progress-description">
-                        '.$this->description.'
+                        ' . Html::encode($this->description) . '
                     </span>
                 </div>
             </div>

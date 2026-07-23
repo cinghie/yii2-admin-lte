@@ -50,7 +50,11 @@ Widgets Examples
 [Alert](docs/example_alert.md)  
 [Box](docs/example_box.md)  
 [Content Header](docs/example_contentheader.md)  
+[DataColumn](docs/example_datacolumn.md)  
 [Footer](docs/example_footer.md)  
+[GridView](docs/example_gridview.md)  
+[Invoice](docs/example_invoice.md)  
+[Mailbox Read](docs/example_mailboxread.md)  
 [Navbar Button](docs/example_navbarbutton.md)  
 [Navbar Logo](docs/example_navbarlogo.md)  
 [Navbar User](docs/example_navbaruser.md)  
@@ -59,3 +63,15 @@ Widgets Examples
 [Sidebar Toggle](docs/example_sidebartoggle.md)  
 [Sidebar User](docs/example_sidebaruser.md)  
 [Simplebox](docs/example_simplebox.md)  
+[Timeline](docs/example_timeline.md)  
+
+Tests
+-----------------
+
+```
+composer test
+# or
+vendor/bin/phpunit -c tests/phpunit.xml
+```
+
+Suite covers Yii2 best practices (widgets/assets/`use` imports), Invoice encoding & API, Box content/grid modes, and smoke tests for Alert / Simplebox / Footer / Navbar / Sidebar widgets.

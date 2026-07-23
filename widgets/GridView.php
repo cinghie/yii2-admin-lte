@@ -12,8 +12,8 @@
 
 namespace cinghie\adminlte\widgets;
 
-use yii\base\InvalidConfigException;
 use kartik\grid\GridView as baseGrid;
+use yii\base\InvalidConfigException;
 use yii\helpers\Html;
 
 /**

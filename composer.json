@@ -2,11 +2,11 @@
     "name": "cinghie/yii2-admin-lte",
     "description": "Asset Bundle to include AdminLTE on your Yii 2 project",
     "keywords": [
-        "yii2", 
-        "yii2 template", 
-        "yii2 AdminLTE", 
-        "AdminLTE", 
-        "adminlte", 
+        "yii2",
+        "yii2 template",
+        "yii2 AdminLTE",
+        "AdminLTE",
+        "adminlte",
         "admin lte"
     ],
     "homepage": "https://github.com/cinghie/yii2-admin-lte",
@@ -27,9 +27,24 @@
         "cinghie/yii2-iconpicker": "@dev",
         "cinghie/yii2-traits": "@dev"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5 || ^10.0 || ^11.0",
+        "roave/security-advisories": "dev-latest"
+    },
+    "suggest": {
+        "kartik-v/yii2-grid": "Required for Box grid mode and the AdminLTE GridView widget"
+    },
     "autoload": {
         "psr-4": {
             "cinghie\\adminlte\\": ""
         }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "cinghie\\adminlte\\tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit -c tests/phpunit.xml"
     }
 }

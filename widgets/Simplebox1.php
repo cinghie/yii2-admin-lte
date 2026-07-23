@@ -13,6 +13,7 @@
 namespace cinghie\adminlte\widgets;
 
 use yii\bootstrap\Widget;
+use yii\helpers\Html;
 
 /**
  * Class Simplebox1
@@ -77,14 +78,14 @@ class Simplebox1 extends Widget
 	 */
 	public function run()
     {
-        return '<div class="'.$this->class.'">
+        return '<div class="' . Html::encode($this->class) . '">
             <div class="info-box">
-                <span class="info-box-icon '.$this->bgclass.'">
-                    <i class="'.$this->icon.'"></i>
+                <span class="info-box-icon ' . Html::encode($this->bgclass) . '">
+                    <i class="' . Html::encode($this->icon) . '"></i>
                 </span>
                 <div class="info-box-content">
-                    <span class="info-box-text">'.$this->title.'</span>
-                    <span class="info-box-number">'.$this->subtitle.'</span>
+                    <span class="info-box-text">' . Html::encode($this->title) . '</span>
+                    <span class="info-box-number">' . Html::encode($this->subtitle) . '</span>
                 </div>
             </div>
         </div>';

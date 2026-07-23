@@ -13,6 +13,7 @@
 namespace cinghie\adminlte\widgets;
 
 use yii\bootstrap\Widget;
+use yii\helpers\Html;
 
 /**
  * Class Simplebox3
@@ -95,17 +96,22 @@ class Simplebox3 extends Widget
 	 */
 	public function run()
     {
-        return '<div class="'.$this->class.'">
-            <div class="small-box '.$this->bgclass.'">
+        $link = (string) $this->link;
+        if (preg_match('#^(javascript|data)\s*:#i', ltrim($link))) {
+            $link = '#';
+        }
+
+        return '<div class="' . Html::encode($this->class) . '">
+            <div class="small-box ' . Html::encode($this->bgclass) . '">
                 <div class="inner">
-                    <h3>'.$this->title.'</h3>
-                    <p>'.$this->subtitle.'</p>
+                    <h3>' . Html::encode($this->title) . '</h3>
+                    <p>' . Html::encode($this->subtitle) . '</p>
                 </div>
                 <div class="icon">
-                    <i class="'.$this->icon.'"></i>
+                    <i class="' . Html::encode($this->icon) . '"></i>
                 </div>
-                <a class="small-box-footer" href="'.$this->link.'">
-                    '.$this->description.' <i class="fa fa-arrow-circle-right"></i>
+                <a class="small-box-footer" href="' . Html::encode($link) . '">
+                    ' . Html::encode($this->description) . ' <i class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>';

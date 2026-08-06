@@ -20,6 +20,7 @@
         }
     ],
     "require": {
+        "php": ">=8.0",
         "yiisoft/yii2": "~2.0.14",
         "almasaeed2010/adminlte": "^2.4.18",
         "cinghie/yii2-animate": "^1.0.2",

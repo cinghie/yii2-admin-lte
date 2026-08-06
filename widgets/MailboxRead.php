@@ -21,6 +21,16 @@ use yii\helpers\Html;
 class MailboxRead extends Widget
 {
     /**
+     * @var bool whether mailBody contains trusted HTML and may be rendered without encoding.
+     */
+	public $allowHtmlMailBody = false;
+
+    /**
+     * @var bool whether attachment type icons contain trusted HTML and may be rendered without encoding.
+     */
+	public $allowHtmlAttachmentIcons = false;
+
+    /**
      * @var array
      */
 	public $mailAttachments;
@@ -90,8 +100,9 @@ class MailboxRead extends Widget
 		$userName = Html::encode((string) $this->userName);
 		$subject = Html::encode((string) $this->mailSubject);
 		$sender = Html::encode((string) $this->mailSender);
-		// Body may be trusted HTML from the app; escape attribute-like schemes in image URL only.
-		$body = (string) $this->mailBody;
+		$body = $this->allowHtmlMailBody
+			? (string) $this->mailBody
+			: Html::encode((string) $this->mailBody);
 
 		$html  = '<div class="box box-widget">';
 
@@ -251,9 +262,13 @@ class MailboxRead extends Widget
 					if (preg_match('#^(javascript|data)\s*:#i', ltrim($fileUrl))) {
 						$fileUrl = '#';
 					}
+					$icon = (string) $attachment->getAttachmentTypeIcon();
+					if (!$this->allowHtmlAttachmentIcons) {
+						$icon = Html::encode($icon);
+					}
 					$html .= '<li>
 				    	<span class="mailbox-attachment-icon">
-				    		'.$attachment->getAttachmentTypeIcon().'
+				    		'.$icon.'
 				    	</span>
 						<div class="mailbox-attachment-info">
 				        	<a href="'.Html::encode($fileUrl).'" class="mailbox-attachment-name" style="display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">

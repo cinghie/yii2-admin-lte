@@ -6,6 +6,7 @@ use Yii;
 use cinghie\adminlte\tests\TestCase;
 use cinghie\adminlte\widgets\Alert;
 use cinghie\adminlte\widgets\Footer;
+use cinghie\adminlte\widgets\MailboxRead;
 use cinghie\adminlte\widgets\NavbarLogo;
 use cinghie\adminlte\widgets\SidebarSearch;
 use cinghie\adminlte\widgets\SidebarToggle;
@@ -85,5 +86,61 @@ class WidgetsSmokeTest extends TestCase
 		$search = SidebarSearch::widget(['placeholder' => 'Find']);
 		$this->assertStringContainsString('Find', $search);
 		$this->assertStringContainsString('sidebar-form', $search);
+	}
+
+	public function testMailboxReadEncodesBodyAndAttachmentIconByDefault(): void
+	{
+		$attachment = new class {
+			public $fileUrl = '/document.pdf';
+			public $filename = 'document.pdf';
+
+			public function getAttachmentTypeIcon(): string
+			{
+				return '<img src=x onerror=alert(1)>';
+			}
+
+			public function formatSize(): string
+			{
+				return '1 KB';
+			}
+		};
+
+		$html = MailboxRead::widget([
+			'mailBody' => '<script>alert(1)</script>',
+			'mailAttachments' => [$attachment],
+		]);
+
+		$this->assertStringNotContainsString('<script>', $html);
+		$this->assertStringContainsString('&lt;script&gt;alert(1)&lt;/script&gt;', $html);
+		$this->assertStringNotContainsString('<img src=x onerror=alert(1)>', $html);
+		$this->assertStringContainsString('&lt;img src=x onerror=alert(1)&gt;', $html);
+	}
+
+	public function testMailboxReadAllowsExplicitTrustedHtml(): void
+	{
+		$attachment = new class {
+			public $fileUrl = '/document.pdf';
+			public $filename = 'document.pdf';
+
+			public function getAttachmentTypeIcon(): string
+			{
+				return '<i class="fa fa-file-pdf-o"></i>';
+			}
+
+			public function formatSize(): string
+			{
+				return '1 KB';
+			}
+		};
+
+		$html = MailboxRead::widget([
+			'mailBody' => '<p>Trusted body</p>',
+			'mailAttachments' => [$attachment],
+			'allowHtmlMailBody' => true,
+			'allowHtmlAttachmentIcons' => true,
+		]);
+
+		$this->assertStringContainsString('<p>Trusted body</p>', $html);
+		$this->assertStringContainsString('<i class="fa fa-file-pdf-o"></i>', $html);
 	}
 }

@@ -12,7 +12,11 @@ Renders an AdminLTE “read mail” box (subject, sender, body, attachments).
     'mailSubject' => 'Project update',
     'mailSender' => 'Jane Doe <jane@example.com>',
     'mailBody' => '<p>Hello,</p><p>Here is the update…</p>',
+    // Enable only when mailBody has already been sanitized or is fully trusted.
+    'allowHtmlMailBody' => true,
     'mailAttachments' => $attachments,   // see below
+    // Enable only when getAttachmentTypeIcon() returns fully trusted HTML.
+    'allowHtmlAttachmentIcons' => true,
 ]) ?>
 ```
 
@@ -21,6 +25,9 @@ Renders an AdminLTE “read mail” box (subject, sender, body, attachments).
 `mailAttachments` is an array of objects that implement (or expose):
 
 - `getAttachmentTypeIcon()` — HTML/icon for file type
+
+For security, `mailBody` and attachment icons are HTML-encoded by default. Set the
+corresponding `allowHtml*` option only for sanitized or fully trusted content.
 - `fileUrl` — download URL
 - `filename` — display name
 - `formatSize()` — human-readable size

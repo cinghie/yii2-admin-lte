@@ -33,7 +33,7 @@ class AdminLTEMinifyAsset extends AssetBundle
      * @inherit
      */
     public $css = [
-		'bower_components/ionicons/css/ionicons.min.css',
+		'bower_components/Ionicons/css/ionicons.min.css',
 		'bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css',
 		'bower_components/jvectormap/jquery-jvectormap.css',
 		'dist/css/AdminLTE.min.css'

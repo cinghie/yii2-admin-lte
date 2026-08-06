@@ -33,7 +33,7 @@ class AdminLTEAsset extends AssetBundle
 	 * @inherit
 	 */
 	public $css = [
-		'bower_components/ionicons/css/ionicons.css',
+		'bower_components/Ionicons/css/ionicons.css',
 		'bower_components/datatables.net-bs/css/dataTables.bootstrap.css',
 		'bower_components/jvectormap/jquery-jvectormap.css',
 		'dist/css/AdminLTE.css'

@@ -6,6 +6,17 @@
 ![Latest Commit](https://img.shields.io/github/last-commit/cinghie/yii2-admin-lte.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/cinghie/yii2-admin-lte.svg)](https://packagist.org/packages/cinghie/yii2-admin-lte)
 
+> [!WARNING]
+> ## Legacy package
+>
+> This package is based on **AdminLTE 2.x**, which is no longer actively maintained upstream.
+>
+> The package is therefore considered **legacy** and is maintained primarily for existing Yii 2 applications that still depend on AdminLTE 2.
+>
+> For new projects, consider using a solution based on **AdminLTE 3 / Bootstrap 4 or newer**: https://github.com/cinghie/yii2-adminlte3/  
+>
+> No migration to a newer AdminLTE major version is currently planned, as such a change would require significant backwards-incompatible changes.
+
 Asset Bundle to include AdminLTE on your Yii 2 project: https://github.com/almasaeed2010/AdminLTE/
 
 Installation

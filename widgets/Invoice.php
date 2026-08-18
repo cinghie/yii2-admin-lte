@@ -252,6 +252,7 @@ CSS;
 		if ($this->companyLogo === null || $this->companyLogo === '') {
 			return '<i class="fa fa-globe"></i> ';
 		}
+		// Allow only a single icon tag (FA) — not arbitrary HTML.
 		if (is_string($this->companyLogo)
 			&& preg_match('#^\s*<i\s+class="[^"]+"\s*>\s*</i>\s*$#i', $this->companyLogo)
 		) {
@@ -316,11 +317,21 @@ CSS;
 			. '</div></div>';
 	}
 
+	/**
+	 * @param mixed $value
+	 * @return bool
+	 */
 	protected function isFilled($value)
 	{
 		return $value !== null && $value !== '';
 	}
 
+	/**
+	 * @param string $label
+	 * @param string $value
+	 * @param string|null $href
+	 * @return string
+	 */
 	protected function extraLine($label, $value, $href = null)
 	{
 		$labelHtml = '<b>' . Html::encode($label) . ':</b> ';
@@ -332,6 +343,10 @@ CSS;
 		return '<span class="invoice-extra">' . $labelHtml . Html::encode($value) . '</span>';
 	}
 
+	/**
+	 * @param string $website
+	 * @return string|null
+	 */
 	protected function normalizeWebsiteHref($website)
 	{
 		$website = trim((string) $website);
@@ -348,6 +363,12 @@ CSS;
 		return 'https://' . $website;
 	}
 
+	/**
+	 * Build a safe mailto: href or null (plain text only).
+	 *
+	 * @param string $email
+	 * @return string|null
+	 */
 	protected function mailtoHref($email)
 	{
 		$sanitized = $this->sanitizeEmail($email);
@@ -378,6 +399,10 @@ CSS;
 		return filter_var($email, FILTER_VALIDATE_EMAIL) !== false ? $email : null;
 	}
 
+	/**
+	 * @param array $party
+	 * @return string
+	 */
 	protected function renderAddressBlock(array $party)
 	{
 		$parts = [];
@@ -445,6 +470,9 @@ CSS;
 		return implode('<br>', $parts);
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function renderMetaBlock()
 	{
 		$lines = [];
@@ -491,6 +519,12 @@ CSS;
 		return implode('<br>', $lines);
 	}
 
+	/**
+	 * Normalize a line-item row to display columns.
+	 *
+	 * @param array $item
+	 * @return array{product:string,serial:string,description:string,price:string,qty:string,subtotal:string}
+	 */
 	public static function normalizeItem(array $item)
 	{
 		$hasProduct = array_key_exists('product', $item) && $item['product'] !== '' && $item['product'] !== null;
@@ -511,6 +545,9 @@ CSS;
 		];
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function renderItemsTable()
 	{
 		$html = '<div class="row"><div class="col-xs-12 table-responsive invoice-items">'
@@ -549,8 +586,12 @@ CSS;
 		return $html . '</tbody></table></div></div>';
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function renderTotalsRow()
 	{
+		// Payment method stays in the meta column only (avoid duplicate labels).
 		$left = '';
 		if ($this->isFilled($this->invoiceNotes)) {
 			$left .= '<p class="text-muted invoice-notes">'
@@ -600,6 +641,9 @@ CSS;
 			. '</div>';
 	}
 
+	/**
+	 * @return string
+	 */
 	protected function renderActionsRow()
 	{
 		$printUrl = $this->resolvePrintUrl();
@@ -634,6 +678,11 @@ CSS;
 		return $html . '</div></div>';
 	}
 
+	/**
+	 * Allow only window.print() for javascript: print URLs.
+	 *
+	 * @return string
+	 */
 	protected function resolvePrintUrl()
 	{
 		$url = $this->printUrl;
@@ -657,6 +706,11 @@ CSS;
 		return $url;
 	}
 
+	/**
+	 * Resolve PDF download URL; block javascript:/data: schemes.
+	 *
+	 * @return string|null
+	 */
 	protected function resolvePdfUrl()
 	{
 		if ($this->pdfUrl === null || $this->pdfUrl === '' || $this->pdfUrl === false) {

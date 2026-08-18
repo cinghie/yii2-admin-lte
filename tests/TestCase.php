@@ -105,7 +105,13 @@ abstract class TestCase extends BaseTestCase
 			],
 		], $appConfig);
 
-		new Application($config);
+		$app = new Application($config);
+
+		// yii\web\Application::getSession() has special lazy-loading behavior.
+		// Preload and bind the in-memory component explicitly so tests never
+		// fall back to a real PHP session on older PHP/PHPUnit combinations.
+		$session = $app->get('session');
+		$app->set('session', $session);
 	}
 
 	protected function destroyApplication(): void

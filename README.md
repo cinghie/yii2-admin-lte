@@ -58,9 +58,11 @@ AdminLTEMinifyAsset::register($this);
 Widgets Examples
 -----------------
 
+[Accordion](docs/example_accordion.md) — Bootstrap 3 collapsible panels with contextual AdminLTE styles and safe content defaults.  
 [Alert](docs/example_alert.md)  
 [Box](docs/example_box.md)  
 [Calendar](docs/example_calendar.md) — FullCalendar 3 integration with Yii route URLs, dedicated assets, print support and optional AdminLTE draggable events.  
+[Carousel](docs/example_carousel.md) — Bootstrap 3 carousel with indicators, controls and safe slide/caption defaults.  
 [Content Header](docs/example_contentheader.md)  
 [DataColumn](docs/example_datacolumn.md)  
 [Footer](docs/example_footer.md)  
@@ -86,4 +88,4 @@ composer test
 vendor/bin/phpunit -c tests/phpunit.xml
 ```
 
-Suite covers Yii2 best practices (widgets/assets/`use` imports), Calendar integration, Yii URL normalization and input hardening, Invoice encoding & API, Box content/grid modes, and smoke tests for Alert / Simplebox / Footer / Navbar / Sidebar widgets.
+Suite covers Yii2 best practices (widgets/assets/`use` imports), Calendar integration, Carousel/Accordion rendering and input hardening, Yii URL normalization, Invoice encoding & API, Box content/grid modes, and smoke tests for Alert / Simplebox / Footer / Navbar / Sidebar widgets.

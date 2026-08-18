@@ -59,7 +59,6 @@ abstract class TestCase extends BaseTestCase
 				],
 				'session' => [
 					'class' => TestSession::class,
-					'useCookies' => false,
 				],
 				'request' => [
 					'class' => \yii\web\Request::class,
@@ -107,10 +106,11 @@ abstract class TestCase extends BaseTestCase
 
 		$app = new Application($config);
 
-		// Bind an already-created in-memory session instance. This avoids
-		// yii\web\Session constructor side effects on PHP 8.0/PHPUnit 9 while
-		// keeping the application runtime configuration unchanged.
-		$app->set('session', new TestSession(['useCookies' => false]));
+		// Bind a fully in-memory session without passing native Session
+		// properties through BaseObject configuration. On PHP 8.0, setters
+		// such as setUseCookies() call ini_set() during construction and fail
+		// once PHPUnit has emitted output.
+		$app->set('session', new TestSession());
 	}
 
 	protected function destroyApplication(): void

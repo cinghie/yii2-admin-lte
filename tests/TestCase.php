@@ -58,7 +58,7 @@ abstract class TestCase extends BaseTestCase
 					'class' => ArrayCache::class,
 				],
 				'session' => [
-					'class' => \yii\web\Session::class,
+					'class' => TestSession::class,
 					'useCookies' => false,
 				],
 				'request' => [
@@ -106,7 +106,6 @@ abstract class TestCase extends BaseTestCase
 		], $appConfig);
 
 		new Application($config);
-		Yii::$app->session->open();
 	}
 
 	protected function destroyApplication(): void

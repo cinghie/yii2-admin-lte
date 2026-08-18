@@ -39,6 +39,11 @@ class Carousel extends BootstrapCarousel
             throw new InvalidConfigException('Carousel "controls" must be false or an array of two elements.');
         }
 
+        if ($this->controls !== false) {
+            $this->stringify($this->controls[0], 'Carousel control');
+            $this->stringify($this->controls[1], 'Carousel control');
+        }
+
         parent::init();
         Html::addCssClass($this->options, 'cinghie-adminlte-carousel');
     }
@@ -48,24 +53,25 @@ class Carousel extends BootstrapCarousel
      */
     public function renderItem($item, $index)
     {
-        if (is_string($item) || is_numeric($item)) {
-            $item = $this->encodeContent ? Html::encode((string) $item) : (string) $item;
+        if (!is_array($item)) {
+            $content = $this->stringify($item, 'Carousel item');
+            $content = $this->encodeContent ? Html::encode($content) : $content;
 
-            return parent::renderItem($item, $index);
+            return parent::renderItem($content, $index);
         }
 
-        if (!is_array($item) || !array_key_exists('content', $item)) {
-            throw new InvalidConfigException('Each Carousel item must be a string or contain a "content" option.');
+        if (!array_key_exists('content', $item)) {
+            throw new InvalidConfigException('Each Carousel item must contain a "content" option.');
         }
 
         $encodeContent = ArrayHelper::getValue($item, 'encodeContent', $this->encodeContent);
         $encodeCaption = ArrayHelper::getValue($item, 'encodeCaption', $this->encodeCaptions);
+        $content = $this->stringify($item['content'], 'Carousel item content');
+        $item['content'] = $encodeContent ? Html::encode($content) : $content;
 
-        if ($encodeContent) {
-            $item['content'] = Html::encode((string) $item['content']);
-        }
-        if (array_key_exists('caption', $item) && $item['caption'] !== null && $encodeCaption) {
-            $item['caption'] = Html::encode((string) $item['caption']);
+        if (array_key_exists('caption', $item) && $item['caption'] !== null) {
+            $caption = $this->stringify($item['caption'], 'Carousel item caption');
+            $item['caption'] = $encodeCaption ? Html::encode($caption) : $caption;
         }
 
         unset($item['encodeContent'], $item['encodeCaption']);
@@ -81,8 +87,8 @@ class Carousel extends BootstrapCarousel
         if ($this->controls !== false && $this->encodeControls) {
             $controls = $this->controls;
             $this->controls = [
-                Html::encode((string) $controls[0]),
-                Html::encode((string) $controls[1]),
+                Html::encode($this->stringify($controls[0], 'Carousel control')),
+                Html::encode($this->stringify($controls[1], 'Carousel control')),
             ];
             try {
                 return parent::renderControls();
@@ -92,5 +98,23 @@ class Carousel extends BootstrapCarousel
         }
 
         return parent::renderControls();
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $name
+     * @return string
+     * @throws InvalidConfigException
+     */
+    private function stringify($value, $name)
+    {
+        if (is_string($value) || is_numeric($value)) {
+            return (string) $value;
+        }
+        if (is_object($value) && method_exists($value, '__toString')) {
+            return (string) $value;
+        }
+
+        throw new InvalidConfigException($name . ' must be a string, number, or stringable object.');
     }
 }

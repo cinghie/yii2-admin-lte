@@ -4,6 +4,7 @@ namespace cinghie\adminlte\tests\unit;
 
 use Yii;
 use cinghie\adminlte\tests\TestCase;
+use cinghie\adminlte\tests\TestSession;
 use cinghie\adminlte\widgets\Alert;
 use cinghie\adminlte\widgets\Footer;
 use cinghie\adminlte\widgets\MailboxRead;
@@ -26,8 +27,10 @@ class WidgetsSmokeTest extends TestCase
 
 	public function testAlertRendersFlashMessages(): void
 	{
-		Yii::$app->session->setFlash('success', 'Saved OK');
-		Yii::$app->session->setFlash('error', 'Boom');
+		$session = Yii::$app->get('session');
+		$this->assertInstanceOf(TestSession::class, $session);
+		$session->setFlash('success', 'Saved OK');
+		$session->setFlash('error', 'Boom');
 		$html = Alert::widget();
 		$this->assertStringContainsString('Saved OK', $html);
 		$this->assertStringContainsString('Boom', $html);

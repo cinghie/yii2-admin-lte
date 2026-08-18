@@ -61,14 +61,18 @@ class Accordion extends Collapse
                 throw new InvalidConfigException('The "content" option is required.');
             }
 
+            $item['label'] = $this->stringify($item['label'], 'Accordion label');
             $type = ArrayHelper::getValue($item, 'type', 'default');
-            if (!in_array($type, self::$panelTypes, true)) {
-                throw new InvalidConfigException('Invalid Accordion panel type: ' . $type);
+            if (!is_string($type) || !in_array($type, self::$panelTypes, true)) {
+                throw new InvalidConfigException('Invalid Accordion panel type.');
             }
 
             $item = $this->normalizeItemContent($item);
             $header = $item['label'];
             $options = ArrayHelper::getValue($item, 'options', []);
+            if (!is_array($options)) {
+                throw new InvalidConfigException('Accordion item "options" must be an array.');
+            }
             Html::addCssClass($options, ['panel', 'panel-' . $type]);
             unset($item['type'], $item['encodeContent'], $item['encodeFooter']);
 
@@ -87,22 +91,39 @@ class Accordion extends Collapse
         $encodeContent = ArrayHelper::getValue($item, 'encodeContent', $this->encodeContent);
         $encodeFooter = ArrayHelper::getValue($item, 'encodeFooter', $this->encodeFooters);
 
-        if ($encodeContent) {
-            if (is_array($item['content'])) {
-                foreach ($item['content'] as $key => $value) {
-                    if (is_string($value) || is_numeric($value)) {
-                        $item['content'][$key] = Html::encode((string) $value);
-                    }
-                }
-            } elseif (is_string($item['content']) || is_numeric($item['content'])) {
-                $item['content'] = Html::encode((string) $item['content']);
+        if (is_array($item['content'])) {
+            foreach ($item['content'] as $key => $value) {
+                $value = $this->stringify($value, 'Accordion list item');
+                $item['content'][$key] = $encodeContent ? Html::encode($value) : $value;
             }
+        } else {
+            $content = $this->stringify($item['content'], 'Accordion content');
+            $item['content'] = $encodeContent ? Html::encode($content) : $content;
         }
 
-        if (isset($item['footer']) && $encodeFooter) {
-            $item['footer'] = Html::encode((string) $item['footer']);
+        if (isset($item['footer'])) {
+            $footer = $this->stringify($item['footer'], 'Accordion footer');
+            $item['footer'] = $encodeFooter ? Html::encode($footer) : $footer;
         }
 
         return $item;
+    }
+
+    /**
+     * @param mixed $value
+     * @param string $name
+     * @return string
+     * @throws InvalidConfigException
+     */
+    private function stringify($value, $name)
+    {
+        if (is_string($value) || is_numeric($value)) {
+            return (string) $value;
+        }
+        if (is_object($value) && method_exists($value, '__toString')) {
+            return (string) $value;
+        }
+
+        throw new InvalidConfigException($name . ' must be a string, number, or stringable object.');
     }
 }

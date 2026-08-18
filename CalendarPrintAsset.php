@@ -21,3 +21,5 @@ class CalendarPrintAsset extends AssetBundle
 
     public $depends = [
         CalendarAsset::class,
+    ];
+}

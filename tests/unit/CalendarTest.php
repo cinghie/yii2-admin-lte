@@ -113,23 +113,16 @@ class CalendarTest extends TestCase
         $this->assertStringContainsString('external-event', $html);
     }
 
-    /**
-     * @dataProvider invalidCollectionProvider
-     */
-    public function testInvalidCollectionsAreRejected($property): void
+    public function testInvalidCollectionsAreRejected(): void
     {
-        $this->expectException(InvalidConfigException::class);
-        Calendar::widget([$property => 'invalid']);
-    }
-
-    public static function invalidCollectionProvider(): array
-    {
-        return [
-            ['events'],
-            ['clientOptions'],
-            ['options'],
-            ['externalEvents'],
-        ];
+        foreach (['events', 'clientOptions', 'options', 'externalEvents'] as $property) {
+            try {
+                Calendar::widget([$property => 'invalid']);
+                $this->fail('Expected InvalidConfigException for Calendar::' . $property . '.');
+            } catch (InvalidConfigException $exception) {
+                $this->assertStringContainsString($property, $exception->getMessage());
+            }
+        }
     }
 
     private function getRegisteredJs(): string

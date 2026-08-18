@@ -7,6 +7,7 @@ use cinghie\adminlte\CalendarPrintAsset;
 use cinghie\adminlte\tests\TestCase;
 use cinghie\adminlte\widgets\Calendar;
 use yii\base\InvalidConfigException;
+use yii\helpers\Json;
 use yii\helpers\Url;
 
 class CalendarTest extends TestCase
@@ -34,17 +35,18 @@ class CalendarTest extends TestCase
 
     public function testYiiRouteEventUrlIsNormalized(): void
     {
+        $route = ['/project/view', 'id' => 42];
         Calendar::widget([
             'events' => [[
                 'title' => 'Project',
                 'start' => '2026-08-18',
-                'url' => ['/project/view', 'id' => 42],
+                'url' => $route,
             ]],
         ]);
 
-        $expectedUrl = Url::to(['/project/view', 'id' => 42]);
-        $js = $this->getRegisteredJs();
-        $this->assertStringContainsString(str_replace('/', '\\/', $expectedUrl), $js);
+        $expectedUrl = Url::to($route);
+        $encodedUrl = trim(Json::htmlEncode($expectedUrl), '"');
+        $this->assertStringContainsString($encodedUrl, $this->getRegisteredJs());
     }
 
     public function testUnsafeEventUrlsAndColorsAreRemovedFromJavascript(): void

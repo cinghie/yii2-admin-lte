@@ -5,14 +5,22 @@ on:
     branches:
       - master
   pull_request:
+    branches:
+      - master
+  workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   phpunit:
     name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     strategy:
       fail-fast: false
@@ -37,6 +45,11 @@ jobs:
 
       - name: Validate Composer metadata
         run: composer validate --strict --no-check-publish
+
+      - name: Configure Composer for Yii assets
+        run: |
+          composer config repositories.asset-packagist composer https://asset-packagist.org
+          composer config --no-plugins allow-plugins.yiisoft/yii2-composer true
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction --no-progress

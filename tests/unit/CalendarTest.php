@@ -62,6 +62,42 @@ class CalendarTest extends TestCase
         $this->assertStringContainsString('\\u003C/script\\u003E', $js);
     }
 
+    public function testClientOptionsCannotOverrideSanitizedEvents(): void
+    {
+        Calendar::widget([
+            'events' => [[
+                'title' => 'Safe event',
+                'start' => '2026-08-18',
+            ]],
+            'clientOptions' => [
+                'events' => [[
+                    'title' => 'Injected event',
+                    'url' => 'javascript:alert(1)',
+                ]],
+            ],
+        ]);
+
+        $js = $this->getRegisteredJs();
+        $this->assertStringContainsString('Safe event', $js);
+        $this->assertStringNotContainsString('Injected event', $js);
+        $this->assertStringNotContainsString('javascript:alert(1)', $js);
+    }
+
+    public function testInvalidExternalEventColorIsNotRenderedInline(): void
+    {
+        $html = Calendar::widget([
+            'showExternalEvents' => true,
+            'externalEvents' => [[
+                'title' => 'Unsafe color',
+                'color' => 'red; background-image:url(javascript:alert(1))',
+            ]],
+        ]);
+
+        $this->assertStringContainsString('Unsafe color', $html);
+        $this->assertStringNotContainsString('background-image', $html);
+        $this->assertStringNotContainsString('javascript:alert(1)', $html);
+    }
+
     public function testExternalEventsAreEncoded(): void
     {
         $html = Calendar::widget([
@@ -77,23 +113,16 @@ class CalendarTest extends TestCase
         $this->assertStringContainsString('external-event', $html);
     }
 
-    /**
-     * @dataProvider invalidCollectionProvider
-     */
-    public function testInvalidCollectionsAreRejected($property): void
+    public function testInvalidCollectionsAreRejected(): void
     {
-        $this->expectException(InvalidConfigException::class);
-        Calendar::widget([$property => 'invalid']);
-    }
-
-    public static function invalidCollectionProvider(): array
-    {
-        return [
-            ['events'],
-            ['clientOptions'],
-            ['options'],
-            ['externalEvents'],
-        ];
+        foreach (['events', 'clientOptions', 'options', 'externalEvents'] as $property) {
+            try {
+                Calendar::widget([$property => 'invalid']);
+                $this->fail('Expected InvalidConfigException for Calendar::' . $property . '.');
+            } catch (InvalidConfigException $exception) {
+                $this->assertStringContainsString($property, $exception->getMessage());
+            }
+        }
     }
 
     private function getRegisteredJs(): string

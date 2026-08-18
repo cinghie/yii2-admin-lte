@@ -5,8 +5,10 @@ namespace cinghie\adminlte\tests\unit;
 use cinghie\adminlte\AdminLTEAsset;
 use cinghie\adminlte\AdminLTEMinifyAsset;
 use cinghie\adminlte\tests\TestCase;
+use cinghie\adminlte\widgets\Accordion;
 use cinghie\adminlte\widgets\Alert;
 use cinghie\adminlte\widgets\Box;
+use cinghie\adminlte\widgets\Carousel;
 use cinghie\adminlte\widgets\ContentHeader;
 use cinghie\adminlte\widgets\Footer;
 use cinghie\adminlte\widgets\GridView;
@@ -34,8 +36,10 @@ class Yii2BestPracticesTest extends TestCase
 	public function testCoreWidgetsExtendBootstrapWidget(): void
 	{
 		foreach ([
+			Accordion::class,
 			Alert::class,
 			Box::class,
+			Carousel::class,
 			ContentHeader::class,
 			Footer::class,
 			Invoice::class,

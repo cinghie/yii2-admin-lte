@@ -32,13 +32,13 @@ class Calendar extends Widget
 
     public function init()
     {
-        parent::init();
-
         foreach (['events', 'clientOptions', 'options', 'externalEvents'] as $property) {
             if (!is_array($this->$property)) {
                 throw new InvalidConfigException('Calendar::' . $property . ' must be an array.');
             }
         }
+
+        parent::init();
 
         if (!isset($this->options['id'])) {
             $this->options['id'] = $this->getId();
@@ -211,7 +211,7 @@ class Calendar extends Widget
         }
 
         $url = trim($url);
-        if ($url === '' || preg_match('#^(?:javascript|data|vbscript)\\s*:#i', $url)) {
+        if ($url === '' || preg_match('#^(?:javascript|data|vbscript)\s*:#i', $url)) {
             return null;
         }
 
@@ -224,12 +224,12 @@ class Calendar extends Widget
             return false;
         }
 
-        return (bool) preg_match('/^(?:#[0-9a-f]{3,8}|[a-z]{1,20}|rgba?\\(\\s*\\d{1,3}\\s*,\\s*\\d{1,3}\\s*,\\s*\\d{1,3}(?:\\s*,\\s*(?:0|1|0?\\.\\d+))?\\s*\\))$/i', trim($color));
+        return (bool) preg_match('/^(?:#[0-9a-f]{3,8}|[a-z]{1,20}|rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(?:\s*,\s*(?:0|1|0?\.\d+))?\s*\))$/i', trim($color));
     }
 
     protected function escapeJsSelector($id)
     {
-        return preg_replace('/([^a-zA-Z0-9_-])/', '\\\\$1', (string) $id);
+        return preg_replace('/([^a-zA-Z0-9_-])/', '\\$1', (string) $id);
     }
 
     protected function getExternalEventsId()

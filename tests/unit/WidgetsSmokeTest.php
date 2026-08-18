@@ -27,7 +27,7 @@ class WidgetsSmokeTest extends TestCase
 
 	public function testAlertRendersFlashMessages(): void
 	{
-		$session = Yii::$app->get('session');
+		$session = Yii::$app->getSession();
 		$this->assertInstanceOf(TestSession::class, $session);
 		$session->setFlash('success', 'Saved OK');
 		$session->setFlash('error', 'Boom');

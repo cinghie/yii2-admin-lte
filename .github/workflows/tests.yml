@@ -46,6 +46,9 @@ jobs:
       - name: Validate Composer metadata
         run: composer validate --strict --no-check-publish
 
+      - name: Configure Asset Packagist
+        run: composer config repositories.asset-packagist composer https://asset-packagist.org
+
       - name: Install dependencies
         run: composer install --prefer-dist --no-interaction --no-progress
 

@@ -7,6 +7,7 @@ use cinghie\adminlte\CalendarPrintAsset;
 use cinghie\adminlte\tests\TestCase;
 use cinghie\adminlte\widgets\Calendar;
 use yii\base\InvalidConfigException;
+use yii\helpers\Url;
 
 class CalendarTest extends TestCase
 {
@@ -41,7 +42,9 @@ class CalendarTest extends TestCase
             ]],
         ]);
 
-        $this->assertStringContainsString('/project/view?id=42', $this->getRegisteredJs());
+        $expectedUrl = Url::to(['/project/view', 'id' => 42]);
+        $js = $this->getRegisteredJs();
+        $this->assertStringContainsString(str_replace('/', '\\/', $expectedUrl), $js);
     }
 
     public function testUnsafeEventUrlsAndColorsAreRemovedFromJavascript(): void
@@ -59,7 +62,7 @@ class CalendarTest extends TestCase
         $js = $this->getRegisteredJs();
         $this->assertStringNotContainsString('javascript:alert(1)', $js);
         $this->assertStringNotContainsString('</script><script>', $js);
-        $this->assertStringContainsString('\\u003C/script\\u003E', $js);
+        $this->assertStringContainsString('\\u003C\\/script\\u003E', $js);
     }
 
     public function testClientOptionsCannotOverrideSanitizedEvents(): void

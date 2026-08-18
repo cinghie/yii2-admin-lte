@@ -20,7 +20,8 @@ abstract class TestCase extends BaseTestCase
 	{
 		$this->destroyApplication();
 
-		$runtime = dirname(__DIR__) . '/tests/runtime';
+		$packageRoot = dirname(__DIR__);
+		$runtime = $packageRoot . '/tests/runtime';
 		if (!is_dir($runtime)) {
 			mkdir($runtime, 0777, true);
 		}
@@ -29,11 +30,16 @@ abstract class TestCase extends BaseTestCase
 			mkdir($assets, 0777, true);
 		}
 
-		$vendorPath = dirname(dirname(dirname(__DIR__)));
+		// Support both a standalone repository checkout (`<root>/vendor`) and
+		// execution when this package itself is installed under vendor/cinghie/.
+		$localVendor = $packageRoot . '/vendor';
+		$vendorPath = is_dir($localVendor)
+			? $localVendor
+			: dirname(dirname(dirname(__DIR__)));
 
 		$config = ArrayHelper::merge([
 			'id' => 'adminlte-tests',
-			'basePath' => dirname(__DIR__) . '/tests',
+			'basePath' => $packageRoot . '/tests',
 			'vendorPath' => $vendorPath,
 			'runtimePath' => $runtime,
 			'aliases' => [

@@ -27,7 +27,8 @@ class CalendarTest extends TestCase
         $this->assertStringContainsString('cinghie-adminlte-calendar', $html);
         $this->assertArrayHasKey(CalendarAsset::class, \Yii::$app->view->assetBundles);
         $this->assertArrayHasKey(CalendarPrintAsset::class, \Yii::$app->view->assetBundles);
-        $this->assertStringContainsString('fullCalendar', implode("\n", \Yii::$app->view->js[3] ?? []));
+        $this->assertSame('print', \Yii::$app->view->assetBundles[CalendarPrintAsset::class]->cssOptions['media'] ?? null);
+        $this->assertStringContainsString('fullCalendar', $this->getRegisteredJs());
     }
 
     public function testYiiRouteEventUrlIsNormalized(): void
@@ -40,8 +41,7 @@ class CalendarTest extends TestCase
             ]],
         ]);
 
-        $js = implode("\n", \Yii::$app->view->js[3] ?? []);
-        $this->assertStringContainsString('/project/view?id=42', $js);
+        $this->assertStringContainsString('/project/view?id=42', $this->getRegisteredJs());
     }
 
     public function testUnsafeEventUrlsAndColorsAreRemovedFromJavascript(): void
@@ -56,7 +56,7 @@ class CalendarTest extends TestCase
             ]],
         ]);
 
-        $js = implode("\n", \Yii::$app->view->js[3] ?? []);
+        $js = $this->getRegisteredJs();
         $this->assertStringNotContainsString('javascript:alert(1)', $js);
         $this->assertStringNotContainsString('</script><script>', $js);
         $this->assertStringContainsString('\\u003C/script\\u003E', $js);
@@ -86,7 +86,7 @@ class CalendarTest extends TestCase
         Calendar::widget([$property => 'invalid']);
     }
 
-    public function invalidCollectionProvider(): array
+    public static function invalidCollectionProvider(): array
     {
         return [
             ['events'],
@@ -94,5 +94,21 @@ class CalendarTest extends TestCase
             ['options'],
             ['externalEvents'],
         ];
+    }
+
+    private function getRegisteredJs(): string
+    {
+        $registered = [];
+        foreach ((array) \Yii::$app->view->js as $scripts) {
+            if (is_array($scripts)) {
+                foreach ($scripts as $script) {
+                    $registered[] = (string) $script;
+                }
+            } elseif ($scripts !== null) {
+                $registered[] = (string) $scripts;
+            }
+        }
+
+        return implode("\n", $registered);
     }
 }

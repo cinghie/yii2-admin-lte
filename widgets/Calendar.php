@@ -3,10 +3,12 @@
 namespace cinghie\adminlte\widgets;
 
 use cinghie\adminlte\CalendarAsset;
+use cinghie\adminlte\CalendarPrintAsset;
 use yii\base\InvalidConfigException;
 use yii\bootstrap\Widget;
 use yii\helpers\Html;
 use yii\helpers\Json;
+use yii\helpers\Url;
 
 /**
  * AdminLTE 2 FullCalendar widget.
@@ -16,51 +18,26 @@ use yii\helpers\Json;
  */
 class Calendar extends Widget
 {
-    /** @var array FullCalendar event objects. */
     public $events = [];
-
-    /** @var array Additional FullCalendar options. */
     public $clientOptions = [];
-
-    /** @var array HTML attributes for the calendar element. */
     public $options = [];
-
-    /** @var bool Render the AdminLTE draggable-events sidebar. */
     public $showExternalEvents = false;
-
-    /** @var array External events, each with title and optional color. */
     public $externalEvents = [];
-
-    /** @var bool Show the event-creation controls. */
     public $showCreateEvent = true;
-
-    /** @var string */
     public $externalEventsTitle = 'Draggable Events';
-
-    /** @var string */
     public $newEventPlaceholder = 'Event Title';
-
-    /** @var string */
     public $addEventLabel = 'Add';
-
-    /** @var string */
     public $removeAfterDropLabel = 'remove after drop';
-
-    /** @var bool */
     public $removeAfterDrop = false;
 
     public function init()
     {
         parent::init();
 
-        if (!is_array($this->events)) {
-            throw new InvalidConfigException('Calendar::events must be an array.');
-        }
-        if (!is_array($this->clientOptions)) {
-            throw new InvalidConfigException('Calendar::clientOptions must be an array.');
-        }
-        if (!is_array($this->externalEvents)) {
-            throw new InvalidConfigException('Calendar::externalEvents must be an array.');
+        foreach (['events', 'clientOptions', 'options', 'externalEvents'] as $property) {
+            if (!is_array($this->$property)) {
+                throw new InvalidConfigException('Calendar::' . $property . ' must be an array.');
+            }
         }
 
         if (!isset($this->options['id'])) {
@@ -72,6 +49,7 @@ class Calendar extends Widget
     public function run()
     {
         CalendarAsset::register($this->getView());
+        CalendarPrintAsset::register($this->getView());
         $this->registerClientScript();
 
         $calendar = Html::tag('div', '', $this->options);
@@ -95,13 +73,14 @@ class Calendar extends Widget
             if (is_string($event)) {
                 $event = ['title' => $event];
             }
-            if (!is_array($event) || !isset($event['title'])) {
+            if (!is_array($event) || !array_key_exists('title', $event)) {
                 continue;
             }
 
-            $style = '';
+            $style = null;
             if (isset($event['color']) && $this->isSafeCssColor($event['color'])) {
-                $style = 'background-color:' . $event['color'] . ';border-color:' . $event['color'] . ';color:#fff';
+                $color = trim($event['color']);
+                $style = 'background-color:' . $color . ';border-color:' . $color . ';color:#fff';
             }
             $items .= Html::tag('div', Html::encode((string) $event['title']), [
                 'class' => 'external-event',
@@ -117,14 +96,11 @@ class Calendar extends Widget
 
         if ($this->showCreateEvent) {
             $body .= Html::tag('hr');
-            $body .= Html::tag('div',
-                Html::textInput(null, '', [
-                    'id' => $this->getNewEventInputId(),
-                    'class' => 'form-control',
-                    'placeholder' => $this->newEventPlaceholder,
-                ]),
-                ['class' => 'form-group']
-            );
+            $body .= Html::tag('div', Html::textInput(null, '', [
+                'id' => $this->getNewEventInputId(),
+                'class' => 'form-control',
+                'placeholder' => $this->newEventPlaceholder,
+            ]), ['class' => 'form-group']);
             $body .= Html::button(Html::encode($this->addEventLabel), [
                 'id' => $this->getAddEventButtonId(),
                 'class' => 'btn btn-primary btn-flat btn-block',
@@ -142,8 +118,7 @@ class Calendar extends Widget
 
     protected function registerClientScript()
     {
-        $id = $this->options['id'];
-        $selector = '#' . $this->escapeJsSelector($id);
+        $selector = '#' . $this->escapeJsSelector($this->options['id']);
         $options = array_merge([
             'header' => [
                 'left' => 'prev,next today',
@@ -153,16 +128,13 @@ class Calendar extends Widget
             'buttonText' => ['today' => 'today', 'month' => 'month', 'week' => 'week', 'day' => 'day'],
             'editable' => false,
             'droppable' => $this->showExternalEvents,
-            'events' => $this->sanitizeEvents($this->events),
         ], $this->clientOptions);
 
-        // Events are always supplied by the PHP API and cannot be replaced by
-        // arbitrary clientOptions accidentally.
+        // The PHP events property owns event data so its URL/color normalization
+        // cannot be bypassed accidentally through clientOptions.
         $options['events'] = $this->sanitizeEvents($this->events);
 
-        $json = Json::htmlEncode($options);
         $js = "jQuery(function ($) {\n";
-
         if ($this->showExternalEvents) {
             $externalSelector = '#' . $this->escapeJsSelector($this->getExternalEventsId());
             $removeSelector = '#' . $this->escapeJsSelector($this->getRemoveCheckboxId());
@@ -190,6 +162,8 @@ class Calendar extends Widget
                     . "    input.val('');\n"
                     . "  });\n";
             }
+        } else {
+            $json = Json::htmlEncode($options);
         }
 
         $js .= "  $('" . $selector . "').fullCalendar(" . $json . ");\n});";
@@ -203,12 +177,23 @@ class Calendar extends Widget
             if (!is_array($event)) {
                 continue;
             }
-            if (isset($event['url']) && $this->isUnsafeUrl($event['url'])) {
-                unset($event['url']);
+
+            if (array_key_exists('url', $event)) {
+                $url = $this->normalizeEventUrl($event['url']);
+                if ($url === null) {
+                    unset($event['url']);
+                } else {
+                    $event['url'] = $url;
+                }
             }
+
             foreach (['backgroundColor', 'borderColor', 'textColor', 'color'] as $key) {
-                if (isset($event[$key]) && !$this->isSafeCssColor($event[$key])) {
-                    unset($event[$key]);
+                if (isset($event[$key])) {
+                    if (!$this->isSafeCssColor($event[$key])) {
+                        unset($event[$key]);
+                    } else {
+                        $event[$key] = trim($event[$key]);
+                    }
                 }
             }
             $safe[] = $event;
@@ -217,9 +202,20 @@ class Calendar extends Widget
         return $safe;
     }
 
-    protected function isUnsafeUrl($url)
+    protected function normalizeEventUrl($url)
     {
-        return is_string($url) && preg_match('#^(?:javascript|data|vbscript)\\s*:#i', ltrim($url));
+        if (is_array($url)) {
+            $url = Url::to($url);
+        } elseif (!is_string($url)) {
+            return null;
+        }
+
+        $url = trim($url);
+        if ($url === '' || preg_match('#^(?:javascript|data|vbscript)\\s*:#i', $url)) {
+            return null;
+        }
+
+        return $url;
     }
 
     protected function isSafeCssColor($color)

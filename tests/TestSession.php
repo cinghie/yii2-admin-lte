@@ -5,12 +5,24 @@ namespace cinghie\adminlte\tests;
 use yii\web\Session;
 
 /**
- * In-memory session for tests that avoids PHP session headers/ini changes.
+ * In-memory session for tests that avoids all native PHP session side effects.
  */
 class TestSession extends Session
 {
     private $data = [];
     private $flashes = [];
+
+    /**
+     * Intentionally skip yii\web\Session::init().
+     *
+     * The parent implementation adjusts native session ini settings during
+     * object construction. PHPUnit may already have emitted output at that
+     * point, especially on PHP 8.0 / PHPUnit 9, which makes those ini changes
+     * fail. Tests only need in-memory key/value and flash semantics.
+     */
+    public function init()
+    {
+    }
 
     public function getIsActive()
     {
@@ -19,10 +31,20 @@ class TestSession extends Session
 
     public function open()
     {
-        // Intentionally no-op: tests do not need a real PHP session.
+        // Intentionally no-op: tests do not use a native PHP session.
     }
 
     public function close()
+    {
+        // Intentionally no-op.
+    }
+
+    public function destroy()
+    {
+        $this->removeAll();
+    }
+
+    public function regenerateID($deleteOldSession = false)
     {
         // Intentionally no-op.
     }
@@ -35,6 +57,11 @@ class TestSession extends Session
     public function set($key, $value)
     {
         $this->data[$key] = $value;
+    }
+
+    public function has($key)
+    {
+        return array_key_exists($key, $this->data);
     }
 
     public function remove($key)
@@ -55,9 +82,31 @@ class TestSession extends Session
         $this->flashes = [];
     }
 
+    public function getCount()
+    {
+        return count($this->data);
+    }
+
+    public function getIterator()
+    {
+        return new \ArrayIterator($this->data);
+    }
+
     public function setFlash($key, $value = true, $removeAfterAccess = true)
     {
         $this->flashes[$key] = $value;
+    }
+
+    public function addFlash($key, $value = true, $removeAfterAccess = true)
+    {
+        if (!array_key_exists($key, $this->flashes)) {
+            $this->flashes[$key] = [$value];
+            return;
+        }
+
+        $current = (array) $this->flashes[$key];
+        $current[] = $value;
+        $this->flashes[$key] = $current;
     }
 
     public function getFlash($key, $defaultValue = null, $delete = false)
@@ -91,7 +140,7 @@ class TestSession extends Session
 
     public function removeFlash($key)
     {
-        $this->getFlash($key, null, true);
+        return $this->getFlash($key, null, true);
     }
 
     public function removeAllFlashes()

@@ -26,7 +26,7 @@
         "cinghie/yii2-animate": "^1.0.2",
         "cinghie/yii2-fontawesome": "^1.4.4",
         "cinghie/yii2-iconpicker": "@dev",
-        "cinghie/yii2-traits": "@dev"
+        "cinghie/yii2-traits": "^1.3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5 || ^10.0 || ^11.0",

@@ -252,7 +252,6 @@ CSS;
 		if ($this->companyLogo === null || $this->companyLogo === '') {
 			return '<i class="fa fa-globe"></i> ';
 		}
-		// Allow only a single icon tag (FA) — not arbitrary HTML.
 		if (is_string($this->companyLogo)
 			&& preg_match('#^\s*<i\s+class="[^"]+"\s*>\s*</i>\s*$#i', $this->companyLogo)
 		) {
@@ -317,21 +316,11 @@ CSS;
 			. '</div></div>';
 	}
 
-	/**
-	 * @param mixed $value
-	 * @return bool
-	 */
 	protected function isFilled($value)
 	{
 		return $value !== null && $value !== '';
 	}
 
-	/**
-	 * @param string $label
-	 * @param string $value
-	 * @param string|null $href
-	 * @return string
-	 */
 	protected function extraLine($label, $value, $href = null)
 	{
 		$labelHtml = '<b>' . Html::encode($label) . ':</b> ';
@@ -343,10 +332,6 @@ CSS;
 		return '<span class="invoice-extra">' . $labelHtml . Html::encode($value) . '</span>';
 	}
 
-	/**
-	 * @param string $website
-	 * @return string|null
-	 */
 	protected function normalizeWebsiteHref($website)
 	{
 		$website = trim((string) $website);
@@ -363,12 +348,6 @@ CSS;
 		return 'https://' . $website;
 	}
 
-	/**
-	 * Build a safe mailto: href or null (plain text only).
-	 *
-	 * @param string $email
-	 * @return string|null
-	 */
 	protected function mailtoHref($email)
 	{
 		$sanitized = $this->sanitizeEmail($email);
@@ -377,7 +356,10 @@ CSS;
 	}
 
 	/**
-	 * Extract a simple safe email address from untrusted input.
+	 * Validate a complete email address without rewriting or truncating input.
+	 *
+	 * Invalid or contaminated values are rendered as encoded plain text by the
+	 * caller and never become a mailto: link.
 	 *
 	 * @param string $email
 	 * @return string|null
@@ -385,30 +367,17 @@ CSS;
 	protected function sanitizeEmail($email)
 	{
 		$email = trim((string) $email);
-		$email = preg_replace('/[^a-zA-Z0-9._%+\-@]/', '', $email);
-		if ($email === null || $email === '' || substr_count($email, '@') !== 1) {
+		if ($email === '') {
 			return null;
 		}
 
-		// Known / common TLDs — avoids treating "comonclick…" as a TLD
-		$tld = 'com|org|net|edu|gov|mil|int|info|biz|name|pro|io|co|it|eu|uk|de|fr|es|nl|ch|at|'
-			. 'be|pt|pl|cz|sk|si|hr|ro|bg|gr|se|no|dk|fi|ie|us|ca|au|nz|jp|cn|br|ar|mx|example|test|local|pec';
-		$pattern = '/^[a-zA-Z0-9._%+\-]+@(?:[a-zA-Z0-9\-]+\.)+(?:' . $tld . ')$/i';
-
-		for ($len = strlen($email); $len >= 5; $len--) {
-			$candidate = substr($email, 0, $len);
-			if (preg_match($pattern, $candidate) && filter_var($candidate, FILTER_VALIDATE_EMAIL)) {
-				return $candidate;
-			}
+		if (preg_match('/[\x00-\x20\x7F]/', $email)) {
+			return null;
 		}
 
-		return null;
+		return filter_var($email, FILTER_VALIDATE_EMAIL) !== false ? $email : null;
 	}
 
-	/**
-	 * @param array $party
-	 * @return string
-	 */
 	protected function renderAddressBlock(array $party)
 	{
 		$parts = [];
@@ -476,9 +445,6 @@ CSS;
 		return implode('<br>', $parts);
 	}
 
-	/**
-	 * @return string
-	 */
 	protected function renderMetaBlock()
 	{
 		$lines = [];
@@ -525,12 +491,6 @@ CSS;
 		return implode('<br>', $lines);
 	}
 
-	/**
-	 * Normalize a line-item row to display columns.
-	 *
-	 * @param array $item
-	 * @return array{product:string,serial:string,description:string,price:string,qty:string,subtotal:string}
-	 */
 	public static function normalizeItem(array $item)
 	{
 		$hasProduct = array_key_exists('product', $item) && $item['product'] !== '' && $item['product'] !== null;
@@ -551,9 +511,6 @@ CSS;
 		];
 	}
 
-	/**
-	 * @return string
-	 */
 	protected function renderItemsTable()
 	{
 		$html = '<div class="row"><div class="col-xs-12 table-responsive invoice-items">'
@@ -592,12 +549,8 @@ CSS;
 		return $html . '</tbody></table></div></div>';
 	}
 
-	/**
-	 * @return string
-	 */
 	protected function renderTotalsRow()
 	{
-		// Payment method stays in the meta column only (avoid duplicate labels).
 		$left = '';
 		if ($this->isFilled($this->invoiceNotes)) {
 			$left .= '<p class="text-muted invoice-notes">'
@@ -647,9 +600,6 @@ CSS;
 			. '</div>';
 	}
 
-	/**
-	 * @return string
-	 */
 	protected function renderActionsRow()
 	{
 		$printUrl = $this->resolvePrintUrl();
@@ -684,11 +634,6 @@ CSS;
 		return $html . '</div></div>';
 	}
 
-	/**
-	 * Allow only window.print() for javascript: print URLs.
-	 *
-	 * @return string
-	 */
 	protected function resolvePrintUrl()
 	{
 		$url = $this->printUrl;
@@ -712,11 +657,6 @@ CSS;
 		return $url;
 	}
 
-	/**
-	 * Resolve PDF download URL; block javascript:/data: schemes.
-	 *
-	 * @return string|null
-	 */
 	protected function resolvePdfUrl()
 	{
 		if ($this->pdfUrl === null || $this->pdfUrl === '' || $this->pdfUrl === false) {

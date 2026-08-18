@@ -1,9 +1,9 @@
 name: Apply Invoice email validation patch
 
 on:
-  push:
+  pull_request:
     branches:
-      - fix/invoice-email-validation
+      - master
 
 permissions:
   contents: write
@@ -68,8 +68,6 @@ jobs:
 \t\t\treturn null;
 \t\t}
 
-\t\t// Reject control characters and any whitespace embedded in the address.
-\t\t// Do not strip or truncate malformed input into a different, valid email.
 \t\tif (preg_match('/[\\x00-\\x20\\x7F]/', $email)) {
 \t\t\treturn null;
 \t\t}

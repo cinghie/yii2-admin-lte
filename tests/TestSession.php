@@ -10,6 +10,7 @@ use yii\web\Session;
 class TestSession extends Session
 {
     private $data = [];
+    private $flashes = [];
 
     public function getIsActive()
     {
@@ -51,5 +52,50 @@ class TestSession extends Session
     public function removeAll()
     {
         $this->data = [];
+        $this->flashes = [];
+    }
+
+    public function setFlash($key, $value = true, $removeAfterAccess = true)
+    {
+        $this->flashes[$key] = $value;
+    }
+
+    public function getFlash($key, $defaultValue = null, $delete = false)
+    {
+        if (!array_key_exists($key, $this->flashes)) {
+            return $defaultValue;
+        }
+
+        $value = $this->flashes[$key];
+        if ($delete) {
+            unset($this->flashes[$key]);
+        }
+
+        return $value;
+    }
+
+    public function getAllFlashes($delete = false)
+    {
+        $flashes = $this->flashes;
+        if ($delete) {
+            $this->flashes = [];
+        }
+
+        return $flashes;
+    }
+
+    public function hasFlash($key)
+    {
+        return array_key_exists($key, $this->flashes);
+    }
+
+    public function removeFlash($key)
+    {
+        $this->getFlash($key, null, true);
+    }
+
+    public function removeAllFlashes()
+    {
+        $this->flashes = [];
     }
 }

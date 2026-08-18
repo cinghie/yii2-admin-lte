@@ -60,7 +60,7 @@ Widgets Examples
 
 [Alert](docs/example_alert.md)  
 [Box](docs/example_box.md)  
-[Calendar](docs/example_calendar.md)  
+[Calendar](docs/example_calendar.md) — FullCalendar 3 integration with Yii route URLs, dedicated assets, print support and optional AdminLTE draggable events.  
 [Content Header](docs/example_contentheader.md)  
 [DataColumn](docs/example_datacolumn.md)  
 [Footer](docs/example_footer.md)  
@@ -86,4 +86,4 @@ composer test
 vendor/bin/phpunit -c tests/phpunit.xml
 ```
 
-Suite covers Yii2 best practices (widgets/assets/`use` imports), Calendar integration and input hardening, Invoice encoding & API, Box content/grid modes, and smoke tests for Alert / Simplebox / Footer / Navbar / Sidebar widgets.
+Suite covers Yii2 best practices (widgets/assets/`use` imports), Calendar integration, Yii URL normalization and input hardening, Invoice encoding & API, Box content/grid modes, and smoke tests for Alert / Simplebox / Footer / Navbar / Sidebar widgets.

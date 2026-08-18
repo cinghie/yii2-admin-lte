@@ -1,150 +1,58 @@
-name: Apply Invoice validation patch
+name: Tests
 
 on:
+  push:
+    branches:
+      - master
   pull_request:
     branches:
       - master
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-  patch:
-    if: github.actor != 'github-actions[bot]'
+  phpunit:
+    name: PHP ${{ matrix.php }}
     runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - '8.0'
+          - '8.1'
+          - '8.2'
+          - '8.3'
+          - '8.4'
+
     steps:
-      - name: Checkout branch
+      - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
         with:
-          ref: fix/invoice-email-validation
-          fetch-depth: 0
+          php-version: ${{ matrix.php }}
+          coverage: none
+          tools: composer:v2
 
-      - name: Apply focused changes
+      - name: Validate Composer metadata
+        run: composer validate --strict --no-check-publish
+
+      - name: Configure Composer for Yii assets
         run: |
-          python3 - <<'PY'
-          from pathlib import Path
+          composer config repositories.asset-packagist composer https://asset-packagist.org
+          composer config --no-plugins allow-plugins.yiisoft/yii2-composer true
 
-          invoice = Path('widgets/Invoice.php')
-          src = invoice.read_text()
-          old = '''\t/**
-\t * Extract a simple safe email address from untrusted input.
-\t *
-\t * @param string $email
-\t * @return string|null
-\t */
-\tprotected function sanitizeEmail($email)
-\t{
-\t\t$email = trim((string) $email);
-\t\t$email = preg_replace('/[^a-zA-Z0-9._%+\\-@]/', '', $email);
-\t\tif ($email === null || $email === '' || substr_count($email, '@') !== 1) {
-\t\t\treturn null;
-\t\t}
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-interaction --no-progress
 
-\t\t// Known / common TLDs — avoids treating "comonclick…" as a TLD
-\t\t$tld = 'com|org|net|edu|gov|mil|int|info|biz|name|pro|io|co|it|eu|uk|de|fr|es|nl|ch|at|'
-\t\t\t. 'be|pt|pl|cz|sk|si|hr|ro|bg|gr|se|no|dk|fi|ie|us|ca|au|nz|jp|cn|br|ar|mx|example|test|local|pec';
-\t\t$pattern = '/^[a-zA-Z0-9._%+\\-]+@(?:[a-zA-Z0-9\\-]+\\.)+(?:' . $tld . ')$/i';
-
-\t\tfor ($len = strlen($email); $len >= 5; $len--) {
-\t\t\t$candidate = substr($email, 0, $len);
-\t\t\tif (preg_match($pattern, $candidate) && filter_var($candidate, FILTER_VALIDATE_EMAIL)) {
-\t\t\t\treturn $candidate;
-\t\t\t}
-\t\t}
-
-\t\treturn null;
-\t}
-'''
-          new = '''\t/**
-\t * Validate a complete email address without rewriting or truncating input.
-\t *
-\t * Invalid or contaminated values are rendered as encoded plain text by the
-\t * caller and never become a mailto: link.
-\t *
-\t * @param string $email
-\t * @return string|null
-\t */
-\tprotected function sanitizeEmail($email)
-\t{
-\t\t$email = trim((string) $email);
-\t\tif ($email === '') {
-\t\t\treturn null;
-\t\t}
-
-\t\tif (preg_match('/[\\x00-\\x20\\x7F]/', $email)) {
-\t\t\treturn null;
-\t\t}
-
-\t\treturn filter_var($email, FILTER_VALIDATE_EMAIL) !== false ? $email : null;
-\t}
-'''
-          if old not in src:
-              raise SystemExit('Expected sanitizeEmail block not found')
-          invoice.write_text(src.replace(old, new, 1))
-
-          test = Path('tests/unit/InvoiceWidgetTest.php')
-          src = test.read_text()
-          old_test = '''\tpublic function testMailtoStripsControlChars(): void
-\t{
-\t\t$html = Invoice::widget([
-\t\t\t'companyName' => 'Co',
-\t\t\t'invoiceToEmail' => "evil@example.com\\\" onclick=\\\"alert(1)",
-\t\t\t'showActions' => false,
-\t\t]);
-\t\t$this->assertMatchesRegularExpression('/href="mailto:evil@example\\.com"/', $html);
-\t\t$this->assertDoesNotMatchRegularExpression('/href="[^\"]*onclick/i', $html);
-\t\t$this->assertStringContainsString('evil@example.com', $html);
-\t}
-'''
-          new_test = '''\tpublic function testMailtoRejectsContaminatedEmailWithoutRewritingIt(): void
-\t{
-\t\t$email = "evil@example.com\\\" onclick=\\\"alert(1)";
-\t\t$html = Invoice::widget([
-\t\t\t'companyName' => 'Co',
-\t\t\t'invoiceToEmail' => $email,
-\t\t\t'showActions' => false,
-\t\t]);
-
-\t\t$this->assertStringNotContainsString('href="mailto:', $html);
-\t\t$this->assertStringContainsString(Html::encode($email), $html);
-\t\t$this->assertDoesNotMatchRegularExpression('/href="[^\"]*onclick/i', $html);
-\t}
-
-\tpublic function testMailtoAcceptsModernTldWithoutWhitelist(): void
-\t{
-\t\t$html = Invoice::widget([
-\t\t\t'companyName' => 'Co',
-\t\t\t'invoiceToEmail' => 'billing@example.technology',
-\t\t\t'showActions' => false,
-\t\t]);
-
-\t\t$this->assertStringContainsString('href="mailto:billing@example.technology"', $html);
-\t}
-
-\tpublic function testMailtoRejectsControlCharacters(): void
-\t{
-\t\t$email = "billing@example.com\\r\\nBcc:attacker@example.com";
-\t\t$html = Invoice::widget([
-\t\t\t'companyName' => 'Co',
-\t\t\t'invoiceToEmail' => $email,
-\t\t\t'showActions' => false,
-\t\t]);
-
-\t\t$this->assertStringNotContainsString('href="mailto:', $html);
-\t\t$this->assertStringContainsString('billing@example.com', $html);
-\t}
-'''
-          if old_test not in src:
-              raise SystemExit('Expected Invoice mailto test block not found')
-          test.write_text(src.replace(old_test, new_test, 1))
-          PY
-
-      - name: Restore normal workflows and commit
-        run: |
-          git checkout origin/master -- .github/workflows/tests.yml
-          git rm -f .github/workflows/apply-invoice-email-fix.yml
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-          git add widgets/Invoice.php tests/unit/InvoiceWidgetTest.php .github/workflows/tests.yml
-          git commit -m "Fix Invoice email validation"
-          git push origin HEAD:fix/invoice-email-validation
+      - name: Run PHPUnit
+        run: composer test

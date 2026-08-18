@@ -3,6 +3,7 @@
 namespace cinghie\adminlte\tests\unit;
 
 use cinghie\adminlte\CalendarAsset;
+use cinghie\adminlte\CalendarPrintAsset;
 use cinghie\adminlte\tests\TestCase;
 use cinghie\adminlte\widgets\Calendar;
 use yii\base\InvalidConfigException;
@@ -15,19 +16,32 @@ class CalendarTest extends TestCase
         $this->mockApplication();
     }
 
-    public function testRendersCalendarAndRegistersDedicatedAsset(): void
+    public function testRendersCalendarAndRegistersDedicatedAssets(): void
     {
         $html = Calendar::widget([
             'id' => 'orders-calendar',
-            'events' => [
-                ['title' => 'Order', 'start' => '2026-08-18'],
-            ],
+            'events' => [['title' => 'Order', 'start' => '2026-08-18']],
         ]);
 
         $this->assertStringContainsString('id="orders-calendar"', $html);
         $this->assertStringContainsString('cinghie-adminlte-calendar', $html);
         $this->assertArrayHasKey(CalendarAsset::class, \Yii::$app->view->assetBundles);
+        $this->assertArrayHasKey(CalendarPrintAsset::class, \Yii::$app->view->assetBundles);
         $this->assertStringContainsString('fullCalendar', implode("\n", \Yii::$app->view->js[3] ?? []));
+    }
+
+    public function testYiiRouteEventUrlIsNormalized(): void
+    {
+        Calendar::widget([
+            'events' => [[
+                'title' => 'Project',
+                'start' => '2026-08-18',
+                'url' => ['/project/view', 'id' => 42],
+            ]],
+        ]);
+
+        $js = implode("\n", \Yii::$app->view->js[3] ?? []);
+        $this->assertStringContainsString('/project/view?id=42', $js);
     }
 
     public function testUnsafeEventUrlsAndColorsAreRemovedFromJavascript(): void
@@ -53,9 +67,7 @@ class CalendarTest extends TestCase
         $html = Calendar::widget([
             'showExternalEvents' => true,
             'externalEventsTitle' => '<script>bad()</script>',
-            'externalEvents' => [
-                ['title' => '<img src=x onerror=alert(1)>', 'color' => '#3c8dbc'],
-            ],
+            'externalEvents' => [['title' => '<img src=x onerror=alert(1)>', 'color' => '#3c8dbc']],
         ]);
 
         $this->assertStringNotContainsString('<script>bad()</script>', $html);
@@ -65,9 +77,22 @@ class CalendarTest extends TestCase
         $this->assertStringContainsString('external-event', $html);
     }
 
-    public function testInvalidCollectionsAreRejected(): void
+    /**
+     * @dataProvider invalidCollectionProvider
+     */
+    public function testInvalidCollectionsAreRejected($property): void
     {
         $this->expectException(InvalidConfigException::class);
-        Calendar::widget(['events' => 'invalid']);
+        Calendar::widget([$property => 'invalid']);
+    }
+
+    public function invalidCollectionProvider(): array
+    {
+        return [
+            ['events'],
+            ['clientOptions'],
+            ['options'],
+            ['externalEvents'],
+        ];
     }
 }

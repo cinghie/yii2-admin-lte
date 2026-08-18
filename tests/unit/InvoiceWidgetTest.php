@@ -169,16 +169,42 @@ class InvoiceWidgetTest extends TestCase
 		$this->assertStringNotContainsString('alert(1)', $html);
 	}
 
-	public function testMailtoStripsControlChars(): void
+	public function testMailtoRejectsContaminatedEmailWithoutRewritingIt(): void
+	{
+		$email = "evil@example.com\" onclick=\"alert(1)";
+		$html = Invoice::widget([
+			'companyName' => 'Co',
+			'invoiceToEmail' => $email,
+			'showActions' => false,
+		]);
+
+		$this->assertStringNotContainsString('href="mailto:', $html);
+		$this->assertStringContainsString(Html::encode($email), $html);
+		$this->assertDoesNotMatchRegularExpression('/href="[^"]*onclick/i', $html);
+	}
+
+	public function testMailtoAcceptsModernTldWithoutWhitelist(): void
 	{
 		$html = Invoice::widget([
 			'companyName' => 'Co',
-			'invoiceToEmail' => "evil@example.com\" onclick=\"alert(1)",
+			'invoiceToEmail' => 'billing@example.technology',
 			'showActions' => false,
 		]);
-		$this->assertMatchesRegularExpression('/href="mailto:evil@example\.com"/', $html);
-		$this->assertDoesNotMatchRegularExpression('/href="[^"]*onclick/i', $html);
-		$this->assertStringContainsString('evil@example.com', $html);
+
+		$this->assertStringContainsString('href="mailto:billing@example.technology"', $html);
+	}
+
+	public function testMailtoRejectsControlCharacters(): void
+	{
+		$email = "billing@example.com\r\nBcc:attacker@example.com";
+		$html = Invoice::widget([
+			'companyName' => 'Co',
+			'invoiceToEmail' => $email,
+			'showActions' => false,
+		]);
+
+		$this->assertStringNotContainsString('href="mailto:', $html);
+		$this->assertStringContainsString('billing@example.com', $html);
 	}
 
 	public function testMaliciousPdfUrlIsDropped(): void

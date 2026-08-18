@@ -106,7 +106,7 @@ class CarouselAccordionTest extends TestCase
         $this->assertStringContainsString('panel-default', $html);
         $this->assertStringContainsString('panel-danger', $html);
         $this->assertStringContainsString('panel-success', $html);
-        $this->assertStringContainsString('panel-collapse collapse in', $html);
+        $this->assertMatchesRegularExpression('/class="[^"]*\bin\b[^"]*\bpanel-collapse\b[^"]*\bcollapse\b[^"]*"/', $html);
         $this->assertStringContainsString('data-parent="#demo-accordion"', $html);
     }
 
@@ -132,7 +132,7 @@ class CarouselAccordionTest extends TestCase
         $html = Accordion::widget([
             'items' => [[
                 'label' => 'Trusted',
-                'content' => '<p><strong>Trusted HTML</strong></p>',
+                'content' => ['<p><strong>Trusted HTML</strong></p>'],
                 'footer' => '<em>Footer</em>',
                 'encodeContent' => false,
                 'encodeFooter' => false,

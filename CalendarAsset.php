@@ -20,6 +20,7 @@ class CalendarAsset extends AssetBundle
         'bower_components/jquery-ui/jquery-ui.min.js',
         'bower_components/moment/moment.js',
         'bower_components/fullcalendar/dist/fullcalendar.min.js',
+        'bower_components/fullcalendar/dist/locale-all.js',
     ];
 
     public $depends = [

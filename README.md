@@ -55,6 +55,23 @@ use cinghie\adminlte\AdminLTEMinifyAsset;
 AdminLTEMinifyAsset::register($this);
 ```
 
+Reusable input widgets
+-----------------
+
+Bootstrap 3/AdminLTE 2 applications can reuse the package-owned input widgets without depending on a feature module such as `yii2-events`:
+
+```php
+use cinghie\adminlte\widgets\ColorPicker;
+use cinghie\adminlte\widgets\DatePicker;
+use cinghie\adminlte\widgets\DateTimePicker;
+
+$form->field($model, 'color')->widget(ColorPicker::class);
+$form->field($model, 'date')->widget(DatePicker::class);
+$form->field($model, 'starts_at')->widget(DateTimePicker::class);
+```
+
+`ColorPicker` is self-contained: it keeps the HEX value as the submitted field and opens its suggested palette only on demand. `DatePicker` and `DateTimePicker` wrap Kartik's Bootstrap 3 date/time implementation; `kartik-v/yii2-widgets` is therefore a runtime dependency of this package so the exported date widgets work immediately for clean consumers.
+
 Widgets Examples
 -----------------
 
@@ -63,6 +80,9 @@ Widgets Examples
 [Box](docs/example_box.md)  
 [Calendar](docs/example_calendar.md) — FullCalendar 3 integration with Yii route URLs, dedicated assets, print support and optional AdminLTE draggable events.  
 [Carousel](docs/example_carousel.md) — Bootstrap 3 carousel with indicators, controls and safe slide/caption defaults.  
+[ColorPicker](widgets/ColorPicker.php) — reusable deferred HEX/palette input.  
+[DatePicker](widgets/DatePicker.php) — reusable date-only picker.  
+[DateTimePicker](widgets/DateTimePicker.php) — reusable date/time picker.  
 [Content Header](docs/example_contentheader.md)  
 [DataColumn](docs/example_datacolumn.md)  
 [Footer](docs/example_footer.md)  
@@ -88,4 +108,4 @@ composer test
 vendor/bin/phpunit -c tests/phpunit.xml
 ```
 
-Suite covers Yii2 best practices (widgets/assets/`use` imports), Calendar integration, Carousel/Accordion rendering and input hardening, Yii URL normalization, Invoice encoding & API, Box content/grid modes, and smoke tests for Alert / Simplebox / Footer / Navbar / Sidebar widgets.
+Suite covers Yii2 best practices (widgets/assets/`use` imports), Calendar integration, Carousel/Accordion rendering and input hardening, Yii URL normalization, Invoice encoding & API, Box content/grid modes, reusable input-widget contracts, and smoke tests for Alert / Simplebox / Footer / Navbar / Sidebar widgets.

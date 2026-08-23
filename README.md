@@ -6,6 +6,8 @@
 ![Latest Commit](https://img.shields.io/github/last-commit/cinghie/yii2-admin-lte.svg)
 [![Total Downloads](https://img.shields.io/packagist/dt/cinghie/yii2-admin-lte.svg)](https://packagist.org/packages/cinghie/yii2-admin-lte)
 
+**Project docs:** [README](README.md) · [UPDATE roadmap](UPDATE.md) · [CHANGELOG](CHANGELOG.md) · [MIT License](LICENSE)
+
 > [!WARNING]
 > ## Legacy package
 >
@@ -118,3 +120,15 @@ vendor/bin/phpunit -c tests/phpunit.xml
 GitHub Actions validates Composer metadata, resolves the full dependency graph and runs PHPUnit on PHP **8.1 through 8.5**.
 
 The suite covers Yii2 best practices (widgets/assets/`use` imports), Calendar integration and URL/color hardening, Carousel/Accordion rendering and input hardening, Invoice encoding/email/action safety, Box content/grid modes, reusable input-widget behavior and configuration overrides, and smoke tests for Alert / Simplebox / Footer / Navbar / Sidebar widgets.
+
+Maintenance and release history
+-----------------
+
+- [UPDATE.md](UPDATE.md) tracks open priorities, processed hardening work and future maintenance items.
+- [CHANGELOG.md](CHANGELOG.md) records dated public changes, including compatibility, security, widget, test and documentation updates.
+- Both files are maintained together whenever public behavior, dependencies, compatibility, assets, tests or security policy change.
+
+License
+-----------------
+
+Yii2 AdminLTE is released under the [MIT License](LICENSE).

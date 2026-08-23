@@ -1,6 +1,6 @@
 # Calendar
 
-The `Calendar` widget integrates the FullCalendar 3 component shipped with AdminLTE 2. Calendar-specific JavaScript and CSS are registered only when the widget is rendered, including the FullCalendar print stylesheet.
+The `Calendar` widget integrates the FullCalendar 3 component shipped with AdminLTE 2. Calendar-specific JavaScript and CSS are registered only when the widget is rendered, including the FullCalendar print stylesheet and locale bundle.
 
 ## Basic usage
 
@@ -34,11 +34,14 @@ echo Calendar::widget([
         'editable' => true,
         'defaultView' => 'agendaWeek',
         'firstDay' => 1,
+        'locale' => 'it',
     ],
 ]);
 ```
 
 The default header follows the AdminLTE 2 example: previous/next/today controls on the left, title in the center, and month/week/day views on the right.
+
+`CalendarAsset` loads FullCalendar's `locale-all.js`, so supported FullCalendar 3 locale codes can be selected with `clientOptions['locale']` without adding another asset bundle.
 
 The `events` key in `clientOptions` is intentionally ignored. Supply event data through the widget's `events` property so URL and color normalization is always applied.
 
@@ -68,7 +71,7 @@ The sidebar supports draggable predefined events, optional removal after drop, a
 ## Widget properties
 
 - `events`: FullCalendar event arrays. Event `url` accepts a string or Yii route array.
-- `clientOptions`: additional FullCalendar 3 options.
+- `clientOptions`: additional FullCalendar 3 options, including `locale`.
 - `options`: HTML attributes for the calendar container.
 - `showExternalEvents`: enables the AdminLTE draggable-events sidebar.
 - `externalEvents`: draggable events with `title` and optional `color`.
@@ -83,8 +86,10 @@ The sidebar supports draggable predefined events, optional removal after drop, a
 
 Event data is serialized with Yii's HTML-safe JSON encoder. Event URLs using `javascript:`, `data:` or `vbscript:` schemes are discarded. Configurable event colors accept only simple CSS color values, and external-event titles and labels are HTML-encoded.
 
+The `events` key from `clientOptions` is overwritten intentionally after merging options, preventing callers from bypassing the event URL/color sanitization path accidentally.
+
 As with any client-side calendar, authorization must still be enforced by server-side controllers and APIs. Calendar visibility must never be treated as an access-control boundary.
 
 ## Assets
 
-`CalendarAsset` loads the FullCalendar 3, Moment and jQuery UI files bundled by AdminLTE 2. `CalendarPrintAsset` loads the FullCalendar print stylesheet with `media="print"`. These assets are separate from the main AdminLTE asset bundle so pages without a calendar do not incur the additional calendar cost.
+`CalendarAsset` loads FullCalendar 3, the FullCalendar locale bundle, Moment and jQuery UI files bundled by AdminLTE 2. `CalendarPrintAsset` loads the FullCalendar print stylesheet with `media="print"`. These assets are separate from the main AdminLTE asset bundle so pages without a calendar do not incur the additional calendar cost.

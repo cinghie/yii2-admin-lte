@@ -79,6 +79,23 @@ API aligned with `cinghie\adminlte3\widgets\Invoice` (CRM / fiscal fields, encod
 
 Use `Invoice::normalizeItem($row)` to normalize a single item array.
 
+## Email and PEC validation
+
+Email and PEC values are rendered as `mailto:` links only when the **complete submitted value** is a valid email address.
+
+The widget does not strip characters or truncate malformed input into a different, apparently valid address. Values containing control characters, embedded whitespace or other contamination are rendered as HTML-encoded plain text instead of becoming clickable links.
+
+Validation relies on PHP's `FILTER_VALIDATE_EMAIL`; there is no hard-coded TLD whitelist, so valid modern TLDs are not rejected simply because they are absent from a local list.
+
+Application/model validation is still recommended for business rules such as required fields or organization-specific PEC constraints.
+
+## URL and action safety
+
+- Website values reject `javascript:` and `data:` schemes before link generation.
+- PDF action URLs using unsafe executable/data schemes are dropped.
+- The JavaScript print action is restricted to the intended `window.print()` behavior.
+- Textual invoice values are HTML-encoded before rendering.
+
 ## Notes
 
 - Empty properties are omitted (no AdminLTE demo filler).
